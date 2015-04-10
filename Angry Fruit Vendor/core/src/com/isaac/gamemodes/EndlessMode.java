@@ -2,13 +2,8 @@ package com.isaac.gamemodes;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.isaac.gamemodes.levels.Endless_Level;
 import com.isaac.gamemodes.levels.Level;
-import com.isaac.gamemodes.levels.StageMode_Level_1;
-import com.isaac.gamemodes.levels.StageMode_Level_2;
-import com.isaac.gamemodes.levels.StageMode_Level_3;
-import com.isaac.gamemodes.levels.StageMode_Level_4;
-import com.isaac.gamemodes.levels.StageMode_Level_5;
-import com.isaac.gamemodes.levels.StageMode_Level_6;
 import com.isaac.gameobjects.fruits.Fruit;
 import com.isaac.gameworld.GameWorld;
 
@@ -35,7 +30,7 @@ public class EndlessMode extends GameMode {
     /***/
     private void createLevel() {
         setLevels(new ArrayList<Level>());
-        getLevels().add(new StageMode_Level_1(this));
+        getLevels().add(new Endless_Level(this));
     }
 
     /***/
@@ -71,17 +66,6 @@ public class EndlessMode extends GameMode {
     @Override
     public void renderGameModeBG(float delta, SpriteBatch batch) {
         getCurrentLevel().drawLevelBG(delta, batch);
-    }
-
-    /***/
-    protected void createLevels() {
-        setLevels(new ArrayList<Level>());
-        getLevels().add(new StageMode_Level_1(this));
-        getLevels().add(new StageMode_Level_2(this));
-        getLevels().add(new StageMode_Level_3(this));
-        getLevels().add(new StageMode_Level_4(this));
-        getLevels().add(new StageMode_Level_5(this));
-        getLevels().add(new StageMode_Level_6(this));
     }
 
     /***/
