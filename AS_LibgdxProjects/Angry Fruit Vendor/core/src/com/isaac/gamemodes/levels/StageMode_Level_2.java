@@ -10,12 +10,17 @@ import com.isaac.helpers.AssetLoader;
 /**
  * Created by Isaac Holloway on 1/1/2015.
  */
-public class EndlessStage extends Level{
+public class StageMode_Level_2 extends Level{
 
+    // Level 1
+    // Save 15 fruits
+    protected  int fruitsSaved;
+    protected final int FRUIT_GOAL = 20;
     protected final int STARTING_LIVES = 3;
 
-    public EndlessStage(GameMode gameMode){
+    public StageMode_Level_2(GameMode gameMode){
         super(gameMode);
+        fruitsSaved = 0;
     }
 
     /**
@@ -23,13 +28,9 @@ public class EndlessStage extends Level{
      */
     @Override
     protected void setAllowedFruitsForLevel() {
-        // *ALL* //
-        allowedFruits.put(Fruit.FruitType.Apple, 25);
-        allowedFruits.put(Fruit.FruitType.Orange, 20);
-        allowedFruits.put(Fruit.FruitType.Watermelon, 20);
-        allowedFruits.put(Fruit.FruitType.RottenFruit, 5);
-        allowedFruits.put(Fruit.FruitType.Banana, 20);
-        allowedFruits.put(Fruit.FruitType.Basket, 10);
+        allowedFruits.put(Fruit.FruitType.Apple, 30);
+        allowedFruits.put(Fruit.FruitType.Orange, 30);
+        allowedFruits.put(Fruit.FruitType.Watermelon, 40);
     }
 
     /**
@@ -37,7 +38,7 @@ public class EndlessStage extends Level{
      */
     @Override
     protected void setLevelBackground() {
-        this.levelBackground = AssetLoader.trBanana;
+        this.levelBackground = AssetLoader.trWatermelon;
     }
 
     /**
@@ -45,9 +46,10 @@ public class EndlessStage extends Level{
      */
     @Override
     public void init(){
+
         gameMode.world.setLivesLeft(STARTING_LIVES);
         if (AngryFVGame.DEV_MODE){
-
+            gameMode.world.addFruitScore(15);
         }
     }
 
@@ -64,26 +66,19 @@ public class EndlessStage extends Level{
 
     @Override
     protected boolean isGoalMet() {
+        if(gameMode.world.getScore() >= FRUIT_GOAL){
+            return true;
+        }
         return false;
     }
 
     @Override
     protected boolean isLevelFail(){
         if (gameMode.world.getLivesLeft() <= 0){
-           return true;
+            return true;
         }
         return false;
     }
-
-/*    *//**
-     * drawLevelBG
-     * @param delta
-     * @param batch
-     *//*
-    @Override
-    public void drawLevelBG(float delta, SpriteBatch batch){
-
-    }*/
 
     @Override
     public void drawLevel(float delta, SpriteBatch batch){
@@ -108,7 +103,6 @@ public class EndlessStage extends Level{
      * @return
      */
     protected String getGoalText(){
-       // return "Goal: " + gameMode.world.getScore() + "/" +FRUIT_GOAL;
-        return "no";
+        return "Goal: " + gameMode.world.getScore() + "/" +FRUIT_GOAL;
     }
 }

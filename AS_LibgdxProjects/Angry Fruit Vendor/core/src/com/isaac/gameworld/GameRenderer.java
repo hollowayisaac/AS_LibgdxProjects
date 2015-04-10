@@ -20,9 +20,15 @@ import com.isaac.environment.Grass;
 import com.isaac.gameobjects.fruits.Fruit;
 import com.isaac.helpers.AssetLoader;
 import com.isaac.helpers.InputHandler;
+import com.isaac.tweenaccessors.Value;
+import com.isaac.tweenaccessors.ValueAccessor;
 import com.isaac.ui.SimpleButton;
 
 import java.util.List;
+
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquations;
+import aurelienribon.tweenengine.TweenManager;
 
 public class GameRenderer {
 
@@ -48,6 +54,10 @@ public class GameRenderer {
     // Game Assets
     private TextureRegion trBg, trGrass, birdMid, skullUp, skullDown, bar;
     private Animation birdAnimation;
+
+    // Tween stuff
+    private TweenManager manager;
+    private Value alpha = new Value();
 
     // Buttons
     private List<SimpleButton> menuButtons;
@@ -84,6 +94,10 @@ public class GameRenderer {
     }
 
     private void setupTweens() {
+        Tween.registerAccessor(Value.class, new ValueAccessor());
+        manager = new TweenManager();
+        Tween.to(alpha, -1, .5f).target(0).ease(TweenEquations.easeOutQuad)
+                .start(manager);
     }
 
     private void initGameObjects() {
@@ -182,6 +196,7 @@ public class GameRenderer {
         drawDEV_TEXT();
 
         batch.end();
+        drawTransition(delta);
     }
 
     /**
@@ -255,4 +270,19 @@ public class GameRenderer {
             //shapeRenderer.line(0, EnvironmentValues.TRAMPOLINE_BOTTOM_COLLISION_Y, world.getTrampoline().getX() + EnvironmentValues.TRAMPOLINE_WIDTH, EnvironmentValues.TRAMPOLINE_BOTTOM_COLLISION_Y);
         }
     }
+
+    private void drawTransition(float delta) {
+        if (alpha.getValue() > 0) {
+            manager.update(delta);
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            shapeRenderer.begin(ShapeType.Filled);
+            shapeRenderer.setColor(1, 1, 1, alpha.getValue());
+            shapeRenderer.rect(0, 0, 136, 300);
+            shapeRenderer.end();
+            Gdx.gl.glDisable(GL20.GL_BLEND);
+
+        }
+    }
+
 }
