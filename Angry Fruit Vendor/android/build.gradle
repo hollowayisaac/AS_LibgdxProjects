@@ -115,6 +115,5 @@ idea {
     }
 }
 dependencies {
-    compile files('F:/Libgdx Projects/Angry Fruit Vendor/libs/tween-engine-api.jar')
-    compile files('F:/Libgdx Projects/Angry Fruit Vendor/libs/tween-engine-api-sources.jar')
+
 }
