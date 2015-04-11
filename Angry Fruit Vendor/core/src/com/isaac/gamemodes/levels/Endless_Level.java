@@ -37,7 +37,7 @@ public class Endless_Level extends Level{
      */
     @Override
     protected void setLevelBackground() {
-        this.levelBackground = AssetLoader.trBanana;
+        this.levelBackground = AssetLoader.trTrampoline;
     }
 
     /**
