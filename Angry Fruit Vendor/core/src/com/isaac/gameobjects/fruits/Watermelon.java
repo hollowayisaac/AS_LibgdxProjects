@@ -1,6 +1,6 @@
 package com.isaac.gameobjects.fruits;
 
-import com.isaac.environment.EnvironmentValues;
+import com.isaac.gameworld.GameValues;
 import com.isaac.gameworld.GameWorld;
 import com.isaac.helpers.AssetLoader;
 
@@ -12,12 +12,12 @@ public class Watermelon extends Fruit {
     public Watermelon (GameWorld world){
         super(
                 world,
-                EnvironmentValues.WATERMELON_WIDTH,
-                EnvironmentValues.WATERMELON_HEIGHT,
-                EnvironmentValues.WATERMELON_ADDITIONAL_WEIGHT,
+                GameValues.WATERMELON_WIDTH,
+                GameValues.WATERMELON_HEIGHT,
+                GameValues.WATERMELON_ADDITIONAL_WEIGHT,
                 AssetLoader.trWatermelon,
-                EnvironmentValues.LARGE_PEAK,
-                EnvironmentValues.WATERMELON_SCORE_VALUE);
+                GameValues.LARGE_PEAK,
+                GameValues.WATERMELON_SCORE_VALUE);
     }
 }
 

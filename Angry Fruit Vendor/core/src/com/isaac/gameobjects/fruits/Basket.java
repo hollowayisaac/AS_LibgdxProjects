@@ -1,6 +1,6 @@
 package com.isaac.gameobjects.fruits;
 
-import com.isaac.environment.EnvironmentValues;
+import com.isaac.gameworld.GameValues;
 import com.isaac.gameworld.GameWorld;
 import com.isaac.helpers.AssetLoader;
 
@@ -12,12 +12,12 @@ public class Basket extends Fruit {
     public Basket(GameWorld world){
         super(
                 world,
-                EnvironmentValues.BASKET_WIDTH,
-                EnvironmentValues.BASKET_WIDTH,
-                EnvironmentValues.BASKET_ADDITIONAL_WEIGHT,
+                GameValues.BASKET_WIDTH,
+                GameValues.BASKET_WIDTH,
+                GameValues.BASKET_ADDITIONAL_WEIGHT,
                 AssetLoader.trBasket,
-                EnvironmentValues.LARGE_PEAK,
-                EnvironmentValues.BASKET_SCORE_VALUE);
+                GameValues.LARGE_PEAK,
+                GameValues.BASKET_SCORE_VALUE);
     }
 
     @Override

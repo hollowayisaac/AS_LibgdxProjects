@@ -1,28 +1,24 @@
-package com.isaac.environment;
-
-import com.badlogic.gdx.Gdx;
+package com.isaac.gameworld;
 
 /**
  * Created by Isaac Holloway on 11/16/2014.
  */
-public class EnvironmentValues {
+public class GameValues {
 
     // Screen
-    public static final int GAME_WIDTH = 640;
-    public static final int GAME_HEIGHT = 360;
-    public static final int GAME_SCALE_FACTOR_X = GAME_WIDTH / Gdx.graphics.getWidth();
-    public static final int GAME_SCALE_FACTOR_Y = GAME_HEIGHT / Gdx.graphics.getHeight();
-    public static float GAME_SIZE_RATIO = GAME_WIDTH / GAME_HEIGHT;
-    public static final float GAME_MIDPOINT_X = GAME_WIDTH / 2;
-    public static final float GAME_MIDPOINT_Y = GAME_HEIGHT / 2;
+    public static final int GAMEUNIT_WIDTH = 640;
+    public static final int GAMEUNIT_HEIGHT = 360;
+    public static float GAME_SIZE_RATIO = GAMEUNIT_WIDTH / GAMEUNIT_HEIGHT;
+    public static final float GAME_MIDPOINT_X = GAMEUNIT_WIDTH / 2;
+    public static final float GAME_MIDPOINT_Y = GAMEUNIT_HEIGHT / 2;
 
     // Top Menu/Ads
-    public static final int ARENA_MENU_WIDTH = GAME_WIDTH;
-    public static final float ARENA_MENU_HEIGHT = GAME_HEIGHT * .14f ;
+    public static final int ARENA_MENU_WIDTH = GAMEUNIT_WIDTH;
+    public static final float ARENA_MENU_HEIGHT = GAMEUNIT_HEIGHT * .14f ;
 
     // Arena
-    public static final int ARENA_WIDTH = GAME_WIDTH;
-    public static final float ARENA_HEIGHT = GAME_HEIGHT - ARENA_MENU_HEIGHT;
+    public static final int ARENA_WIDTH = GAMEUNIT_WIDTH;
+    public static final float ARENA_HEIGHT = GAMEUNIT_HEIGHT - ARENA_MENU_HEIGHT;
     public static final int ARENA_X = 0;
     public static final float ARENA_Y = 0;
 

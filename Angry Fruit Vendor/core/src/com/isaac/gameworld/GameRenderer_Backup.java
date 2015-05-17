@@ -12,14 +12,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Matrix4;
 import com.isaac.angryfruitvendor.AngryFVGame;
-import com.isaac.gameobjects.fruits.Fruit;
 import com.isaac.helpers.AssetLoader;
 import com.isaac.helpers.InputHandler;
 import com.isaac.ui.SimpleButton;
 
 import java.util.List;
 
-public class GameRenderer {
+public class GameRenderer_Backup {
 
     private GameWorld world;
 
@@ -34,7 +33,7 @@ public class GameRenderer {
     /**
      * [CONSTRUCTOR]
      */
-    public GameRenderer(GameWorld world) {
+    public GameRenderer_Backup(GameWorld world) {
         this.world = world;
 
         this.menuButtons = ((InputHandler) Gdx.input.getInputProcessor())
@@ -102,7 +101,7 @@ public class GameRenderer {
             case RUNNING:
 
                 // Level Background
-                world.getGameMode().renderGameModeBG(delta, this);
+/*                world.getGameMode().renderGameModeBG(delta, this);
 
                 // Level
                 world.getGameMode().renderGameMode(delta, this);
@@ -117,7 +116,7 @@ public class GameRenderer {
                 }
 
                 // GameMode/Level
-                world.getGameMode().renderGameMode(delta, this);
+                world.getGameMode().renderGameMode(delta, this);*/
 
                 // [TEXT] Score
                 drawScore();

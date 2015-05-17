@@ -1,8 +1,8 @@
 package com.isaac.gamemodes;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isaac.angryfruitvendor.AngryFVGame;
 import com.isaac.gameobjects.fruits.Fruit;
+import com.isaac.gameworld.GameRenderer;
 import com.isaac.gameworld.GameWorld;
 
 /**
@@ -39,8 +39,8 @@ public abstract class GameMode {
         this.endFruitTossInterval_High = endFruitTossInterval_High;
     }*/
     public abstract void init();
-    public abstract void renderGameMode(float delta, SpriteBatch batch);
-    public abstract void renderGameModeBG(float delta, SpriteBatch batch);
+    public abstract void renderGameMode(float delta, GameRenderer renderer);
+    public abstract void renderGameModeBG(float delta, GameRenderer renderer);
     public abstract void update(float delta);
     public abstract void levelComplete();
     public abstract void restartGame();

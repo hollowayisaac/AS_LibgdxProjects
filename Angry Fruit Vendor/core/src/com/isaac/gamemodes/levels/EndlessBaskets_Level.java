@@ -10,11 +10,11 @@ import com.isaac.helpers.AssetLoader;
 /**
  * Created by Isaac Holloway on 1/1/2015.
  */
-public class Endless_Level extends Level {
+public class EndlessBaskets_Level extends Level{
 
     protected final int STARTING_LIVES = 3;
 
-    public Endless_Level(GameMode gameMode) {
+    public EndlessBaskets_Level(GameMode gameMode){
         super(gameMode);
     }
 
@@ -23,13 +23,8 @@ public class Endless_Level extends Level {
      */
     @Override
     protected void setAllowedFruitsForLevel() {
-        // *ALL* //
-        allowedFruits.put(Fruit.FruitType.Apple, 25);
-        allowedFruits.put(Fruit.FruitType.Orange, 20);
-        allowedFruits.put(Fruit.FruitType.Watermelon, 20);
-        allowedFruits.put(Fruit.FruitType.RottenFruit, 5);
-        allowedFruits.put(Fruit.FruitType.Banana, 20);
-        allowedFruits.put(Fruit.FruitType.Basket, 10);
+        // *Baskets Only!!!* //
+        allowedFruits.put(Fruit.FruitType.Basket, 100);
     }
 
     /**
@@ -44,19 +39,18 @@ public class Endless_Level extends Level {
      * init
      */
     @Override
-    public void init() {
+    public void init(){
         gameMode.world.setLivesLeft(STARTING_LIVES);
-        if (AngryFVGame.DEV_MODE) {
+        if (AngryFVGame.DEV_MODE){
 
         }
     }
 
     /**
      * update
-     *
      * @param delta
      */
-    public void update(float delta) {
+    public void update(float delta){
         super.update(delta);
 
 
@@ -70,18 +64,15 @@ public class Endless_Level extends Level {
     }
 
     @Override
-    protected boolean isLevelFail() {
-        if (gameMode.world.getLivesLeft() <= 0) {
-            return true;
+    protected boolean isLevelFail(){
+        if (gameMode.world.getLivesLeft() <= 0){
+           return true;
         }
         return false;
     }
 
-/*    */
-
-    /**
+/*    *//**
      * drawLevelBG
-     *
      * @param delta
      * @param renderer
      *//*
@@ -89,30 +80,29 @@ public class Endless_Level extends Level {
     public void drawLevelBG(float delta, SpriteBatch batch){
 
     }*/
+
     @Override
-    public void drawLevel(float delta, GameRenderer renderer) {
+    public void drawLevel(float delta, GameRenderer renderer){
         drawGoal(delta, renderer);
     }
 
     /**
      * drawGoal
-     *
      * @param delta
      * @param renderer
      */
-    public void drawGoal(float delta, GameRenderer renderer) {
+    public void drawGoal(float delta, GameRenderer renderer){
         // Draw the Goal Text
-
-        renderer.drawText_Wag(450, GameValues.ARENA_HEIGHT, "Goal: " + getGoalText());
+        AssetLoader.ftWag.draw(renderer.batch, "" + getGoalText(),
+                450, GameValues.ARENA_HEIGHT);
     }
 
     /**
      * getGoalText
-     *
      * @return
      */
-    protected String getGoalText() {
-        // return "Goal: " + gameMode.world.getScore() + "/" +FRUIT_GOAL;
+    protected String getGoalText(){
+       // return "Goal: " + gameMode.world.getScore() + "/" +FRUIT_GOAL;
         return "no";
     }
 }

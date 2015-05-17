@@ -1,10 +1,10 @@
 package com.isaac.gamemodes.levels;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.isaac.environment.EnvironmentValues;
 import com.isaac.gamemodes.GameMode;
 import com.isaac.gameobjects.fruits.Fruit;
+import com.isaac.gameworld.GameRenderer;
+import com.isaac.gameworld.GameValues;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,18 +51,18 @@ public abstract class Level {
 
     /**
      * drawLevelBG
-     * @param batch
+     * @param renderer
      */
-    public void drawLevelBG(float delta, SpriteBatch batch) {
-        batch.draw(levelBackground, EnvironmentValues.ARENA_X, EnvironmentValues.ARENA_Y,EnvironmentValues.ARENA_WIDTH/2, EnvironmentValues.ARENA_HEIGHT/2,
-                EnvironmentValues.ARENA_WIDTH, EnvironmentValues.ARENA_HEIGHT,1, 1, 0, true);
+    public void drawLevelBG(float delta, GameRenderer renderer) {
+        renderer.batch.draw(levelBackground, GameValues.ARENA_X, GameValues.ARENA_Y, GameValues.ARENA_WIDTH/2, GameValues.ARENA_HEIGHT/2,
+                GameValues.ARENA_WIDTH, GameValues.ARENA_HEIGHT,1, 1, 0, true);
     }
 
     /**
      * drawLevel
-     * @param batch
+     * @param renderer
      */
-    public void drawLevel(float delta, SpriteBatch batch) {
+    public void drawLevel(float delta, GameRenderer renderer) {
 
     }
 

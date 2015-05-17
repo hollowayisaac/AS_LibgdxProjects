@@ -1,12 +1,12 @@
 package com.isaac.gameobjects.fruits;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
-import com.isaac.environment.EnvironmentValues;
 import com.isaac.gameobjects.GameObject;
 import com.isaac.gameobjects.Trampoline;
+import com.isaac.gameworld.GameRenderer;
+import com.isaac.gameworld.GameValues;
 import com.isaac.gameworld.GameWorld;
 import com.isaac.helpers.Util;
 
@@ -110,8 +110,8 @@ public class Fruit extends GameObject implements Pool.Poolable {
 
         this.fruitState = FruitState.Tossed;
 
-        float distanceTossed = EnvironmentValues.TRAMPOLINE_CENTER_POSITION_X_1 - getCenterX();
-        float initialVelX = getXVelocity(y - EnvironmentValues.TRAMPOLINE_TOP_COLLISION_Y, distanceTossed, INITIAL_GRAVITY);
+        float distanceTossed = GameValues.TRAMPOLINE_CENTER_POSITION_X_1 - getCenterX();
+        float initialVelX = getXVelocity(y - GameValues.TRAMPOLINE_TOP_COLLISION_Y, distanceTossed, INITIAL_GRAVITY);
 
         velocity.x = initialVelX;
         velocity.y = INITIAL_GRAVITY;
@@ -142,7 +142,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
      * getRotationSpeed
      */
     protected float getRotationSpeed(){
-        return (1/fruitWeight) * EnvironmentValues.FRUIT_ROTATION_OFFSET;
+        return (1/fruitWeight) * GameValues.FRUIT_ROTATION_OFFSET;
     }
 
     /**
@@ -219,12 +219,12 @@ public class Fruit extends GameObject implements Pool.Poolable {
             // If this fruit has bounced is last bounce, and is about to be saved, we
             // Normalize the launch velocity.
             if (fruitTrampolinePosition == Trampoline.TrampolinePosition.Saved) {
-                vi = correctLaunchVelocity(EnvironmentValues.MEDIUM_PEAK);
+                vi = correctLaunchVelocity(GameValues.MEDIUM_PEAK);
             }
 
             float nextHit = (
                     Trampoline.getTrampolineXLocGivenPosition(fruitTrampolinePosition)
-                            - Util.getMiddle(width)) - position.x + Util.getMiddle(EnvironmentValues.TRAMPOLINE_WIDTH);
+                            - Util.getMiddle(width)) - position.x + Util.getMiddle(GameValues.TRAMPOLINE_WIDTH);
 
             float velX = getXVelocity(0, nextHit, vi);
             velocity.x = velX;
@@ -241,8 +241,8 @@ public class Fruit extends GameObject implements Pool.Poolable {
      */
     protected boolean didFruitBounce() {
         // Did the fruit BOUNCE on the trampoline?
-        if (getY() <= EnvironmentValues.TRAMPOLINE_TOP_COLLISION_Y &&
-                getY() >= EnvironmentValues.TRAMPOLINE_BOTTOM_COLLISION_Y &&
+        if (getY() <= GameValues.TRAMPOLINE_TOP_COLLISION_Y &&
+                getY() >= GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y &&
                 fruitState != FruitState.Rising &&
                 fruitTrampolinePosition == world.getTrampoline().getTrampolinePosition()) {
             return true;
@@ -255,7 +255,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
      */
     protected void collisionMissedTrampoline() {
         //      *** MISSED TRAMPOLINE ***      //
-        if (getY() <= EnvironmentValues.TRAMPOLINE_BOTTOM_COLLISION_Y &&
+        if (getY() <= GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y &&
                 fruitState == FruitState.Falling) {
 
             // Set state to Dropped
@@ -268,7 +268,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
      */
     protected void collisionHitGround() {
         //      *** HIT GROUND ***      //
-        if (getY() <= EnvironmentValues.DROPPED_Y_LOC &&
+        if (getY() <= GameValues.DROPPED_Y_LOC &&
                 fruitState == FruitState.Dropped) {
 
             // Destroy/Remove Fruit, by setting the alive = false.
@@ -291,7 +291,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
      */
     protected void collisionSaved() {
         //      *** SAVED ***      //
-        if (getY() <= EnvironmentValues.SAVED_FRUIT_Y &&
+        if (getY() <= GameValues.SAVED_FRUIT_Y &&
                 fruitState == FruitState.Falling &&
                 fruitTrampolinePosition == Trampoline.TrampolinePosition.Saved) {
 
@@ -328,11 +328,11 @@ public class Fruit extends GameObject implements Pool.Poolable {
      * draw
      *
      * @param runTime
-     * @param batch
+     * @param renderer
      */
     @Override
-    public void draw(float runTime, SpriteBatch batch) {
-        batch.draw(fruitImage, getX(), getY(),width/2, height/2,
+    public void draw(float runTime,  GameRenderer renderer) {
+        renderer.batch.draw(fruitImage, getX(), getY(),width/2, height/2,
                 getWidth(), getHeight(),1, 1, rotation, true);
     }
 

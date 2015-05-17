@@ -1,7 +1,7 @@
 package com.isaac.gameobjects.fruits;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.isaac.environment.EnvironmentValues;
+import com.isaac.gameworld.GameValues;
 import com.isaac.gameobjects.Trampoline;
 import com.isaac.gameworld.GameWorld;
 import com.isaac.helpers.AssetLoader;
@@ -22,12 +22,12 @@ public class Banana extends Fruit {
     public Banana(GameWorld world) {
         super(
                 world,
-                EnvironmentValues.BANANA_WIDTH,
-                EnvironmentValues.BANANA_WIDTH,
-                EnvironmentValues.BANANA_ADDITIONAL_WEIGHT,
+                GameValues.BANANA_WIDTH,
+                GameValues.BANANA_WIDTH,
+                GameValues.BANANA_ADDITIONAL_WEIGHT,
                 AssetLoader.trBanana,
-                EnvironmentValues.SMALL_PEAK,
-                EnvironmentValues.BANANA_SCORE_VALUE);
+                GameValues.SMALL_PEAK,
+                GameValues.BANANA_SCORE_VALUE);
         generateBounceCountMax();
     }
 
@@ -78,17 +78,17 @@ public class Banana extends Fruit {
         int randomHeightIndex = MathUtils.random(1, 3);
         switch (randomHeightIndex) {
             case 1:
-                peakHeight = EnvironmentValues.SMALL_PEAK;
+                peakHeight = GameValues.SMALL_PEAK;
                 newHeightIndex = 3;
                 break;
 
             case 2:
-                peakHeight = EnvironmentValues.MEDIUM_PEAK;
+                peakHeight = GameValues.MEDIUM_PEAK;
                 newHeightIndex = 2;
                 break;
 
             default:
-                peakHeight = EnvironmentValues.LARGE_PEAK;
+                peakHeight = GameValues.LARGE_PEAK;
                 newHeightIndex = 1;
                 break;
         }

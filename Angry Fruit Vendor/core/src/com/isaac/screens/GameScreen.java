@@ -2,8 +2,9 @@ package com.isaac.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.isaac.gamemodes.EndlessMode;
+import com.isaac.gamemodes.EndlessBasketsMode;
 import com.isaac.gameworld.GameRenderer;
+import com.isaac.gameworld.GameValues;
 import com.isaac.gameworld.GameWorld;
 import com.isaac.helpers.InputHandler;
 
@@ -16,21 +17,20 @@ public class GameScreen implements Screen {
     private GameRenderer renderer;
     private float runTime;
 
-    // This is the constructor, not the class declaration
+    /**
+     *      [CONSTRUCTOR]
+     */
     public GameScreen() {
-
-/*        float screenWidth = Gdx.graphics.getWidth();
-        float screenHeight = Gdx.graphics.getHeight();
-        float gameWidth = 136;
-        float gameHeight = screenHeight / (screenWidth / gameWidth);
-        int midPointY = (int) (gameHeight / 2);*/
-
+        float scaleFactorX = ((float)Gdx.graphics.getWidth() / GameValues.GAMEUNIT_WIDTH);
+        float scaleFactorY = ((float)Gdx.graphics.getHeight() / GameValues.GAMEUNIT_HEIGHT);
         world = new GameWorld();
-//        world.init(new StageMode(world));
-        world.init(new EndlessMode(world));
+        world.init(new EndlessBasketsMode(world));
+        //world.init(new StageMode(world));
+        //world.init(new EndlessMode(world));
 
-        Gdx.input.setInputProcessor(new InputHandler(world));
-        renderer = new GameRenderer(world);
+        Gdx.input.setInputProcessor(new InputHandler(world, scaleFactorX, scaleFactorY));
+        this.renderer = new GameRenderer(world);
+        world.gameRenderer = this.renderer;
     }
 
     @Override

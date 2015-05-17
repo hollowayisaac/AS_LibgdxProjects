@@ -1,6 +1,6 @@
 package com.isaac.gameobjects.fruits;
 
-import com.isaac.environment.EnvironmentValues;
+import com.isaac.gameworld.GameValues;
 import com.isaac.gameworld.GameWorld;
 import com.isaac.helpers.AssetLoader;
 
@@ -12,12 +12,12 @@ public class RottenFruit extends Fruit {
     public RottenFruit(GameWorld world) {
         super(
                 world,
-                EnvironmentValues.ROTTEN_WIDTH,
-                EnvironmentValues.ROTTEN_WIDTH,
-                EnvironmentValues.ROTTEN_ADDITIONAL_WEIGHT,
+                GameValues.ROTTEN_WIDTH,
+                GameValues.ROTTEN_WIDTH,
+                GameValues.ROTTEN_ADDITIONAL_WEIGHT,
                 AssetLoader.trRottenFruit,
-                EnvironmentValues.LARGE_PEAK,
-                EnvironmentValues.ROTTEN_SCORE_VALUE);
+                GameValues.LARGE_PEAK,
+                GameValues.ROTTEN_SCORE_VALUE);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class RottenFruit extends Fruit {
     @Override
     protected void collisionHitGround() {
         //      *** HIT GROUND ***      //
-        if (getY() <= EnvironmentValues.DROPPED_Y_LOC &&
+        if (getY() <= GameValues.DROPPED_Y_LOC &&
                 fruitState == FruitState.Dropped) {
 
             // Destroy/Remove Fruit, by setting the alive = false.

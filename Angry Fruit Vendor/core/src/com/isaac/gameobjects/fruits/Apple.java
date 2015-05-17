@@ -1,6 +1,6 @@
 package com.isaac.gameobjects.fruits;
 
-import com.isaac.environment.EnvironmentValues;
+import com.isaac.gameworld.GameValues;
 import com.isaac.gameworld.GameWorld;
 import com.isaac.helpers.AssetLoader;
 
@@ -12,11 +12,11 @@ public class Apple extends Fruit {
     public Apple(GameWorld world){
         super(
                 world,
-                EnvironmentValues.APPLE_WIDTH,
-                EnvironmentValues.APPLE_WIDTH,
-                EnvironmentValues.APPLE_ADDITIONAL_WEIGHT,
+                GameValues.APPLE_WIDTH,
+                GameValues.APPLE_WIDTH,
+                GameValues.APPLE_ADDITIONAL_WEIGHT,
                 AssetLoader.trApple,
-                EnvironmentValues.SMALL_PEAK,
-                EnvironmentValues.APPLE_SCORE_VALUE);
+                GameValues.SMALL_PEAK,
+                GameValues.APPLE_SCORE_VALUE);
     }
 }

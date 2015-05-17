@@ -1,13 +1,8 @@
 package com.isaac.gamemodes;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.isaac.gamemodes.levels.EndlessBaskets_Level;
 import com.isaac.gamemodes.levels.Level;
-import com.isaac.gamemodes.levels.StageMode_Level_1;
-import com.isaac.gamemodes.levels.StageMode_Level_2;
-import com.isaac.gamemodes.levels.StageMode_Level_3;
-import com.isaac.gamemodes.levels.StageMode_Level_4;
-import com.isaac.gamemodes.levels.StageMode_Level_5;
-import com.isaac.gamemodes.levels.StageMode_Level_6;
 import com.isaac.gameobjects.fruits.Fruit;
 import com.isaac.gameworld.GameRenderer;
 import com.isaac.gameworld.GameWorld;
@@ -17,20 +12,25 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Isaac Holloway on 12/9/2014.
+ * Created by Isaac Holloway on 3/24/2015.
  */
-public class StageMode extends GameMode {
+public class EndlessBasketsMode extends GameMode {
 
-    // Current level
     protected int currentLevelIndex;
     protected List<Level> levels;
 
     /**
      * [CONSTRUCTOR]
      */
-    public StageMode(GameWorld world) {
+    public EndlessBasketsMode(GameWorld world) {
         super(world);
-        createLevels();
+        createLevel();
+    }
+
+    /***/
+    private void createLevel() {
+        setLevels(new ArrayList<Level>());
+        getLevels().add(new EndlessBaskets_Level(this));
     }
 
     /***/
@@ -64,19 +64,8 @@ public class StageMode extends GameMode {
 
     /***/
     @Override
-    public void renderGameModeBG(float delta,  GameRenderer renderer) {
+    public void renderGameModeBG(float delta, GameRenderer renderer) {
         getCurrentLevel().drawLevelBG(delta, renderer);
-    }
-
-    /***/
-    protected void createLevels() {
-        setLevels(new ArrayList<Level>());
-        getLevels().add(new StageMode_Level_1(this));
-        getLevels().add(new StageMode_Level_2(this));
-        getLevels().add(new StageMode_Level_3(this));
-        getLevels().add(new StageMode_Level_4(this));
-        getLevels().add(new StageMode_Level_5(this));
-        getLevels().add(new StageMode_Level_6(this));
     }
 
     /***/
@@ -88,9 +77,9 @@ public class StageMode extends GameMode {
 
     /***/
     public void advanceCurrentLevel() {
-        if(getCurrentLevelIndex() >= levels.size()-1 ){
+        if (getCurrentLevelIndex() >= levels.size() - 1) {
             setCurrentLevel(0);
-        }else{
+        } else {
             setCurrentLevel(getCurrentLevelIndex() + 1);
         }
     }

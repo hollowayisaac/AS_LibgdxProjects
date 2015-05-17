@@ -14,9 +14,9 @@ public class SimpleButton {
     private TextureRegion buttonUp;
     private TextureRegion buttonDown;
 
-    private Rectangle bounds;
+    public Rectangle bounds;
 
-    private boolean isPressed = false;
+    public boolean isPressed = false;
 
     /**
      *          [CONSTRUCTOR]

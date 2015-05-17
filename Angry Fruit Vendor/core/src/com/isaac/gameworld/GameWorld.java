@@ -2,8 +2,6 @@ package com.isaac.gameworld;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
-import com.isaac.environment.EnvironmentHandler;
-import com.isaac.environment.EnvironmentValues;
 import com.isaac.gamemodes.GameMode;
 import com.isaac.gameobjects.Trampoline;
 import com.isaac.gameobjects.fruits.Apple;
@@ -22,23 +20,21 @@ import java.util.List;
  * Created by Isaac Holloway on 11/12/2014.
  */
 public class GameWorld {
-
     public enum GameState {
-        MENU, READY, RUNNING, GAMEOVER, HIGHSCORE
+        MENU, PAUSED, RUNNING, GAMEOVER, HIGHSCORE
     }
 
     private GameState currentState;
 
     // How many fruits the player has saved without dropping a fruit.
     private int currentStreak;
-
-    private EnvironmentHandler environmentHandler;
     public float totalGameTime;
-
     protected final String SCORE_PREFIX = "Score:  ";
     protected final String LIVES_PREFIX = "Lives:  ";
     protected final String STREAK_PREFIX = "Streak:  ";
     private int score;
+
+    public GameRenderer gameRenderer;
 
    /* // All of our
     private List<GameObject> gameObjects;*/
@@ -71,7 +67,6 @@ public class GameWorld {
      * @param gameMode
      */
     public void init(GameMode gameMode){
-        environmentHandler = new EnvironmentHandler(this);
         setGameMode(gameMode);
 /*
         // Create the world and all of its components.
@@ -89,7 +84,7 @@ public class GameWorld {
      * initWorld
      */
     protected void initWorld() {
-        currentState = GameState.READY;
+        currentState = GameState.MENU;
         activeFruits.clear();
         this.totalGameTime = 0;
         this.score = 0;
@@ -157,7 +152,7 @@ public class GameWorld {
     private void createTestFruit() {
         // Add new Apple
         Apple apple = new Apple(this);
-        apple.spawn(EnvironmentValues.FRUIT_STARTING_X, EnvironmentValues.FRUIT_STARTING_Y);
+        apple.spawn(GameValues.FRUIT_STARTING_X, GameValues.FRUIT_STARTING_Y);
         activeFruits.add(apple);
     }
 
@@ -170,7 +165,7 @@ public class GameWorld {
         //runTime += delta;
 
         switch (currentState) {
-            case READY:
+            case PAUSED:
                 break;
 
             case MENU:
@@ -267,7 +262,7 @@ public class GameWorld {
         currentFruitTossInterval += delta * 1000;
         if (currentFruitTossInterval > timeUntilNextFruitToss) {
             Fruit newFruit = gameMode.getRandomFruit();
-            newFruit.spawn(EnvironmentValues.FRUIT_STARTING_X, EnvironmentValues.FRUIT_STARTING_Y);
+            newFruit.spawn(GameValues.FRUIT_STARTING_X, GameValues.FRUIT_STARTING_Y);
             activeFruits.add(newFruit);
             createNewFruitTossInterval();
         }
@@ -402,45 +397,18 @@ public class GameWorld {
         addToStreak();
     }
 
-    public EnvironmentHandler getEnvironmentHandler() {
-        return environmentHandler;
-    }
     public int getScore() {
         return score;
     }
     public String getDisplayedScoreText() {
         return SCORE_PREFIX + getScore();
     }
+    public void setGameState(GameState newGameState){
+        this.currentState = newGameState;
+    }
     public void addScore(int increment) {
         score += increment;
     }
-    public void start() {
-        currentState = GameState.RUNNING;
-    }
-    public void ready() {
-        currentState = GameState.READY;
-    }
-    public boolean isReady() {
-        return currentState == GameState.READY;
-    }
-    public boolean isGameOver() {
-        return currentState == GameState.GAMEOVER;
-    }
-    public boolean isHighScore() {
-        return currentState == GameState.HIGHSCORE;
-    }
-    public boolean isMenu() {
-        return currentState == GameState.MENU;
-    }
-    public boolean isRunning() {
-        return currentState == GameState.RUNNING;
-    }
-/*    public List<GameObject> getGameObjects() {
-        return gameObjects;
-    }
-    public void setGameObjects(List<GameObject> gameObjects) {
-        this.gameObjects = gameObjects;
-    }*/
 
     public Array<Fruit> getActiveFruits() {
         return activeFruits;
@@ -452,5 +420,9 @@ public class GameWorld {
 
     public void setTrampoline(Trampoline trampoline) {
         this.trampoline = trampoline;
+    }
+
+    public GameState getGameState() {
+        return currentState;
     }
 }

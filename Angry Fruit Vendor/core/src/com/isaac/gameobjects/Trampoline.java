@@ -1,9 +1,9 @@
 package com.isaac.gameobjects;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.isaac.environment.EnvironmentValues;
+import com.isaac.gameworld.GameRenderer;
+import com.isaac.gameworld.GameValues;
 import com.isaac.helpers.AssetLoader;
 
 /**
@@ -32,11 +32,11 @@ public class Trampoline extends GameObject {
      * The 'Constructor' will initialize anything that will stay constant throughout the classes life.
      */
     public Trampoline() {
-        this.width = EnvironmentValues.TRAMPOLINE_WIDTH;
-        this.height = EnvironmentValues.TRAMPOLINE_HEIGHT;
+        this.width = GameValues.TRAMPOLINE_WIDTH;
+        this.height = GameValues.TRAMPOLINE_HEIGHT;
 
         // Set the y position (this shouldn't change)
-        position = new Vector2(0f, EnvironmentValues.TRAMPOLINE_Y);
+        position = new Vector2(0f, GameValues.TRAMPOLINE_Y);
 
         // Set image
         this.trampolineImage = AssetLoader.trTrampoline;
@@ -101,11 +101,11 @@ public class Trampoline extends GameObject {
      * draw
      *
      * @param runTime
-     * @param batch
+     * @param renderer
      */
     @Override
-    public void draw(float runTime, SpriteBatch batch) {
-        batch.draw(trampolineImage, getX(), getY(),
+    public void draw(float runTime, GameRenderer renderer) {
+        renderer.batch.draw(trampolineImage, getX(), getY(),
                 getWidth(), getHeight());
     }
 
@@ -129,16 +129,16 @@ public class Trampoline extends GameObject {
         // Set location of the trampoline based on position
         switch (trampolinePosition) {
             case Position1:
-                return EnvironmentValues.TRAMPOLINE_CENTER_POSITION_X_1 - (EnvironmentValues.TRAMPOLINE_WIDTH / 2);
+                return GameValues.TRAMPOLINE_CENTER_POSITION_X_1 - (GameValues.TRAMPOLINE_WIDTH / 2);
 
             case Position2:
-                return EnvironmentValues.TRAMPOLINE_CENTER_POSITION_X_2 - (EnvironmentValues.TRAMPOLINE_WIDTH / 2);
+                return GameValues.TRAMPOLINE_CENTER_POSITION_X_2 - (GameValues.TRAMPOLINE_WIDTH / 2);
 
             case Position3:
-                return EnvironmentValues.TRAMPOLINE_CENTER_POSITION_X_3 - (EnvironmentValues.TRAMPOLINE_WIDTH / 2);
+                return GameValues.TRAMPOLINE_CENTER_POSITION_X_3 - (GameValues.TRAMPOLINE_WIDTH / 2);
 
             default:
-                return EnvironmentValues.SAVED_FRUIT_X - (EnvironmentValues.TRAMPOLINE_WIDTH / 2);
+                return GameValues.SAVED_FRUIT_X - (GameValues.TRAMPOLINE_WIDTH / 2);
         }
     }
 

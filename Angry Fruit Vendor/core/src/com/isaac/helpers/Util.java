@@ -2,7 +2,7 @@ package com.isaac.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import com.isaac.environment.EnvironmentValues;
+import com.isaac.gameworld.GameValues;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,12 +73,12 @@ public class Util {
     }
 
     public static float unScaleX(float x){
-        float scaleX = (float)Gdx.graphics.getWidth() / (float)EnvironmentValues.GAME_WIDTH;
+        float scaleX = (float)Gdx.graphics.getWidth() / (float) GameValues.GAMEUNIT_WIDTH;
         x *= scaleX;
         return x;
     }
     public static float unScaleY(float y){
-        float scaleY = (float)Gdx.graphics.getHeight() / (float) EnvironmentValues.GAME_HEIGHT;
+        float scaleY = (float)Gdx.graphics.getHeight() / (float) GameValues.GAMEUNIT_HEIGHT;
         y *= scaleY;
         return y;
     }

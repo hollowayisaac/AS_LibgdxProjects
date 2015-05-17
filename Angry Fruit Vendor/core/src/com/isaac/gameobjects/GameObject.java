@@ -1,7 +1,7 @@
 package com.isaac.gameobjects;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.isaac.gameworld.GameRenderer;
 
 /**
  * Created by Isaac Holloway on 11/16/2014.
@@ -19,7 +19,7 @@ public abstract class GameObject {
     abstract public void update(float delta);
 
     /*** draw */
-    abstract public void draw(float runTime, SpriteBatch batch) ;
+    abstract public void draw(float runTime, GameRenderer renderer) ;
 
     public float getX() {
         return position.x;

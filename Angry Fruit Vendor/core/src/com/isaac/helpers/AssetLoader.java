@@ -12,62 +12,108 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * Created by Isaac Holloway on 11/12/2014.
  */
 public class AssetLoader {
+    // TextureRegions
     public static TextureRegion trApple;
     public static TextureRegion trWatermelon;
     public static TextureRegion trOrange;
     public static TextureRegion trBanana;
     public static TextureRegion trRottenFruit;
     public static TextureRegion trBasket;
-
     public static TextureRegion trTrampoline;
-
-    public static Texture texture, logoTexture;
     public static TextureRegion logo, zbLogo, bg, grass, bird, birdDown,
             birdUp, skullUp, skullDown, bar, playButtonUp, playButtonDown;
+
+    // Textures
+    public static Texture texture, logoTexture;
+
+    // Animations
     public static Animation birdAnimation;
+
+    // Sound
     public static Sound dead, flap, coin;
-    public static BitmapFont font, shadow;
+
+    // Font
+    public static BitmapFont ftWag; //(Wag) White and Gray
+
+    // Preferences
     private static Preferences prefs;
 
+    /***/
     public static void load() {
+        load_Preferences();
+        load_Fonts();
+        load_Skins();
+        load_Sound();
+        load_Images();
+    }
 
-        //logoTexture = new Texture(Gdx.files.internal("data/Letter-iA-icon.png"));
-        //logoTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        //logo = new TextureRegion(logoTexture, 0, 0, 512, 114);
+    /***/
+    private static void load_Preferences() {
+        // Create (or retrieve existing) preferences file
+        prefs = Gdx.app.getPreferences("ZombieBird");
 
-        texture = new Texture(Gdx.files.internal("data/flappy-bird-texture.png"));
+        if (!prefs.contains("highScore")) {
+            prefs.putInteger("highScore", 0);
+        }
+    }
+
+
+    /***/
+    private static void load_Fonts() {
+        ftWag = new BitmapFont(Gdx.files.internal("fonts/simple1.fnt"));
+        ftWag.setScale(.5f, .5f);
+    }
+
+
+    /***/
+    private static void load_Skins() {
+
+    }
+
+
+    /***/
+    private static void load_Sound() {
+        dead = Gdx.audio.newSound(Gdx.files.internal("sound/dead.wav"));
+        flap = Gdx.audio.newSound(Gdx.files.internal("sound/flap.wav"));
+        coin = Gdx.audio.newSound(Gdx.files.internal("sound/coin.wav"));
+    }
+
+
+    /***/
+    private static void load_Images() {
+        texture = new Texture(Gdx.files.internal("images/flappy-bird-texture.png"));
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
-        //// Fruits
+        //      ~Fruits~      //
         // Apple
-        Texture tApple = new Texture(Gdx.files.internal("data/apple.png"));
+        Texture tApple = new Texture(Gdx.files.internal("images/apple.png"));
         tApple.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        trApple = new TextureRegion(tApple,0,0,tApple.getWidth(), tApple.getHeight());
+        trApple = new TextureRegion(tApple, 0, 0, tApple.getWidth(), tApple.getHeight());
 
         // Orange
-        Texture tOrange = new Texture(Gdx.files.internal("data/orange.png"));
+        Texture tOrange = new Texture(Gdx.files.internal("images/orange.png"));
         tOrange.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        trOrange = new TextureRegion(tOrange,0,0,tOrange.getWidth(), tOrange.getHeight());
+        trOrange = new TextureRegion(tOrange, 0, 0, tOrange.getWidth(), tOrange.getHeight());
 
         // Watermelon
-        Texture tWatermelon = new Texture(Gdx.files.internal("data/watermelon.png"));
+        Texture tWatermelon = new Texture(Gdx.files.internal("images/watermelon.png"));
         tWatermelon.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        trWatermelon = new TextureRegion(tWatermelon,0,0,tWatermelon.getWidth(), tWatermelon.getHeight());
+        trWatermelon = new TextureRegion(tWatermelon, 0, 0, tWatermelon.getWidth(), tWatermelon.getHeight());
 
         // Banana
-        Texture tBanana = new Texture(Gdx.files.internal("data/banana.png"));
+        Texture tBanana = new Texture(Gdx.files.internal("images/banana.png"));
         tBanana.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        trBanana = new TextureRegion(tBanana,0,0,tBanana.getWidth(), tBanana.getHeight());
+        trBanana = new TextureRegion(tBanana, 0, 0, tBanana.getWidth(), tBanana.getHeight());
 
         // Rotten Fruit
-        Texture tRottenFruit = new Texture(Gdx.files.internal("data/rotten-fruit.png"));
+        Texture tRottenFruit = new Texture(Gdx.files.internal("images/rotten-fruit.png"));
         tRottenFruit.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        trRottenFruit = new TextureRegion(tRottenFruit,0,0,tRottenFruit.getWidth(), tRottenFruit.getHeight());
+        trRottenFruit = new TextureRegion(tRottenFruit, 0, 0, tRottenFruit.getWidth(), tRottenFruit.getHeight());
 
         // Basket
-        Texture tBasket = new Texture(Gdx.files.internal("data/fruit-basket.png"));
+        Texture tBasket = new Texture(Gdx.files.internal("images/fruit-basket.png"));
         tBasket.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        trBasket = new TextureRegion(tBasket,0,0,tBasket.getWidth(), tBasket.getHeight());
+        trBasket = new TextureRegion(tBasket, 0, 0, tBasket.getWidth(), tBasket.getHeight());
 
         // Trampoline
         trTrampoline = new TextureRegion(texture, 0, 43, 143, 11);
@@ -96,7 +142,7 @@ public class AssetLoader {
         birdUp = new TextureRegion(texture, 170, 0, 17, 12);
         birdUp.flip(false, true);
 
-        TextureRegion[] birds = { birdDown, bird, birdUp };
+        TextureRegion[] birds = {birdDown, bird, birdUp};
         birdAnimation = new Animation(0.06f, birds);
         birdAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
@@ -107,32 +153,19 @@ public class AssetLoader {
 
         bar = new TextureRegion(texture, 136, 16, 22, 3);
         bar.flip(false, true);
-
-        dead = Gdx.audio.newSound(Gdx.files.internal("data/dead.wav"));
-        flap = Gdx.audio.newSound(Gdx.files.internal("data/flap.wav"));
-        coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));
-
-        font = new BitmapFont(Gdx.files.internal("data/text.fnt"));
-        font.setScale(.25f, .25f);
-        shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
-        shadow.setScale(.25f, .25f);
-
-        // Create (or retrieve existing) preferences file
-        prefs = Gdx.app.getPreferences("ZombieBird");
-
-        if (!prefs.contains("highScore")) {
-            prefs.putInteger("highScore", 0);
-        }
     }
+
 
     public static void setHighScore(int val) {
         prefs.putInteger("highScore", val);
         prefs.flush();
     }
 
+
     public static int getHighScore() {
         return prefs.getInteger("highScore");
     }
+
 
     public static void dispose() {
         // We must dispose of the texture when we are finished.
@@ -142,9 +175,6 @@ public class AssetLoader {
         dead.dispose();
         flap.dispose();
         coin.dispose();
-
-        font.dispose();
-        shadow.dispose();
+        ftWag.dispose();
     }
-
 }

@@ -1,10 +1,10 @@
 package com.isaac.gamemodes.levels;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isaac.angryfruitvendor.AngryFVGame;
-import com.isaac.environment.EnvironmentValues;
 import com.isaac.gamemodes.GameMode;
 import com.isaac.gameobjects.fruits.Fruit;
+import com.isaac.gameworld.GameRenderer;
+import com.isaac.gameworld.GameValues;
 import com.isaac.helpers.AssetLoader;
 
 /**
@@ -75,32 +75,19 @@ public class StageMode_Level_1 extends Level{
         return false;
     }
 
-/*    *//**
-     * drawLevelBG
-     * @param delta
-     * @param batch
-     *//*
     @Override
-    public void drawLevelBG(float delta, SpriteBatch batch){
-
-    }*/
-
-    @Override
-    public void drawLevel(float delta, SpriteBatch batch){
-        drawGoal(delta, batch);
+    public void drawLevel(float delta, GameRenderer renderer){
+        drawGoal(delta, renderer);
     }
 
     /**
      * drawGoal
      * @param delta
-     * @param batch
+     * @param renderer
      */
-    public void drawGoal(float delta, SpriteBatch batch){
+    public void drawGoal(float delta, GameRenderer renderer){
         // Draw the Goal Text
-        AssetLoader.shadow.draw(batch, "" + getGoalText(),
-                450, EnvironmentValues.ARENA_HEIGHT);
-        AssetLoader.font.draw(batch, "" + getGoalText(),
-                450, EnvironmentValues.ARENA_HEIGHT);
+        renderer.drawText_Wag(450, GameValues.ARENA_HEIGHT, "" + getGoalText());
     }
 
     /**

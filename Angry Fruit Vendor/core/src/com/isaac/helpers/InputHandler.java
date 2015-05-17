@@ -1,8 +1,9 @@
 package com.isaac.helpers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.isaac.environment.EnvironmentValues;
+import com.badlogic.gdx.math.Vector3;
 import com.isaac.gamemodes.StageMode;
 import com.isaac.gameworld.GameWorld;
 import com.isaac.ui.SimpleButton;
@@ -14,115 +15,111 @@ import java.util.List;
  * Created by Isaac Holloway on 11/12/2014.
  */
 public class InputHandler implements InputProcessor {
-    /*    private Bird myBird;*/
     private GameWorld world;
 
-    private List<SimpleButton> menuButtons;
+    private float scaleFactorX;
+    private float scaleFactorY;
 
+    public List<SimpleButton> menuButtons;
     private SimpleButton playButton;
 
-/*    private float scaleFactorX = EnvironmentValues.GRASS_WIDTH / Gdx.graphics.getWidth();
-    private float scaleFactorY;*/
+    public InputHandler(GameWorld myWorld, float scaleFactorX, float scaleFactorY) {
 
-    public InputHandler(GameWorld myWorld) {
+
         this.world = myWorld;
-/*        myBird = myWorld.getBird();*/
-
-        /*int midPointY = myWorld.getMidPointY();*/
-
-/*        this.scaleFactorX = scaleFactorX;
-        this.scaleFactorY = scaleFactorY;*/
+        this.scaleFactorX = scaleFactorX;
+        this.scaleFactorY = scaleFactorY;
 
         menuButtons = new ArrayList<SimpleButton>();
-        playButton = new SimpleButton(
-                136 / 2 - (AssetLoader.playButtonUp.getRegionWidth() / 2),
-                EnvironmentValues.GAME_MIDPOINT_Y + 50, 29, 16, AssetLoader.playButtonUp,
-                AssetLoader.playButtonDown);
+        playButton = new SimpleButton(100,100,100,35, AssetLoader.trBanana, AssetLoader.trWatermelon);
+        //playButton = new SimpleButton(
+//                136 / 2 - (AssetLoader.playButtonUp.getRegionWidth() / 2),
+//                GameValues.GAME_MIDPOINT_Y + 50, 29, 16, AssetLoader.trBanana,
+//                AssetLoader.grass);
         menuButtons.add(playButton);
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 /*        screenX = scaleX(screenX);
-        screenY = scaleY(screenY);
-        System.out.println(screenX + " " + screenY);
-        if (myWorld.isMenu()) {
-            playButton.isTouchDown(screenX, screenY);
-        } else if (myWorld.isReady()) {
-            myWorld.start();
+        screenY = scaleY(screenY);*/
+
+
+        Vector3 unprojectedScreen = new Vector3(Gdx.input.getX(), Gdx.input.getY(),0);
+        world.gameRenderer.gameCamera.unproject(unprojectedScreen);
+        /*renderer.matrix.idt();
+        renderer.matrix.setToTranslation(renderer.gameCamera.x, renderer.gameCamera.y, 0);*/
+
+        if (world.getGameState() == GameWorld.GameState.MENU) {
+
+//            if (playButton.isTouchDown(screenX, screenY)) {
+            if (playButton.isTouchDown((int)unprojectedScreen.x,(int) unprojectedScreen.y)) {
+                playButton.isPressed = true;
+                return true;
+            }
         }
-
-        *//*myBird.onClick();*//*
-
-        if (myWorld.isGameOver() || myWorld.isHighScore()) {
-            myWorld.restart();
-        }*/
-
-        return true;
+        return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-       /* screenX = scaleX(screenX);
-        screenY = scaleY(screenY);*/
 
-        if (world.isRunning()) {
-            world.ready();
-        } else if (world.isReady()) {
-            world.start();
+        screenX = scaleX(screenX);
+        screenY = scaleY(screenY);
+
+        if (world.getGameState() == GameWorld.GameState.RUNNING) {
+            world.setGameState(GameWorld.GameState.PAUSED);
+        } else if (world.getGameState() == GameWorld.GameState.PAUSED) {
+            world.setGameState(GameWorld.GameState.RUNNING);
         }
 
-/*        if (myWorld.isMenu()) {
+        if (world.getGameState() == GameWorld.GameState.MENU) {
+            //boolean isTouchUp =
             if (playButton.isTouchUp(screenX, screenY)) {
-                myWorld.ready();
+                world.setGameState(GameWorld.GameState.RUNNING);
                 return true;
             }
-        }*/
+        }
 
         return false;
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        switch (keycode) {
-            // Move Left
-            case Input.Keys.LEFT:
-                if (world.isRunning()) {
+        if (world.getGameState() == GameWorld.GameState.RUNNING) {
+
+            switch (keycode) {
+                // Move Left
+                case Input.Keys.LEFT:
                     world.getTrampoline().onInput_Left();
-                }
-                break;
+                    break;
 
-            // Move Right
-            case Input.Keys.RIGHT:
-                if (world.isRunning()) {
+                // Move Right
+                case Input.Keys.RIGHT:
                     world.getTrampoline().onInput_Right();
-                }
-                break;
+                    break;
 
-            // Prev Level
-            case Input.Keys.FORWARD_DEL:
-                if (world.isRunning() || world.isReady()) {
+                // Prev Level
+                case Input.Keys.FORWARD_DEL:
                     StageMode sm = (StageMode) world.getGameMode();
                     if (sm.getCurrentLevelIndex() != 0) {
                         sm.setCurrentLevel(sm.getCurrentLevelIndex() - 1);
                     }
-                }
-                break;
+                    break;
 
-            // Next Level
-            case Input.Keys.END:
-                if (world.isRunning() || world.isReady()) {
-                    StageMode sm = (StageMode) world.getGameMode();
-                    sm.advanceCurrentLevel();
-                }
-                break;
+                // Next Level
+                case Input.Keys.END:
+                    StageMode sm1 = (StageMode) world.getGameMode();
+                    sm1.advanceCurrentLevel();
+                    break;
+            }
 
-            // Start Game
-            case Input.Keys.SPACE:
-                if (world.isReady()) {
-                    world.start();
-                }
-                break;
+//            // Start Game
+//            case Input.Keys.SPACE:
+//                if (world.isReady()) {
+//                    world.start();
+//                }
+//                break;
 
 
           /*  // Restart Game
@@ -179,12 +176,21 @@ public class InputHandler implements InputProcessor {
     }
 
     private int scaleX(int screenX) {
-        return (int) (screenX / EnvironmentValues.GAME_SCALE_FACTOR_X);
+
+        return (int)(screenX / scaleFactorX);
     }
 
     private int scaleY(int screenY) {
-        return (int) (screenY / EnvironmentValues.GAME_SCALE_FACTOR_Y);
+        return (int) (screenY / scaleFactorY);
     }
+
+//    private int scaleX(int screenX) {
+//        return (int) (screenX / scaleFactorX);
+//    }
+//
+//    private int scaleY(int screenY) {
+//        return (int) (screenY / scaleFactorY);
+//    }
 
     public List<SimpleButton> getMenuButtons() {
         return menuButtons;
