@@ -5,9 +5,7 @@ import com.isaac.gamemodes.levels.Endless_Level;
 import com.isaac.gamemodes.levels.Level;
 import com.isaac.gameobjects.fruits.Fruit;
 import com.isaac.gameworld.GameRenderer;
-import com.isaac.gameworld.GameWorld;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,17 +17,9 @@ public class EndlessMode extends GameMode {
     protected int currentLevelIndex;
     protected List<Level> levels;
 
-    /**
-     * [CONSTRUCTOR]
-     */
-    public EndlessMode(GameWorld world) {
-        super(world);
-        createLevel();
-    }
-
     /***/
-    private void createLevel() {
-        setLevels(new ArrayList<Level>());
+    @Override
+    protected void createLevelPool() {
         getLevels().add(new Endless_Level(this));
     }
 
@@ -49,12 +39,6 @@ public class EndlessMode extends GameMode {
             percentageSum += percentage;
         }
         return world.getFruitGivenType(selectedFruitType);
-    }
-
-    /***/
-    @Override
-    public void init() {
-        setCurrentLevel(0);
     }
 
     /***/

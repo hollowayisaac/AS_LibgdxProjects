@@ -20,11 +20,7 @@ import java.util.List;
  * Created by Isaac Holloway on 11/12/2014.
  */
 public class GameWorld {
-    public enum GameState {
-        MENU, PAUSED, RUNNING, GAMEOVER, HIGHSCORE
-    }
 
-    private GameState currentState;
 
     // How many fruits the player has saved without dropping a fruit.
     private int currentStreak;
@@ -33,8 +29,6 @@ public class GameWorld {
     protected final String LIVES_PREFIX = "Lives:  ";
     protected final String STREAK_PREFIX = "Streak:  ";
     private int score;
-
-    public GameRenderer gameRenderer;
 
    /* // All of our
     private List<GameObject> gameObjects;*/
@@ -84,7 +78,6 @@ public class GameWorld {
      * initWorld
      */
     protected void initWorld() {
-        currentState = GameState.MENU;
         activeFruits.clear();
         this.totalGameTime = 0;
         this.score = 0;
@@ -142,7 +135,7 @@ public class GameWorld {
         this.gameMode = gameMode;
 
         // TODO: Init the gamemode and here is where the init level is set.
-        this.gameMode.init();
+        this.gameMode.init(this);
     }
 
 
@@ -154,31 +147,6 @@ public class GameWorld {
         Apple apple = new Apple(this);
         apple.spawn(GameValues.FRUIT_STARTING_X, GameValues.FRUIT_STARTING_Y);
         activeFruits.add(apple);
-    }
-
-    /**
-     * update
-     *
-     * @param delta
-     */
-    public void update(float delta) {
-        //runTime += delta;
-
-        switch (currentState) {
-            case PAUSED:
-                break;
-
-            case MENU:
-                updateReady(delta);
-                break;
-
-            case RUNNING:
-                updateRunning(delta);
-                break;
-
-            default:
-                break;
-        }
     }
 
     /**
@@ -204,15 +172,7 @@ public class GameWorld {
 
         totalGameTime += delta;
 
-        // Create any fruits if they need to be created
         tossFruit(delta);
-
-/*        // Update the GameObjects
-        for (int i = 0; i < getGameObjects().size(); i++) {
-            GameObject gameObject = getGameObjects().get(i);
-            gameObject.update(delta);
-        }*/
-
         getTrampoline().update(delta);
 
         // If you want to free dead fruits, returning them to the pool:
@@ -229,29 +189,7 @@ public class GameWorld {
             }
         }
 
-        // Update the GameMode (This will check to see if the level needs to be changed
         gameMode.update(delta);
-
-/*        bird.update(delta);
-        scroller.update(delta);
-
-        if (scroller.collides(bird) && bird.isAlive()) {
-            scroller.stop();
-            bird.die();
-            AssetLoader.dead.play();
-        }
-
-        if (Intersector.overlaps(bird.getBoundingCircle(), ground)) {
-            scroller.stop();
-            bird.die();
-            bird.decelerate();
-            currentState = GameState.GAMEOVER;
-
-            if (score > AssetLoader.getHighScore()) {
-                AssetLoader.setHighScore(score);
-                currentState = GameState.HIGHSCORE;
-            }
-        }*/
     }
 
     /**
@@ -403,9 +341,7 @@ public class GameWorld {
     public String getDisplayedScoreText() {
         return SCORE_PREFIX + getScore();
     }
-    public void setGameState(GameState newGameState){
-        this.currentState = newGameState;
-    }
+
     public void addScore(int increment) {
         score += increment;
     }
@@ -422,7 +358,4 @@ public class GameWorld {
         this.trampoline = trampoline;
     }
 
-    public GameState getGameState() {
-        return currentState;
-    }
 }

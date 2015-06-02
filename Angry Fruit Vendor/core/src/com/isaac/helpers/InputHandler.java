@@ -1,9 +1,7 @@
 package com.isaac.helpers;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector3;
 import com.isaac.gamemodes.StageMode;
 import com.isaac.gameworld.GameWorld;
 import com.isaac.ui.SimpleButton;
@@ -44,20 +42,6 @@ public class InputHandler implements InputProcessor {
 /*        screenX = scaleX(screenX);
         screenY = scaleY(screenY);*/
 
-
-        Vector3 unprojectedScreen = new Vector3(Gdx.input.getX(), Gdx.input.getY(),0);
-        world.gameRenderer.gameCamera.unproject(unprojectedScreen);
-        /*renderer.matrix.idt();
-        renderer.matrix.setToTranslation(renderer.gameCamera.x, renderer.gameCamera.y, 0);*/
-
-        if (world.getGameState() == GameWorld.GameState.MENU) {
-
-//            if (playButton.isTouchDown(screenX, screenY)) {
-            if (playButton.isTouchDown((int)unprojectedScreen.x,(int) unprojectedScreen.y)) {
-                playButton.isPressed = true;
-                return true;
-            }
-        }
         return false;
     }
 
@@ -67,27 +51,25 @@ public class InputHandler implements InputProcessor {
         screenX = scaleX(screenX);
         screenY = scaleY(screenY);
 
-        if (world.getGameState() == GameWorld.GameState.RUNNING) {
-            world.setGameState(GameWorld.GameState.PAUSED);
-        } else if (world.getGameState() == GameWorld.GameState.PAUSED) {
-            world.setGameState(GameWorld.GameState.RUNNING);
+/*        if (world.getGameState() == GameScreen.GameState.RUNNING) {
+            world.setGameState(GameScreen.GameState.PAUSED);
+        } else if (world.getGameState() == GameScreen.GameState.PAUSED) {
+            world.setGameState(GameScreen.GameState.RUNNING);
         }
 
-        if (world.getGameState() == GameWorld.GameState.MENU) {
+        if (world.getGameState() == GameScreen.GameState.MENU) {
             //boolean isTouchUp =
             if (playButton.isTouchUp(screenX, screenY)) {
-                world.setGameState(GameWorld.GameState.RUNNING);
+                world.setGameState(GameScreen.GameState.RUNNING);
                 return true;
             }
-        }
+        }*/
 
         return false;
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        if (world.getGameState() == GameWorld.GameState.RUNNING) {
-
             switch (keycode) {
                 // Move Left
                 case Input.Keys.LEFT:
@@ -128,27 +110,8 @@ public class InputHandler implements InputProcessor {
                     world.restart();
                 }
                 break;*/
+        return  false;
         }
-
-/*        // Can now use Space Bar to play the game
-        if (keycode == Input.Keys.SPACE) {
-
-            if (myWorld.isMenu()) {
-                myWorld.ready();
-            } else if (myWorld.isReady()) {
-                myWorld.start();
-            }
-
-*//*            myBird.onClick();*//*
-
-            if (myWorld.isGameOver() || myWorld.isHighScore()) {
-                myWorld.restart();
-            }
-        }*/
-
-        return false;
-    }
-
 
     @Override
     public boolean keyUp(int keycode) {

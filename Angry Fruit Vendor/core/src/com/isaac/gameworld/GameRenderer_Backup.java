@@ -83,7 +83,7 @@ public class GameRenderer_Backup {
         batch.begin();
         batch.disableBlending();
         batch.enableBlending();
-
+/*
         switch (world.getGameState()){
             //////////////////////////////////   ~ [Main Menu] ~   ////
             case MENU:
@@ -96,12 +96,12 @@ public class GameRenderer_Backup {
                 break;
 
             case PAUSED:
-                world.setGameState(GameWorld.GameState.RUNNING);
+                world.setGameState(GameScreen.GameState.RUNNING);
             //////////////////////////////////   ~ [Game Running] ~   ////
             case RUNNING:
 
                 // Level Background
-/*                world.getGameMode().renderGameModeBG(delta, this);
+*//*                world.getGameMode().renderGameModeBG(delta, this);
 
                 // Level
                 world.getGameMode().renderGameMode(delta, this);
@@ -116,7 +116,7 @@ public class GameRenderer_Backup {
                 }
 
                 // GameMode/Level
-                world.getGameMode().renderGameMode(delta, this);*/
+                world.getGameMode().renderGameMode(delta, this);*//*
 
                 // [TEXT] Score
                 drawScore();
@@ -138,7 +138,7 @@ public class GameRenderer_Backup {
             case GAMEOVER:
                 break;
         }
-        batch.end();
+        batch.end();*/
     }
 
 

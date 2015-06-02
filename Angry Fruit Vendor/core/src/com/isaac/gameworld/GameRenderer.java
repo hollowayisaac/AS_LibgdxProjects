@@ -15,6 +15,7 @@ import com.isaac.angryfruitvendor.AngryFVGame;
 import com.isaac.gameobjects.fruits.Fruit;
 import com.isaac.helpers.AssetLoader;
 import com.isaac.helpers.InputHandler;
+import com.isaac.screens.GameScreen;
 import com.isaac.ui.SimpleButton;
 
 import java.util.List;
@@ -60,12 +61,11 @@ public class GameRenderer {
         AssetLoader.ftWag.draw(batch, text, xLoc, yLoc);
     }
 
-
     /**
      * @param delta
      * @param runTime
      */
-    public void render(float delta, float runTime) {
+    public void render(float delta, float runTime, GameScreen.GameState gameState) {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -85,7 +85,7 @@ public class GameRenderer {
         batch.disableBlending();
         batch.enableBlending();
 
-        switch (world.getGameState()){
+        switch (gameState){
             //////////////////////////////////   ~ [Main Menu] ~   ////
             case MENU:
                 batch.draw(AssetLoader.trApple, GameValues.ARENA_X, GameValues.ARENA_Y, GameValues.ARENA_WIDTH/2, GameValues.ARENA_HEIGHT/2,
@@ -97,7 +97,7 @@ public class GameRenderer {
                 break;
 
             case PAUSED:
-                world.setGameState(GameWorld.GameState.RUNNING);
+
             //////////////////////////////////   ~ [Game Running] ~   ////
             case RUNNING:
 
