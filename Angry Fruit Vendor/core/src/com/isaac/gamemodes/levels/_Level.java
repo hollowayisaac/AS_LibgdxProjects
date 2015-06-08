@@ -1,10 +1,10 @@
 package com.isaac.gamemodes.levels;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.isaac.gamemodes.GameMode;
+import com.isaac.gamemodes._GameMode;
 import com.isaac.gameobjects.fruits.Fruit;
-import com.isaac.gameworld.GameRenderer;
-import com.isaac.gameworld.GameValues;
+import com.isaac.renderers.GameRenderer;
+import com.isaac.helpers.GameValues;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,8 +12,8 @@ import java.util.Map;
 /**
  * Created by Isaac Holloway on 12/28/2014.
  */
-public abstract class Level {
-    protected GameMode gameMode;
+public abstract class _Level {
+    protected _GameMode gameMode;
     protected int startingLives;
     protected abstract boolean isGoalMet();
     protected abstract boolean isLevelFail();
@@ -29,7 +29,7 @@ public abstract class Level {
      *          [CONSTRUCTOR]
      * @param gameMode
      */
-    public Level(GameMode gameMode){
+    public _Level(_GameMode gameMode){
         this.gameMode = gameMode;
         allowedFruits = new HashMap<Fruit.FruitType, Integer>();
         setLevelBackground();
@@ -45,7 +45,7 @@ public abstract class Level {
             gameMode.levelComplete();
         }
         if(isLevelFail()){
-            gameMode.restartGame();
+            gameMode.restartLevel();
         }
     }
 
@@ -54,7 +54,7 @@ public abstract class Level {
      * @param renderer
      */
     public void drawLevelBG(float delta, GameRenderer renderer) {
-        renderer.batch.draw(levelBackground, GameValues.ARENA_X, GameValues.ARENA_Y, GameValues.ARENA_WIDTH/2, GameValues.ARENA_HEIGHT/2,
+        renderer.getSpriteBatch().draw(levelBackground, GameValues.ARENA_X, GameValues.ARENA_Y, GameValues.ARENA_WIDTH/2, GameValues.ARENA_HEIGHT/2,
                 GameValues.ARENA_WIDTH, GameValues.ARENA_HEIGHT,1, 1, 0, true);
     }
 

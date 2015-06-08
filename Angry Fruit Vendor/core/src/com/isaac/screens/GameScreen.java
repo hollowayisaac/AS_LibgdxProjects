@@ -1,79 +1,57 @@
 package com.isaac.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector3;
 import com.isaac.angryfruitvendor.AngryFVGame;
-import com.isaac.gamemodes.GameMode;
-import com.isaac.gameworld.GameRenderer;
-import com.isaac.gameworld.GameValues;
-import com.isaac.gameworld.GameWorld;
+import com.isaac.gamemodes._GameMode;
 import com.isaac.helpers.AssetLoader;
+import com.isaac.helpers.GameValues;
 import com.isaac.helpers.InputHandler;
+import com.isaac.renderers.GameRenderer;
 import com.isaac.ui.SimpleButton;
 
 /**
  * Created by Isaac Holloway on 11/12/2014.
  */
-public class GameScreen extends ScreenAdapter {
+public class GameScreen extends _Screen {
     public enum GameState {
         MENU, PAUSED, RUNNING, GAMEOVER, HIGHSCORE
     }
-    private GameScreen.GameState currentState;
-    private GameWorld world;
-    private GameRenderer renderer;
-    private float runTime;
-    private AngryFVGame game;
-    private OrthographicCamera guiCam;
-    Vector3 touchPoint;
 
+    private GameState currentState;
+    public _GameMode gameMode;
     public SimpleButton bMenu;
 
     /**     [CONSTRUCTOR] */
-    public GameScreen(AngryFVGame game, GameMode gameMode) {
-        this.game = game;
+    public GameScreen(AngryFVGame game, _GameMode gameMode) {
+        super(game);
+        this.gameMode = gameMode;
+        gameMode.init();
+
         float scaleFactorX = ((float)Gdx.graphics.getWidth() / GameValues.GAMEUNIT_WIDTH);
         float scaleFactorY = ((float)Gdx.graphics.getHeight() / GameValues.GAMEUNIT_HEIGHT);
-        world = new GameWorld();
-        world.init(gameMode);
-        //world.init(new EndlessBasketsMode(world));
-        //world.init(new StageMode(world));
-        //world.init(new EndlessMode(world));
 
-        Gdx.input.setInputProcessor(new InputHandler(world, scaleFactorX, scaleFactorY));
-        this.renderer = new GameRenderer(world);
+        Gdx.input.setInputProcessor(new InputHandler(this, scaleFactorX, scaleFactorY));
 
-        guiCam = new OrthographicCamera(GameValues.GAMEUNIT_WIDTH, GameValues.GAMEUNIT_HEIGHT);
-        guiCam.position.set(GameValues.GAMEUNIT_WIDTH / 2, GameValues.GAMEUNIT_HEIGHT / 2, 0);
-        touchPoint = new Vector3();
+        this.renderer = new GameRenderer(this);
+
         bMenu = new SimpleButton(25,25, 100, 50, AssetLoader.trBasket, AssetLoader.trRottenFruit);
 
         currentState = GameState.RUNNING;
     }
 
-    /** */
+    /***/
+    protected GameRenderer getGameRenderer() {
+        return (GameRenderer)renderer;
+    }
+
+    /***/
     @Override
     public void render(float delta) {
         runTime += delta;
 
-        //runTime += delta;
+        gameMode.update(delta);
 
-        switch (currentState) {
-            case PAUSED:
-                break;
-
-            case MENU:
-                updateInputEvents(delta);
-                break;
-
-            case RUNNING:
-                world.updateRunning(delta);
-                break;
-        }
-
-
-        renderer.render(delta, runTime, currentState);
+        getGameRenderer().render(delta);
 
         updateInputEvents(delta);
     }
@@ -83,7 +61,7 @@ public class GameScreen extends ScreenAdapter {
         if (Gdx.input.justTouched()) {
             float inputGetX = Gdx.input.getX();
             float inputGetY = Gdx.input.getY();
-            guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+            game.camera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 
             if (bMenu.bounds.contains(inputGetX, inputGetY )) {
                 setGameState(GameState.MENU);

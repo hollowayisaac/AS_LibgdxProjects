@@ -2,7 +2,6 @@ package com.isaac.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import com.isaac.gameworld.GameValues;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.isaac.gameobjects.fruits;
 
-import com.isaac.gameworld.GameValues;
-import com.isaac.gameworld.GameWorld;
+import com.isaac.gamemodes._GameMode;
+import com.isaac.helpers.GameValues;
 import com.isaac.helpers.AssetLoader;
 
 /**
@@ -9,9 +9,9 @@ import com.isaac.helpers.AssetLoader;
  */
 public class RottenFruit extends Fruit {
 
-    public RottenFruit(GameWorld world) {
+    public RottenFruit(_GameMode gameMode){
         super(
-                world,
+                gameMode,
                 GameValues.ROTTEN_WIDTH,
                 GameValues.ROTTEN_WIDTH,
                 GameValues.ROTTEN_ADDITIONAL_WEIGHT,
@@ -23,7 +23,7 @@ public class RottenFruit extends Fruit {
     @Override
     protected void collisionBounce(boolean didFruitBounce) {
         if (didFruitBounce) {
-            world.getTrampoline().stun();
+            gameMode.getTrampoline().stun();
 
             // TODO: Here is where we should not only remove the rotten fruit, but SPLAT it on the trampoline.
             alive = false;

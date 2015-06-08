@@ -1,19 +1,18 @@
 package com.isaac.gamemodes;
 
 import com.isaac.gamemodes.levels.EndlessBaskets_Level;
-import com.isaac.gamemodes.levels.Level;
-import com.isaac.gameworld.GameRenderer;
-import com.isaac.gameworld.GameWorld;
+import com.isaac.gamemodes.levels._Level;
+import com.isaac.renderers.GameRenderer;
 
 import java.util.List;
 
 /**
  * Created by Isaac Holloway on 3/24/2015.
  */
-public class EndlessBasketsMode extends GameMode {
+public class EndlessBasketsMode extends _GameMode {
 
     protected int currentLevelIndex;
-    protected List<Level> levels;
+    protected List<_Level> levels;
 
     /***/
     @Override
@@ -23,8 +22,8 @@ public class EndlessBasketsMode extends GameMode {
 
     /***/
     @Override
-    public void init(GameWorld world) {
-        super.init(world);
+    public void init() {
+        super.init();
         setCurrentLevel(0);
     }
 
@@ -41,7 +40,7 @@ public class EndlessBasketsMode extends GameMode {
 
     /***/
     public void setCurrentLevel(int index) {
-        world.resetWorld();
+        initLevel();
         this.setCurrentLevelIndex(index);
         this.getCurrentLevel().init();
     }
@@ -68,14 +67,7 @@ public class EndlessBasketsMode extends GameMode {
 
 
     /***/
-    @Override
-    public void update(float delta) {
-        getCurrentLevel().update(delta);
-    }
-
-
-    /***/
-    protected Level getCurrentLevel() {
+    protected _Level getCurrentLevel() {
         return getLevels().get(getCurrentLevelIndex());
     }
 
@@ -87,11 +79,11 @@ public class EndlessBasketsMode extends GameMode {
         this.currentLevelIndex = currentLevelIndex;
     }
 
-    public List<Level> getLevels() {
+    public List<_Level> getLevels() {
         return levels;
     }
 
-    public void setLevels(List<Level> levels) {
+    public void setLevels(List<_Level> levels) {
         this.levels = levels;
     }
 }

@@ -2,8 +2,8 @@ package com.isaac.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.isaac.gameworld.GameRenderer;
-import com.isaac.gameworld.GameValues;
+import com.isaac.renderers.GameRenderer;
+import com.isaac.helpers.GameValues;
 import com.isaac.helpers.AssetLoader;
 
 /**
@@ -105,7 +105,7 @@ public class Trampoline extends GameObject {
      */
     @Override
     public void draw(float runTime, GameRenderer renderer) {
-        renderer.batch.draw(trampolineImage, getX(), getY(),
+        renderer.getSpriteBatch().draw(trampolineImage, getX(), getY(),
                 getWidth(), getHeight());
     }
 

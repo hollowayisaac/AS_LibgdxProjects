@@ -1,7 +1,7 @@
 package com.isaac.gameobjects.fruits;
 
-import com.isaac.gameworld.GameValues;
-import com.isaac.gameworld.GameWorld;
+import com.isaac.gamemodes._GameMode;
+import com.isaac.helpers.GameValues;
 import com.isaac.helpers.AssetLoader;
 
 /**
@@ -9,9 +9,9 @@ import com.isaac.helpers.AssetLoader;
  */
 public class Watermelon extends Fruit {
 
-    public Watermelon (GameWorld world){
+    public Watermelon (_GameMode gameMode){
         super(
-                world,
+                gameMode,
                 GameValues.WATERMELON_WIDTH,
                 GameValues.WATERMELON_HEIGHT,
                 GameValues.WATERMELON_ADDITIONAL_WEIGHT,

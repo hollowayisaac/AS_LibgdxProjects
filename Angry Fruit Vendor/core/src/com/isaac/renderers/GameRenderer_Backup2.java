@@ -1,8 +1,11 @@
-package com.isaac.gameworld;
+/*
+package com.isaac.renderers;
 
+*/
 /**
  * Created by Isaac Holloway on 11/12/2014.
- */
+ *//*
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -12,15 +15,18 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Matrix4;
 import com.isaac.angryfruitvendor.AngryFVGame;
+import com.isaac.gameobjects.fruits.Fruit;
 import com.isaac.helpers.AssetLoader;
+import com.isaac.helpers.GameValues;
 import com.isaac.helpers.InputHandler;
+import com.isaac.screens.GameScreen;
 import com.isaac.ui.SimpleButton;
 
 import java.util.List;
 
-public class GameRenderer_Backup {
+public class GameRenderer_Backup2 extends _Renderer{
 
-    private GameWorld world;
+    private GameScreen gameScreen;
 
     public SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
@@ -30,11 +36,13 @@ public class GameRenderer_Backup {
     // Buttons
     private List<SimpleButton> menuButtons;
 
-    /**
+    */
+/**
      * [CONSTRUCTOR]
-     */
-    public GameRenderer_Backup(GameWorld world) {
-        this.world = world;
+     *//*
+
+    public GameRenderer_Backup2(GameScreen gameScreen) {
+        this.gameScreen = gameScreen;
 
         this.menuButtons = ((InputHandler) Gdx.input.getInputProcessor())
                 .getMenuButtons();
@@ -50,21 +58,24 @@ public class GameRenderer_Backup {
         shapeRenderer.setProjectionMatrix(projection);
     }
 
-    /**
+    */
+/**
      * @param xLoc
      * @param yLoc
      * @param text
-     */
+     *//*
+
     public void drawText_Wag(float xLoc, float yLoc, String text){
         AssetLoader.ftWag.draw(batch, text, xLoc, yLoc);
     }
 
-
-    /**
+    */
+/**
      * @param delta
      * @param runTime
-     */
-    public void render(float delta, float runTime) {
+     *//*
+
+    public void render(float delta, float runTime, GameScreen.GameState gameState) {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -83,8 +94,8 @@ public class GameRenderer_Backup {
         batch.begin();
         batch.disableBlending();
         batch.enableBlending();
-/*
-        switch (world.getGameState()){
+
+        switch (gameState){
             //////////////////////////////////   ~ [Main Menu] ~   ////
             case MENU:
                 batch.draw(AssetLoader.trApple, GameValues.ARENA_X, GameValues.ARENA_Y, GameValues.ARENA_WIDTH/2, GameValues.ARENA_HEIGHT/2,
@@ -96,27 +107,27 @@ public class GameRenderer_Backup {
                 break;
 
             case PAUSED:
-                world.setGameState(GameScreen.GameState.RUNNING);
+
             //////////////////////////////////   ~ [Game Running] ~   ////
             case RUNNING:
 
                 // Level Background
-*//*                world.getGameMode().renderGameModeBG(delta, this);
+                gameScreen.gameMode.renderGameModeBG(delta, this);
 
                 // Level
-                world.getGameMode().renderGameMode(delta, this);
+                gameScreen.gameMode.renderGameMode(delta, this);
 
                 // Trampoline
-                world.getTrampoline().draw(runTime, this);
+                gameScreen.gameMode.getTrampoline().draw(runTime, this);
 
                 // Fruits
-                for (int i = 0; i < world.getActiveFruits().size; i++) {
-                    Fruit fruit = world.getActiveFruits().get(i);
+                for (int i = 0; i < gameScreen.gameMode.getActiveFruits().size; i++) {
+                    Fruit fruit = gameScreen.gameMode.getActiveFruits().get(i);
                     fruit.draw(runTime, this);
                 }
 
                 // GameMode/Level
-                world.getGameMode().renderGameMode(delta, this);*//*
+                gameScreen.gameMode.renderGameMode(delta, this);
 
                 // [TEXT] Score
                 drawScore();
@@ -138,57 +149,67 @@ public class GameRenderer_Backup {
             case GAMEOVER:
                 break;
         }
-        batch.end();*/
+        batch.end();
     }
 
 
-    /***/
+    */
+/***//*
+
     private void drawScore() {
-        AssetLoader.ftWag.draw(batch, "" + world.getDisplayedScoreText(),
+        AssetLoader.ftWag.draw(batch, "" + gameScreen.gameMode.getDisplayedScoreText(),
                 0, GameValues.ARENA_HEIGHT);
     }
 
 
-    /***/
+    */
+/***//*
+
     private void drawLives(){
-        AssetLoader.ftWag.draw(batch, "" + world.getDisplayedLivesText(),
+        AssetLoader.ftWag.draw(batch, "" + gameScreen.gameMode.getDisplayedLivesText(),
                 300, GameValues.ARENA_HEIGHT);
     }
 
 
-    /***/
+    */
+/***//*
+
     private void drawStreak(){
         // Draw the Streak Text
-        AssetLoader.ftWag.draw(batch, "" + world.getDisplayedStreakText(),
+        AssetLoader.ftWag.draw(batch, "" + gameScreen.gameMode.getDisplayedStreakText(),
                 150, GameValues.ARENA_HEIGHT);
     }
 
 
-    /***/
+    */
+/***//*
+
     private void draw__DEVMODE__TEXT() {
         if(AngryFVGame.DEV_MODE) {
             // Current Fruit Toss interval
-            AssetLoader.ftWag.draw(batch, "" + world.currentFruitTossInterval,
+            AssetLoader.ftWag.draw(batch, "" + gameScreen.gameMode.currentFruitTossInterval,
                     0, GameValues.ARENA_HEIGHT/2);
 
             // Time until next fruit toss
-            AssetLoader.ftWag.draw(batch, "" + world.timeUntilNextFruitToss,
+            AssetLoader.ftWag.draw(batch, "" + gameScreen.gameMode.timeUntilNextFruitToss,
                     0, GameValues.ARENA_HEIGHT - 100);
         }
     }
 
 
-    /***/
+    */
+/***//*
+
     private void drawDEV_LOCS() {
         if(AngryFVGame.DEV_MODE) {
             // Fruit ALLOWED Bounce Lines
-            if (world.getTrampoline().isStunned()){
+            if (gameScreen.gameMode.getTrampoline().isStunned()){
                 shapeRenderer.setColor(Color.GREEN);
             }else {
                 shapeRenderer.setColor(Color.RED);
             }
-            shapeRenderer.line(world.getTrampoline().getX(), GameValues.TRAMPOLINE_TOP_COLLISION_Y, world.getTrampoline().getX() + GameValues.TRAMPOLINE_WIDTH, GameValues.TRAMPOLINE_TOP_COLLISION_Y);
-            shapeRenderer.line(world.getTrampoline().getX(), GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y, world.getTrampoline().getX() + GameValues.TRAMPOLINE_WIDTH, GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y);
+            shapeRenderer.line(gameScreen.gameMode.getTrampoline().getX(), GameValues.TRAMPOLINE_TOP_COLLISION_Y, gameScreen.gameMode.getTrampoline().getX() + GameValues.TRAMPOLINE_WIDTH, GameValues.TRAMPOLINE_TOP_COLLISION_Y);
+            shapeRenderer.line(gameScreen.gameMode.getTrampoline().getX(), GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y, gameScreen.gameMode.getTrampoline().getX() + GameValues.TRAMPOLINE_WIDTH, GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y);
 
             // Fruit PEAK Lines
             shapeRenderer.setColor(Color.RED);
@@ -196,3 +217,4 @@ public class GameRenderer_Backup {
         }
     }
 }
+*/

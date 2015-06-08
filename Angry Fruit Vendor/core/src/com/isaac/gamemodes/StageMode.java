@@ -10,7 +10,7 @@ import com.isaac.gamemodes.levels.StageMode_Level_6;
 /**
  * Created by Isaac Holloway on 12/9/2014.
  */
-public class StageMode extends GameMode {
+public class StageMode extends _GameMode {
 
     /***/
     protected void createLevelPool() {

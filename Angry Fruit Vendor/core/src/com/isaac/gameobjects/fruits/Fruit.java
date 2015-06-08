@@ -3,12 +3,12 @@ package com.isaac.gameobjects.fruits;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
+import com.isaac.gamemodes._GameMode;
 import com.isaac.gameobjects.GameObject;
 import com.isaac.gameobjects.Trampoline;
-import com.isaac.gameworld.GameRenderer;
-import com.isaac.gameworld.GameValues;
-import com.isaac.gameworld.GameWorld;
+import com.isaac.helpers.GameValues;
 import com.isaac.helpers.Util;
+import com.isaac.renderers.GameRenderer;
 
 /**
  * Created by Isaac Holloway on 11/13/2014.
@@ -21,8 +21,6 @@ public class Fruit extends GameObject implements Pool.Poolable {
     public enum FruitType{
         Apple, Banana, Basket, Orange, RottenFruit, Watermelon, All
     }
-
-
     protected FruitType fruitType;
 
     /**
@@ -70,18 +68,19 @@ public class Fruit extends GameObject implements Pool.Poolable {
     protected TextureRegion fruitImage;
     public boolean alive;
 
-    protected GameWorld world;
+    protected _GameMode gameMode;
 
     /**
      * [CONSTRUCTOR]
      */
-    public Fruit(GameWorld world, float width, float height, float fruitWeight, TextureRegion fruitImage, float peakHeight, int scoreValue) {
-        this.world = world;
+    public Fruit(_GameMode gameMode, float width, float height, float fruitWeight, TextureRegion fruitImage, float peakHeight, int scoreValue) {
         position = new Vector2();
         velocity = new Vector2();
         acceleration = new Vector2();
         this.width = width;
         this.height = height;
+
+        this.gameMode = gameMode;
 
         this.rotationDirection = 1;
 
@@ -244,7 +243,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
         if (getY() <= GameValues.TRAMPOLINE_TOP_COLLISION_Y &&
                 getY() >= GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y &&
                 fruitState != FruitState.Rising &&
-                fruitTrampolinePosition == world.getTrampoline().getTrampolinePosition()) {
+                fruitTrampolinePosition == gameMode.getTrampoline().getTrampolinePosition()) {
             return true;
         }
         return false;
@@ -275,7 +274,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
             alive = false;
 
             clearStreak();
-            world.subractLivesLeft(1);
+            gameMode.subractLivesLeft(1);
         }
     }
 
@@ -283,7 +282,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
      * clearStreak
      */
     protected void clearStreak(){
-        world.clearStreak();
+        gameMode.clearStreak();
     }
 
     /**
@@ -296,7 +295,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
                 fruitTrampolinePosition == Trampoline.TrampolinePosition.Saved) {
 
             // Add the score
-            world.addFruitScore(scoreValue);
+            gameMode.addFruitScore(scoreValue);
             alive = false;
         }
     }
@@ -332,7 +331,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
      */
     @Override
     public void draw(float runTime,  GameRenderer renderer) {
-        renderer.batch.draw(fruitImage, getX(), getY(),width/2, height/2,
+        renderer.getSpriteBatch().draw(fruitImage, getX(), getY(),width/2, height/2,
                 getWidth(), getHeight(),1, 1, rotation, true);
     }
 

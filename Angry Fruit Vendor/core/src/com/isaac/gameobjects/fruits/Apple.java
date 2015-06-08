@@ -1,7 +1,7 @@
 package com.isaac.gameobjects.fruits;
 
-import com.isaac.gameworld.GameValues;
-import com.isaac.gameworld.GameWorld;
+import com.isaac.gamemodes._GameMode;
+import com.isaac.helpers.GameValues;
 import com.isaac.helpers.AssetLoader;
 
 /**
@@ -9,9 +9,9 @@ import com.isaac.helpers.AssetLoader;
  */
 public class Apple extends Fruit {
 
-    public Apple(GameWorld world){
+    public Apple(_GameMode gameMode){
         super(
-                world,
+                gameMode,
                 GameValues.APPLE_WIDTH,
                 GameValues.APPLE_WIDTH,
                 GameValues.APPLE_ADDITIONAL_WEIGHT,

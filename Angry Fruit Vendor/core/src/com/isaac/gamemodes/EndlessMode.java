@@ -2,9 +2,9 @@ package com.isaac.gamemodes;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.isaac.gamemodes.levels.Endless_Level;
-import com.isaac.gamemodes.levels.Level;
+import com.isaac.gamemodes.levels._Level;
 import com.isaac.gameobjects.fruits.Fruit;
-import com.isaac.gameworld.GameRenderer;
+import com.isaac.renderers.GameRenderer;
 
 import java.util.List;
 import java.util.Map;
@@ -12,10 +12,10 @@ import java.util.Map;
 /**
  * Created by Isaac Holloway on 3/24/2015.
  */
-public class EndlessMode extends GameMode {
+public class EndlessMode extends _GameMode {
 
     protected int currentLevelIndex;
-    protected List<Level> levels;
+    protected List<_Level> levels;
 
     /***/
     @Override
@@ -38,7 +38,7 @@ public class EndlessMode extends GameMode {
             }
             percentageSum += percentage;
         }
-        return world.getFruitGivenType(selectedFruitType);
+        return getFruitGivenType(selectedFruitType);
     }
 
     /***/
@@ -54,7 +54,7 @@ public class EndlessMode extends GameMode {
 
     /***/
     public void setCurrentLevel(int index) {
-        world.resetWorld();
+        restartLevel();
         this.setCurrentLevelIndex(index);
         this.getCurrentLevel().init();
     }
@@ -77,16 +77,16 @@ public class EndlessMode extends GameMode {
             advanceCurrentLevel();
         }
     }
-
-    /***/
-    @Override
-    public void restartGame() {
-        world.resetWorld();
-        world.clearStreak();
-        // TODO: Display a message that indicates the I Lost and the level is restarting.
-
-        setCurrentLevel(this.getCurrentLevelIndex());
-    }
+//
+//    /***/
+//    @Override
+//    public void restart() {
+//        restartLevel();
+//        clearStreak();
+//        // TODO: Display a message that indicates the I Lost and the level is restarting.
+//
+//        setCurrentLevel(this.getCurrentLevelIndex());
+//    }
 
     /***/
     @Override
@@ -104,7 +104,7 @@ public class EndlessMode extends GameMode {
     }
 
     /***/
-    protected Level getCurrentLevel() {
+    protected _Level getCurrentLevel() {
         return getLevels().get(getCurrentLevelIndex());
     }
 
@@ -116,11 +116,11 @@ public class EndlessMode extends GameMode {
         this.currentLevelIndex = currentLevelIndex;
     }
 
-    public List<Level> getLevels() {
+    public List<_Level> getLevels() {
         return levels;
     }
 
-    public void setLevels(List<Level> levels) {
+    public void setLevels(List<_Level> levels) {
         this.levels = levels;
     }
 }

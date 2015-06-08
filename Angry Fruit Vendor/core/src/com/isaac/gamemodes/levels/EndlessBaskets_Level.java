@@ -1,20 +1,20 @@
 package com.isaac.gamemodes.levels;
 
 import com.isaac.angryfruitvendor.AngryFVGame;
-import com.isaac.gamemodes.GameMode;
+import com.isaac.gamemodes._GameMode;
 import com.isaac.gameobjects.fruits.Fruit;
-import com.isaac.gameworld.GameRenderer;
-import com.isaac.gameworld.GameValues;
+import com.isaac.renderers.GameRenderer;
+import com.isaac.helpers.GameValues;
 import com.isaac.helpers.AssetLoader;
 
 /**
  * Created by Isaac Holloway on 1/1/2015.
  */
-public class EndlessBaskets_Level extends Level{
+public class EndlessBaskets_Level extends _Level {
 
     protected final int STARTING_LIVES = 3;
 
-    public EndlessBaskets_Level(GameMode gameMode){
+    public EndlessBaskets_Level(_GameMode gameMode){
         super(gameMode);
     }
 
@@ -40,7 +40,7 @@ public class EndlessBaskets_Level extends Level{
      */
     @Override
     public void init(){
-        gameMode.world.setLivesLeft(STARTING_LIVES);
+        gameMode.setLivesLeft(STARTING_LIVES);
         if (AngryFVGame.DEV_MODE){
 
         }
@@ -65,7 +65,7 @@ public class EndlessBaskets_Level extends Level{
 
     @Override
     protected boolean isLevelFail(){
-        if (gameMode.world.getLivesLeft() <= 0){
+        if (gameMode.getLivesLeft() <= 0){
            return true;
         }
         return false;
@@ -93,7 +93,7 @@ public class EndlessBaskets_Level extends Level{
      */
     public void drawGoal(float delta, GameRenderer renderer){
         // Draw the Goal Text
-        AssetLoader.ftWag.draw(renderer.batch, "" + getGoalText(),
+        AssetLoader.ftWag.draw(renderer.getSpriteBatch(), "" + getGoalText(),
                 450, GameValues.ARENA_HEIGHT);
     }
 

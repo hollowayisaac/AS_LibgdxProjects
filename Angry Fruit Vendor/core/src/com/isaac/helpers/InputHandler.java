@@ -3,7 +3,7 @@ package com.isaac.helpers;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.isaac.gamemodes.StageMode;
-import com.isaac.gameworld.GameWorld;
+import com.isaac.screens.GameScreen;
 import com.isaac.ui.SimpleButton;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Isaac Holloway on 11/12/2014.
  */
 public class InputHandler implements InputProcessor {
-    private GameWorld world;
+    private GameScreen gameScreen;
 
     private float scaleFactorX;
     private float scaleFactorY;
@@ -21,10 +21,10 @@ public class InputHandler implements InputProcessor {
     public List<SimpleButton> menuButtons;
     private SimpleButton playButton;
 
-    public InputHandler(GameWorld myWorld, float scaleFactorX, float scaleFactorY) {
+    public InputHandler(GameScreen gameScreen, float scaleFactorX, float scaleFactorY) {
 
+        this.gameScreen = gameScreen;
 
-        this.world = myWorld;
         this.scaleFactorX = scaleFactorX;
         this.scaleFactorY = scaleFactorY;
 
@@ -73,17 +73,17 @@ public class InputHandler implements InputProcessor {
             switch (keycode) {
                 // Move Left
                 case Input.Keys.LEFT:
-                    world.getTrampoline().onInput_Left();
+                    gameScreen.gameMode.getTrampoline().onInput_Left();
                     break;
 
                 // Move Right
                 case Input.Keys.RIGHT:
-                    world.getTrampoline().onInput_Right();
+                    gameScreen.gameMode.getTrampoline().onInput_Right();
                     break;
 
                 // Prev Level
                 case Input.Keys.FORWARD_DEL:
-                    StageMode sm = (StageMode) world.getGameMode();
+                    StageMode sm = (StageMode) gameScreen.gameMode;
                     if (sm.getCurrentLevelIndex() != 0) {
                         sm.setCurrentLevel(sm.getCurrentLevelIndex() - 1);
                     }
@@ -91,7 +91,7 @@ public class InputHandler implements InputProcessor {
 
                 // Next Level
                 case Input.Keys.END:
-                    StageMode sm1 = (StageMode) world.getGameMode();
+                    StageMode sm1 = (StageMode) gameScreen.gameMode;
                     sm1.advanceCurrentLevel();
                     break;
             }

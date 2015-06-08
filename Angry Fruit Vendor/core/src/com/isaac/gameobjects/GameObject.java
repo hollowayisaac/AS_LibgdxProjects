@@ -1,7 +1,7 @@
 package com.isaac.gameobjects;
 
 import com.badlogic.gdx.math.Vector2;
-import com.isaac.gameworld.GameRenderer;
+import com.isaac.renderers.GameRenderer;
 
 /**
  * Created by Isaac Holloway on 11/16/2014.

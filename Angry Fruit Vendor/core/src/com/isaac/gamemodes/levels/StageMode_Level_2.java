@@ -1,16 +1,16 @@
 package com.isaac.gamemodes.levels;
 
 import com.isaac.angryfruitvendor.AngryFVGame;
-import com.isaac.gamemodes.GameMode;
+import com.isaac.gamemodes._GameMode;
 import com.isaac.gameobjects.fruits.Fruit;
-import com.isaac.gameworld.GameRenderer;
-import com.isaac.gameworld.GameValues;
+import com.isaac.renderers.GameRenderer;
+import com.isaac.helpers.GameValues;
 import com.isaac.helpers.AssetLoader;
 
 /**
  * Created by Isaac Holloway on 1/1/2015.
  */
-public class StageMode_Level_2 extends Level{
+public class StageMode_Level_2 extends _Level {
 
     // Level 1
     // Save 15 fruits
@@ -18,7 +18,7 @@ public class StageMode_Level_2 extends Level{
     protected final int FRUIT_GOAL = 20;
     protected final int STARTING_LIVES = 3;
 
-    public StageMode_Level_2(GameMode gameMode){
+    public StageMode_Level_2(_GameMode gameMode){
         super(gameMode);
         fruitsSaved = 0;
     }
@@ -47,9 +47,9 @@ public class StageMode_Level_2 extends Level{
     @Override
     public void init(){
 
-        gameMode.world.setLivesLeft(STARTING_LIVES);
+        gameMode.setLivesLeft(STARTING_LIVES);
         if (AngryFVGame.DEV_MODE){
-            gameMode.world.addFruitScore(15);
+            gameMode.addFruitScore(15);
         }
     }
 
@@ -66,7 +66,7 @@ public class StageMode_Level_2 extends Level{
 
     @Override
     protected boolean isGoalMet() {
-        if(gameMode.world.getScore() >= FRUIT_GOAL){
+        if(gameMode.getScore() >= FRUIT_GOAL){
             return true;
         }
         return false;
@@ -74,7 +74,7 @@ public class StageMode_Level_2 extends Level{
 
     @Override
     protected boolean isLevelFail(){
-        if (gameMode.world.getLivesLeft() <= 0){
+        if (gameMode.getLivesLeft() <= 0){
             return true;
         }
         return false;
@@ -101,6 +101,6 @@ public class StageMode_Level_2 extends Level{
      * @return
      */
     protected String getGoalText(){
-        return "Goal: " + gameMode.world.getScore() + "/" +FRUIT_GOAL;
+        return "Goal: " + gameMode.getScore() + "/" +FRUIT_GOAL;
     }
 }

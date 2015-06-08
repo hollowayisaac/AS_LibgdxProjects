@@ -1,9 +1,9 @@
 package com.isaac.gameobjects.fruits;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.isaac.gameworld.GameValues;
+import com.isaac.gamemodes._GameMode;
 import com.isaac.gameobjects.Trampoline;
-import com.isaac.gameworld.GameWorld;
+import com.isaac.helpers.GameValues;
 import com.isaac.helpers.AssetLoader;
 
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ public class Banana extends Fruit {
     protected int BOUNCE_COUNT_RANGE_LOW = 3;
     protected int BOUNCE_COUNT_RANGE_HIGH = 5;
 
-    public Banana(GameWorld world) {
+    public Banana(_GameMode gameMode){
         super(
-                world,
+                gameMode,
                 GameValues.BANANA_WIDTH,
                 GameValues.BANANA_WIDTH,
                 GameValues.BANANA_ADDITIONAL_WEIGHT,

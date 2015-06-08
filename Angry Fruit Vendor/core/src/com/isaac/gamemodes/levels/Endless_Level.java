@@ -1,20 +1,20 @@
 package com.isaac.gamemodes.levels;
 
 import com.isaac.angryfruitvendor.AngryFVGame;
-import com.isaac.gamemodes.GameMode;
+import com.isaac.gamemodes._GameMode;
 import com.isaac.gameobjects.fruits.Fruit;
-import com.isaac.gameworld.GameRenderer;
-import com.isaac.gameworld.GameValues;
+import com.isaac.renderers.GameRenderer;
+import com.isaac.helpers.GameValues;
 import com.isaac.helpers.AssetLoader;
 
 /**
  * Created by Isaac Holloway on 1/1/2015.
  */
-public class Endless_Level extends Level {
+public class Endless_Level extends _Level {
 
     protected final int STARTING_LIVES = 3;
 
-    public Endless_Level(GameMode gameMode) {
+    public Endless_Level(_GameMode gameMode) {
         super(gameMode);
     }
 
@@ -45,7 +45,7 @@ public class Endless_Level extends Level {
      */
     @Override
     public void init() {
-        gameMode.world.setLivesLeft(STARTING_LIVES);
+        gameMode.setLivesLeft(STARTING_LIVES);
         if (AngryFVGame.DEV_MODE) {
 
         }
@@ -71,7 +71,7 @@ public class Endless_Level extends Level {
 
     @Override
     protected boolean isLevelFail() {
-        if (gameMode.world.getLivesLeft() <= 0) {
+        if (gameMode.getLivesLeft() <= 0) {
             return true;
         }
         return false;

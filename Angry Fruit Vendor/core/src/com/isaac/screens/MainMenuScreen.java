@@ -1,23 +1,23 @@
 package com.isaac.screens;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.isaac.gameworld.GameRenderer;
-import com.isaac.gameworld.GameWorld;
+import com.isaac.angryfruitvendor.AngryFVGame;
+import com.isaac.renderers.GameRenderer;
 
 /**
  * Created by Isaac Holloway on 5/16/2015.
  */
 public class MainMenuScreen extends ScreenAdapter {
 
-    private GameWorld world;
+
     private GameRenderer renderer;
     private float runTime;
 
     /**
      *      [CONSTRUCTOR]
      */
-    public MainMenuScreen() {
-        this.renderer = new GameRenderer(world);
+    public MainMenuScreen(AngryFVGame game) {
+
     }
 
     @Override

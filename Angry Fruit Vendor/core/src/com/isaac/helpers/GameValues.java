@@ -1,4 +1,4 @@
-package com.isaac.gameworld;
+package com.isaac.helpers;
 
 /**
  * Created by Isaac Holloway on 11/16/2014.
