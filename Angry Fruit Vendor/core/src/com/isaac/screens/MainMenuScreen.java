@@ -1,60 +1,50 @@
 package com.isaac.screens;
 
-import com.badlogic.gdx.ScreenAdapter;
 import com.isaac.angryfruitvendor.AngryFVGame;
-import com.isaac.renderers.GameRenderer;
+import com.isaac.input.MainMenuInput;
+import com.isaac.renderers.MainMenuRenderer;
+import com.isaac.ui.mainmenus.HomeMenu;
+import com.isaac.ui._Menu;
 
 /**
  * Created by Isaac Holloway on 5/16/2015.
  */
-public class MainMenuScreen extends ScreenAdapter {
+public class MainMenuScreen extends _Screen {
 
+    private _Menu homeMenu;
+    private _Menu mainMenu;
+    private _Menu gameModeMenu;
+    private _Menu optionsMenu;
+    private _Menu stageSelectionMenu;
 
-    private GameRenderer renderer;
-    private float runTime;
+    private _Menu currentMenu;
 
     /**
      *      [CONSTRUCTOR]
      */
     public MainMenuScreen(AngryFVGame game) {
+        super(game);
+        this.renderer = new MainMenuRenderer(this);
+        this.input = new MainMenuInput(this);
 
-    }
-
-    @Override
-    public void render(float delta) {
-        runTime += delta;
-/*        world.update(delta);
-        renderer.render(delta, runTime);*/
+        createMenus();
     }
 
     /***/
-    public void update(float delta){
+    private void createMenus() {
+        this.homeMenu = new HomeMenu(this);
+/*        this.mainMenu = new MainMenu(this);
+        this.gameModeMenu = new GameModeMenu(this);
+        this.optionsMenu = new OptionsMenu(this);
+        this.stageSelectionMenu = new StageSelectionMenu(this);       */
 
+        // Set initial menu
+        this.currentMenu = homeMenu;
     }
 
+    /***/
     @Override
-    public void resize(int width, int height) {
-
+    public _Menu getCurrentMenu() {
+        return currentMenu;
     }
-
-    @Override
-    public void show() {
-    }
-
-    @Override
-    public void hide() {
-    }
-
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void resume() {
-    }
-
-    @Override
-    public void dispose() {
-    }
-
 }

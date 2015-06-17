@@ -1,8 +1,8 @@
 package com.isaac.gamemodes;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isaac.gamemodes.levels.EndlessBaskets_Level;
 import com.isaac.gamemodes.levels._Level;
-import com.isaac.renderers.GameRenderer;
 
 import java.util.List;
 
@@ -28,14 +28,14 @@ public class EndlessBasketsMode extends _GameMode {
     }
 
     /***/
-    public void renderGameMode(float delta, GameRenderer renderer) {
-        getCurrentLevel().drawLevel(delta, renderer);
+    public void renderGameMode(float delta, SpriteBatch batch) {
+        getCurrentLevel().drawLevel(delta, batch);
     }
 
     /***/
     @Override
-    public void renderGameModeBG(float delta, GameRenderer renderer) {
-        getCurrentLevel().drawLevelBG(delta, renderer);
+    public void renderGameModeBG(float delta, SpriteBatch batch) {
+        getCurrentLevel().drawLevelBG(delta, batch);
     }
 
     /***/

@@ -1,25 +1,34 @@
 package com.isaac.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isaac.angryfruitvendor.AngryFVGame;
+import com.isaac.input._Input;
 import com.isaac.renderers._Renderer;
+import com.isaac.ui._Menu;
 
 /**
  * Created by Isaac Holloway on 6/7/2015.
  */
 public abstract class _Screen extends ScreenAdapter {
 
+    public abstract _Menu getCurrentMenu();/***/
+
     public AngryFVGame game;
     public float runTime;
-    protected _Renderer renderer;
-    protected Vector3 touchPoint;
+    public _Renderer renderer;
+    public _Input input;
 
-    /**     [CONSTRUCTOR] */
+    /**
+     * [CONSTRUCTOR]
+     */
     public _Screen(AngryFVGame game) {
         this.game = game;
-        touchPoint = new Vector3();
+    }
+
+    /***/
+    public void init(){
+        input.init();
     }
 
     /***/
@@ -27,13 +36,10 @@ public abstract class _Screen extends ScreenAdapter {
     public void render(float delta) {
         runTime += delta;
         renderer.render(delta);
-        updateInputEvents(delta);
     }
 
     /***/
-    public void updateInputEvents(float delta){
-        if (Gdx.input.justTouched()) {
-            game.camera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
-        }
+    public SpriteBatch getBatch() {
+        return game.batch;
     }
 }

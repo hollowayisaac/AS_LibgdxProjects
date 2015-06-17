@@ -1,5 +1,6 @@
 package com.isaac.gamemodes;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.isaac.angryfruitvendor.AngryFVGame;
@@ -13,7 +14,6 @@ import com.isaac.gameobjects.fruits.Orange;
 import com.isaac.gameobjects.fruits.RottenFruit;
 import com.isaac.gameobjects.fruits.Watermelon;
 import com.isaac.helpers.GameValues;
-import com.isaac.renderers.GameRenderer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,13 +98,13 @@ public abstract class _GameMode {
     }
 
     /***/
-    public void renderGameMode(float delta, GameRenderer renderer) {
-        getCurrentLevel().drawLevel(delta, renderer);
+    public void renderGameMode(float delta, SpriteBatch batch) {
+        getCurrentLevel().drawLevel(delta, batch);
     }
 
     /***/
-    public void renderGameModeBG(float delta,  GameRenderer renderer) {
-        getCurrentLevel().drawLevelBG(delta, renderer);
+    public void renderGameModeBG(float delta, SpriteBatch batch) {
+        getCurrentLevel().drawLevelBG(delta, batch);
     }
     /***/
     public void setCurrentLevel(int index) {

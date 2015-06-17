@@ -1,5 +1,6 @@
 package com.isaac.gamemodes.levels;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isaac.angryfruitvendor.AngryFVGame;
 import com.isaac.gamemodes._GameMode;
 import com.isaac.gameobjects.fruits.Fruit;
@@ -32,7 +33,7 @@ public class EndlessBaskets_Level extends _Level {
      */
     @Override
     protected void setLevelBackground() {
-        this.levelBackground = AssetLoader.trTrampoline;
+        this.levelBackground = AssetLoader.trApple;
     }
 
     /**
@@ -82,18 +83,14 @@ public class EndlessBaskets_Level extends _Level {
     }*/
 
     @Override
-    public void drawLevel(float delta, GameRenderer renderer){
-        drawGoal(delta, renderer);
+    public void drawLevel(float delta, SpriteBatch batch){
+        drawGoal(delta, batch);
     }
 
-    /**
-     * drawGoal
-     * @param delta
-     * @param renderer
-     */
-    public void drawGoal(float delta, GameRenderer renderer){
+    /***/
+    public void drawGoal(float delta, SpriteBatch batch){
         // Draw the Goal Text
-        AssetLoader.ftWag.draw(renderer.getSpriteBatch(), "" + getGoalText(),
+        AssetLoader.ftWag.draw(batch, "" + getGoalText(),
                 450, GameValues.ARENA_HEIGHT);
     }
 

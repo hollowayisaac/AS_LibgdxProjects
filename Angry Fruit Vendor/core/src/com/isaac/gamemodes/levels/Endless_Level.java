@@ -1,11 +1,11 @@
 package com.isaac.gamemodes.levels;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isaac.angryfruitvendor.AngryFVGame;
 import com.isaac.gamemodes._GameMode;
 import com.isaac.gameobjects.fruits.Fruit;
-import com.isaac.renderers.GameRenderer;
-import com.isaac.helpers.GameValues;
 import com.isaac.helpers.AssetLoader;
+import com.isaac.helpers.GameValues;
 
 /**
  * Created by Isaac Holloway on 1/1/2015.
@@ -51,11 +51,7 @@ public class Endless_Level extends _Level {
         }
     }
 
-    /**
-     * update
-     *
-     * @param delta
-     */
+    /***/
     public void update(float delta) {
         super.update(delta);
 
@@ -64,11 +60,13 @@ public class Endless_Level extends _Level {
         // because this may (in other levels) apply to only certain types of fruit)
     }
 
+    /***/
     @Override
     protected boolean isGoalMet() {
         return false;
     }
 
+    /***/
     @Override
     protected boolean isLevelFail() {
         if (gameMode.getLivesLeft() <= 0) {
@@ -77,33 +75,17 @@ public class Endless_Level extends _Level {
         return false;
     }
 
-/*    */
-
-    /**
-     * drawLevelBG
-     *
-     * @param delta
-     * @param renderer
-     *//*
+    /***/
     @Override
-    public void drawLevelBG(float delta, SpriteBatch batch){
-
-    }*/
-    @Override
-    public void drawLevel(float delta, GameRenderer renderer) {
-        drawGoal(delta, renderer);
+    public void drawLevel(float delta, SpriteBatch batch) {
+        drawGoal(delta, batch);
     }
 
-    /**
-     * drawGoal
-     *
-     * @param delta
-     * @param renderer
-     */
-    public void drawGoal(float delta, GameRenderer renderer) {
+    /***/
+    public void drawGoal(float delta, SpriteBatch batch) {
         // Draw the Goal Text
 
-        renderer.drawText_Wag(450, GameValues.ARENA_HEIGHT, "Goal: " + getGoalText());
+        drawText_Wag(450, GameValues.ARENA_HEIGHT, "Goal: " + getGoalText(), batch);
     }
 
     /**

@@ -23,6 +23,24 @@ public class AssetLoader {
     public static TextureRegion logo, zbLogo, bg, grass, bird, birdDown,
             birdUp, skullUp, skullDown, bar, playButtonUp, playButtonDown;
 
+    public static Texture tCancel_Up, tCancel_Down;
+    public static Texture tClickToStart_Up, tClickToStart_Down;
+    public static Texture tEndless_Up, tEndless_Down;
+    public static Texture tEndlessBaskets_Up, tEndlessBaskets_Down;
+    public static Texture tHighScore_Up, tHighScore_Down;
+    public static Texture tOk_Up, tOk_Down;
+    public static Texture tOptions_Up, tOptions_Down;
+    public static Texture tPlay_Up, tPlay_Down;
+    public static Texture tQuit_Up, tQuit_Down;
+    public static Texture tResume_Up, tResume_Down;
+    public static Texture tStage_Up, tStage_Down;
+    public static Texture tStageSelect_Up, tStageSelect_Down;
+    public static Texture tSoundON_Up, tSoundON_Down;
+    public static Texture tSoundOFF_Up, tSoundOFF_Down;
+
+    public static TextureRegion trQuitGame;
+    public static Texture trBGField;
+
     // Textures
     public static Texture texture, logoTexture;
 
@@ -81,8 +99,49 @@ public class AssetLoader {
 
     /***/
     private static void load_Images() {
-        texture = new Texture(Gdx.files.internal("images/flappy-bird-texture.png"));
-        texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+
+        //      ~Buttons~      //
+        tCancel_Up = new Texture(Gdx.files.internal("buttons/cancel-up.png"));
+        tCancel_Down = new Texture(Gdx.files.internal("buttons/cancel-down.png"));
+
+        tClickToStart_Up = new Texture(Gdx.files.internal("buttons/clicktostart-up.png"));
+        tClickToStart_Down = new Texture(Gdx.files.internal("buttons/clicktostart-down.png"));
+
+        tEndless_Up = new Texture(Gdx.files.internal("buttons/endless-up.png"));
+        tEndless_Down = new Texture(Gdx.files.internal("buttons/endless-down.png"));
+
+        tEndlessBaskets_Up = new Texture(Gdx.files.internal("buttons/endlessbaskets-up.png"));
+        tEndlessBaskets_Down = new Texture(Gdx.files.internal("buttons/endlessbaskets-down.png"));
+
+        tHighScore_Up = new Texture(Gdx.files.internal("buttons/highscore-up.png"));
+        tHighScore_Down = new Texture(Gdx.files.internal("buttons/highscore-down.png"));
+
+        tOk_Up = new Texture(Gdx.files.internal("buttons/ok-up.png"));
+        tOk_Down = new Texture(Gdx.files.internal("buttons/ok-down.png"));
+
+        tOptions_Up = new Texture(Gdx.files.internal("buttons/options-up.png"));
+        tOptions_Down = new Texture(Gdx.files.internal("buttons/options-down.png"));
+
+        tPlay_Up = new Texture(Gdx.files.internal("buttons/play-up.png"));
+        tPlay_Down = new Texture(Gdx.files.internal("buttons/play-down.png"));
+
+        tQuit_Up = new Texture(Gdx.files.internal("buttons/quit-up.png"));
+        tQuit_Down= new Texture(Gdx.files.internal("buttons/quit-down.png"));
+
+        tResume_Up = new Texture(Gdx.files.internal("buttons/resume-up.png"));
+        tResume_Down= new Texture(Gdx.files.internal("buttons/resume-down.png"));
+
+        tStage_Up = new Texture(Gdx.files.internal("buttons/stage-up.png"));
+        tStage_Down= new Texture(Gdx.files.internal("buttons/stage-down.png"));
+
+        tStageSelect_Up = new Texture(Gdx.files.internal("buttons/stageselect-up.png"));
+        tStageSelect_Down = new Texture(Gdx.files.internal("buttons/stageselect-down.png"));
+
+        tSoundOFF_Up= new Texture(Gdx.files.internal("buttons/turnsoundOFF-up.png"));
+        tSoundOFF_Down = new Texture(Gdx.files.internal("buttons/turnsoundOFF-down.png"));
+
+        tSoundON_Up= new Texture(Gdx.files.internal("buttons/turnsoundON-up.png"));
+        tSoundON_Down = new Texture(Gdx.files.internal("buttons/turnsoundON-down.png"));
 
         //      ~Fruits~      //
         // Apple
@@ -114,6 +173,20 @@ public class AssetLoader {
         Texture tBasket = new Texture(Gdx.files.internal("images/fruit-basket.png"));
         tBasket.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         trBasket = new TextureRegion(tBasket, 0, 0, tBasket.getWidth(), tBasket.getHeight());
+
+        //// Buttons
+        // Quit Game Button
+        Texture tQuitGame = new Texture(Gdx.files.internal("images/giant-close-button.png"));
+        tQuitGame.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        trQuitGame = new TextureRegion(tQuitGame, 0, 0, tQuitGame.getWidth(), tQuitGame.getHeight());
+
+        //// Backgrounds
+        // BG Field
+        trBGField = new Texture(Gdx.files.internal("images/afv-bg.png"));
+
+        // Flappy bird Texture (old)
+        texture = new Texture(Gdx.files.internal("images/flappy-bird-texture.png"));
+        texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
         // Trampoline
         trTrampoline = new TextureRegion(texture, 0, 43, 143, 11);
@@ -153,6 +226,8 @@ public class AssetLoader {
 
         bar = new TextureRegion(texture, 136, 16, 22, 3);
         bar.flip(false, true);
+
+
     }
 
 

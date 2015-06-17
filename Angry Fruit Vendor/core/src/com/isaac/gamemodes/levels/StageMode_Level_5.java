@@ -1,11 +1,11 @@
 package com.isaac.gamemodes.levels;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isaac.angryfruitvendor.AngryFVGame;
 import com.isaac.gamemodes._GameMode;
 import com.isaac.gameobjects.fruits.Fruit;
-import com.isaac.renderers.GameRenderer;
-import com.isaac.helpers.GameValues;
 import com.isaac.helpers.AssetLoader;
+import com.isaac.helpers.GameValues;
 
 /**
  * Created by Isaac Holloway on 1/1/2015.
@@ -37,17 +37,13 @@ public class StageMode_Level_5 extends _Level {
         allowedFruits.put(Fruit.FruitType.Basket, 20);
     }
 
-    /**
-     * setLevelBackground
-     */
+    /***/
     @Override
     protected void setLevelBackground() {
         this.levelBackground = AssetLoader.trBasket;
     }
 
-    /**
-     * init
-     */
+    /***/
     @Override
     public void init(){
 
@@ -57,10 +53,7 @@ public class StageMode_Level_5 extends _Level {
         }
     }
 
-    /**
-     * update
-     * @param delta
-     */
+    /***/
     public void update(float delta){
         super.update(delta);
 
@@ -68,6 +61,7 @@ public class StageMode_Level_5 extends _Level {
         // because this may (in other levels) apply to only certain types of fruit)
     }
 
+    /***/
     @Override
     protected boolean isGoalMet() {
         if(gameMode.getScore() >= FRUIT_GOAL){
@@ -76,6 +70,7 @@ public class StageMode_Level_5 extends _Level {
         return false;
     }
 
+    /***/
     @Override
     protected boolean isLevelFail(){
         if (gameMode.getLivesLeft() <= 0){
@@ -84,26 +79,19 @@ public class StageMode_Level_5 extends _Level {
         return false;
     }
 
-
+    /***/
     @Override
-    public void drawLevel(float delta, GameRenderer renderer){
-        drawGoal(delta, renderer);
+    public void drawLevel(float delta, SpriteBatch batch){
+        drawGoal(delta, batch);
     }
 
-    /**
-     * drawGoal
-     * @param delta
-     * @param renderer
-     */
-    public void drawGoal(float delta, GameRenderer renderer){
+    /***/
+    public void drawGoal(float delta, SpriteBatch batch){
         // Draw the Goal Text
-        renderer.drawText_Wag(450, GameValues.ARENA_HEIGHT, "" + getGoalText());
+        drawText_Wag(450, GameValues.ARENA_HEIGHT, "" + getGoalText(), batch);
     }
 
-    /**
-     * getGoalText
-     * @return
-     */
+    /***/
     protected String getGoalText(){
         return "Goal: " + gameMode.getScore() + "/" +FRUIT_GOAL;
     }

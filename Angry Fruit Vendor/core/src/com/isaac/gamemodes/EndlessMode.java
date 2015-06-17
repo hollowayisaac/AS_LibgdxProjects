@@ -1,10 +1,10 @@
 package com.isaac.gamemodes;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.isaac.gamemodes.levels.Endless_Level;
 import com.isaac.gamemodes.levels._Level;
 import com.isaac.gameobjects.fruits.Fruit;
-import com.isaac.renderers.GameRenderer;
 
 import java.util.List;
 import java.util.Map;
@@ -42,14 +42,14 @@ public class EndlessMode extends _GameMode {
     }
 
     /***/
-    public void renderGameMode(float delta, GameRenderer renderer) {
-        getCurrentLevel().drawLevel(delta, renderer);
+    public void renderGameMode(float delta, SpriteBatch batch) {
+        getCurrentLevel().drawLevel(delta, batch);
     }
 
     /***/
     @Override
-    public void renderGameModeBG(float delta,  GameRenderer renderer) {
-        getCurrentLevel().drawLevelBG(delta, renderer);
+    public void renderGameModeBG(float delta,  SpriteBatch batch) {
+        getCurrentLevel().drawLevelBG(delta, batch);
     }
 
     /***/

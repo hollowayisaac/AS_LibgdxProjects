@@ -33,21 +33,21 @@ public class GameRenderer extends _Renderer {
     /***/
     @Override
     protected void drawBackground(float delta) {
-        getGameScreen().gameMode.renderGameModeBG(delta, this);
+        getGameScreen().gameMode.renderGameModeBG(delta, getSpriteBatch());
     }
 
     /***/
     @Override
     protected void drawEverythingElse(float delta) {
         switch (getGameScreen().getGameState()) {
+            case PAUSE_MENU:
+
+
             //////////////////////////////////   ~ [Game Running] ~   ////
             case RUNNING:
 
-                // Level Background
-
-
                 // Level
-                getGameMode().renderGameMode(delta, this);
+                getGameMode().renderGameMode(delta, getSpriteBatch());
 
                 // Trampoline
                 getGameMode().getTrampoline().draw(screen.runTime, this);
@@ -59,7 +59,7 @@ public class GameRenderer extends _Renderer {
                 }
 
                 // GameMode/Level
-                getGameMode().renderGameMode(delta, this);
+                getGameMode().renderGameMode(delta, getSpriteBatch());
 
                 // [TEXT] Score
                 drawScore();
@@ -72,23 +72,32 @@ public class GameRenderer extends _Renderer {
 
                 // [TEXT] DEV STUFF
                 draw__DEVMODE__TEXT();
-                break;
 
-            case PAUSED:
+                // Draw menus
+                drawMenus(delta);
+
                 break;
         }
     }
 
+    /***/
+    @Override
+    protected void drawMenus(float delta) {
+        getGameScreen().bnPause.draw(delta, getSpriteBatch());
 
-    /**
-     * @param xLoc
-     * @param yLoc
-     * @param text
-     */
+        super.drawMenus(delta);
+    }
+
+/*    *//***//*
+    private void drawTopMenu(float delta) {
+        GameInput gi = (GameInput)getGameScreen().input;
+        .draw(delta, getSpriteBatch());
+    }*/
+
+    /***/
     public void drawText_Wag(float xLoc, float yLoc, String text) {
         AssetLoader.ftWag.draw(getSpriteBatch(), text, xLoc, yLoc);
     }
-
 
     /***/
     private void drawScore() {
