@@ -12,18 +12,20 @@ import com.isaac.ui._Menu;
  */
 public abstract class _Screen extends ScreenAdapter {
 
-    public abstract _Menu getCurrentMenu();/***/
+    protected abstract void createMenus();/***/
 
     public AngryFVGame game;
     public float runTime;
     public _Renderer renderer;
     public _Input input;
+    private _Menu currentMenu;
 
     /**
      * [CONSTRUCTOR]
      */
     public _Screen(AngryFVGame game) {
         this.game = game;
+        createMenus();
     }
 
     /***/
@@ -35,11 +37,27 @@ public abstract class _Screen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         runTime += delta;
+        update(delta);
         renderer.render(delta);
+    }
+
+    /***/
+    public void update(float delta){
+
     }
 
     /***/
     public SpriteBatch getBatch() {
         return game.batch;
+    }
+
+    /***/
+    public _Menu getCurrentMenu() {
+        return currentMenu;
+    }
+
+    /***/
+    public void setCurrentMenu(_Menu menu){
+        this.currentMenu = menu;
     }
 }

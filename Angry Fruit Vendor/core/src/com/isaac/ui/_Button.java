@@ -10,26 +10,22 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.isaac.screens._Screen;
 
 public class _Button extends _DisplayObject{
-
     private _ButtonListener buttonListener;
     private TextureRegion trUp, trDown;
-
     public boolean isDown;
-
-    public _Screen screen;
+    public boolean isEnabled;
 
     /**
-     * [CONSTRUCTOR]
+     * [CONSTRUCTOR] #1
      */
     public _Button(_Screen screen, float x, float y, float width, float height,
                    TextureRegion trUp, TextureRegion trDown, _ButtonListener buttonListener) {
         super(screen, x, y, width, height);
-
         this.trUp = trUp;
         this.trDown = trDown;
         this.buttonListener = buttonListener;
-
         isDown = false;
+        isEnabled = true;
     }
 
     /**
@@ -46,8 +42,8 @@ public class _Button extends _DisplayObject{
         this.trDown = new TextureRegion(tDown, 0, 0, tDown.getWidth(), tDown.getHeight());
 
         this.buttonListener = buttonListener;
-        this.buttonListener = buttonListener;
         isDown = false;
+        isEnabled = true;
     }
 
     /***/
@@ -62,9 +58,11 @@ public class _Button extends _DisplayObject{
 
     /***/
     public boolean isTouchDown(float screenX, float screenY) {
-        if (bounds.contains(screenX, screenY)) {
-            isDown = true;
-            return true;
+        if (isEnabled) {
+            if (bounds.contains(screenX, screenY)) {
+                isDown = true;
+                return true;
+            }
         }
 
         return false;
@@ -73,9 +71,11 @@ public class _Button extends _DisplayObject{
     /***/
     public boolean isTouchUp(float screenX, float screenY) {
         boolean returnValue = false;
-        if (bounds.contains(screenX, screenY) && isDown) {
-            buttonListener.onClick();
-            returnValue = true;
+        if (isEnabled) {
+            if (bounds.contains(screenX, screenY) && isDown) {
+                buttonListener.onClick();
+                returnValue = true;
+            }
         }
         isDown = false;
         return returnValue;

@@ -31,4 +31,12 @@ public abstract class _Menu {
             buttons.get(i).draw(delta, batch);
         }
     }
+
+    /***/
+    public void drawButtons(float delta, SpriteBatch batch){
+        // Draw Buttons
+        for (int i = 0; i < this.buttons.size(); i++) {
+            buttons.get(i).draw(delta, batch);
+        }
+    }
 }

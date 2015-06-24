@@ -38,6 +38,9 @@ public class AssetLoader {
     public static Texture tSoundON_Up, tSoundON_Down;
     public static Texture tSoundOFF_Up, tSoundOFF_Down;
 
+    public static Texture tArrowLeftUp;
+    public static Texture tArrowRightUp;
+
     public static TextureRegion trQuitGame;
     public static Texture trBGField;
 
@@ -142,6 +145,10 @@ public class AssetLoader {
 
         tSoundON_Up= new Texture(Gdx.files.internal("buttons/turnsoundON-up.png"));
         tSoundON_Down = new Texture(Gdx.files.internal("buttons/turnsoundON-down.png"));
+
+        // Arrows
+        tArrowLeftUp = new Texture(Gdx.files.internal("buttons/left-arrow-up.png"));
+        tArrowRightUp = new Texture(Gdx.files.internal("buttons/right-arrow-up.png"));
 
         //      ~Fruits~      //
         // Apple

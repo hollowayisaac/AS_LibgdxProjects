@@ -4,10 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.isaac.gamemodes._GameMode;
 import com.isaac.helpers.AssetLoader;
 import com.isaac.helpers.GameValues;
 import com.isaac.screens.GameScreen;
 import com.isaac.screens.MainMenuScreen;
+import com.isaac.screens.Scene2dScreen;
 import com.isaac.screens.SplashScreen;
 import com.isaac.screens._Screen;
 
@@ -21,23 +23,25 @@ public class AngryFVGame extends Game {
     public SplashScreen splashScreen;
     public MainMenuScreen mainMenuScreen;
     public GameScreen gameScreen;
+    public Scene2dScreen scene2dScreen;
 
 
-    /** [CONSTRUCTOR] */
+    /**
+     * [CONSTRUCTOR]
+     */
     @Override
     public void create() {
         this.batch = new SpriteBatch();
         camera = new OrthographicCamera(GameValues.GAMEUNIT_WIDTH, GameValues.GAMEUNIT_HEIGHT);
         camera.position.set(GameValues.GAMEUNIT_WIDTH / 2, GameValues.GAMEUNIT_HEIGHT / 2, 0);
         AssetLoader.load();
-        
+
         loadScreens();
 
-        if(DEV_MODE){
-            setScreen(mainMenuScreen);
-            //setScreen(gameScreen);
-            //gameScreen.setGameMode(gameScreen.endlessBasketsMode);
-        }else       {
+        if (DEV_MODE) {
+            setScreen(scene2dScreen);
+            //setScreen(mainMenuScreen);
+        } else {
             setScreen(splashScreen);
         }
     }
@@ -47,14 +51,22 @@ public class AngryFVGame extends Game {
         this.splashScreen = new SplashScreen(this);
         this.mainMenuScreen = new MainMenuScreen(this);
         this.gameScreen = new GameScreen(this);
+
+        this.scene2dScreen = new Scene2dScreen(this);
     }
 
     /***/
     @Override
-    public void setScreen(Screen screen){
+    public void setScreen(Screen screen) {
         super.setScreen(screen);
-        _Screen _screen = (_Screen)screen;
+        _Screen _screen = (_Screen) screen;
         _screen.init();
+    }
+
+    /***/
+    public void setGameScreen(Screen screen, _GameMode gameMode) {
+        setScreen(screen);
+        gameScreen.setGameMode(gameMode);
     }
 
     /***/

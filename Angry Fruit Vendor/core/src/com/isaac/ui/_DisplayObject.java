@@ -12,9 +12,11 @@ public class _DisplayObject {
     protected float x, y, width, height;
     public Rectangle bounds;
     protected Texture tBG;
+    public _Screen screen;
 
     /** [CONSTRUCTOR] */
     protected _DisplayObject(_Screen screen, float x, float y, float width, float height){
+        this.screen = screen;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -24,6 +26,7 @@ public class _DisplayObject {
 
     /** [CONSTRUCTOR] */
     public _DisplayObject(_Screen screen, float x, float y, float width, float height, Texture tBG){
+        this.screen = screen;
         this.x = x;
         this.y = y;
         this.width = width;

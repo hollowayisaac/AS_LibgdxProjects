@@ -15,7 +15,6 @@ public class MainMenuRenderer extends _Renderer{
     /***/
     @Override
     protected void drawBackground(float delta) {
-
     }
 
     /***/
@@ -23,6 +22,4 @@ public class MainMenuRenderer extends _Renderer{
     protected void drawEverythingElse(float delta) {
         drawMenus(delta);
     }
-
-
 }

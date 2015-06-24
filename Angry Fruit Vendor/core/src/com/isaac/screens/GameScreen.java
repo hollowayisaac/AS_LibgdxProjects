@@ -62,7 +62,8 @@ public class GameScreen extends _Screen {
     }
 
     /***/
-    private void createMenus() {
+    @Override
+    protected void createMenus() {
         pauseMenu = new PauseMenu(this);
 
         bnPause = new _Button(this, 25, 25, 120, 40, AssetLoader.tCancel_Up, AssetLoader.tCancel_Down, new _ButtonListener() {
@@ -96,9 +97,7 @@ public class GameScreen extends _Screen {
                 break;
             case PAUSE_MENU:
                 break;
-
         }
-
         super.render(delta);
     }
 

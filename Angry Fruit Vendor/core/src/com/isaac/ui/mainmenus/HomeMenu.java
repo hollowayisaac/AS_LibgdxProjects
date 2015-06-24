@@ -7,12 +7,11 @@ import com.isaac.screens._Screen;
 import com.isaac.ui._Button;
 import com.isaac.ui._ButtonListener;
 import com.isaac.ui._DisplayObject;
-import com.isaac.ui._Menu;
 
 /**
  * Created by Isaac Holloway on 6/11/2015.
  */
-public class HomeMenu extends _Menu {
+public class HomeMenu extends _MainMenu {
 
     /***/
     public HomeMenu(_Screen screen){
@@ -27,10 +26,7 @@ public class HomeMenu extends _Menu {
         // Draw Title text
         drawGameTitle(delta);
 
-        // Draw Buttons
-        for(int i = 0;i < this.buttons.size();i++){
-            buttons.get(i).draw(delta, batch);
-        }
+        drawButtons(delta, batch);
     }
 
     /***/
@@ -53,8 +49,7 @@ public class HomeMenu extends _Menu {
         buttons.add(new _Button(screen, 200, 200, 75, 75, AssetLoader.tPlay_Up, AssetLoader.tPlay_Down, new _ButtonListener() {
             @Override
             public void onClick() {
-                screen.game.setScreen(screen.game.gameScreen);
-                screen.game.gameScreen.setGameMode(screen.game.gameScreen.endlessBasketsMode);
+                screen.setCurrentMenu(getMainMenuScreen().gameModeMenu);
             }
         }));
 
@@ -74,5 +69,6 @@ public class HomeMenu extends _Menu {
             }
         }));
     }
+
 
 }
