@@ -10,6 +10,9 @@ import com.isaac.gameobjects.fruits.Fruit;
 import com.isaac.helpers.AssetLoader;
 import com.isaac.helpers.GameValues;
 import com.isaac.screens.GameScreen;
+import com.isaac.ui._Button;
+
+import java.util.List;
 
 public class GameRenderer extends _Renderer {
 
@@ -27,21 +30,20 @@ public class GameRenderer extends _Renderer {
 
     /***/
     private _GameMode getGameMode(){
-        return getGameScreen().gameMode;
+        return getGameScreen().currentGameMode;
     }
 
     /***/
     @Override
     protected void drawBackground(float delta) {
-        getGameScreen().gameMode.renderGameModeBG(delta, getSpriteBatch());
+        getGameScreen().currentGameMode.renderGameModeBG(delta, getSpriteBatch());
     }
 
     /***/
     @Override
     protected void drawEverythingElse(float delta) {
         switch (getGameScreen().getGameState()) {
-            case PAUSE_MENU:
-
+            case MENU:
 
             //////////////////////////////////   ~ [Game Running] ~   ////
             case RUNNING:
@@ -54,7 +56,7 @@ public class GameRenderer extends _Renderer {
 
                 // Fruits
                 for (int i = 0; i < getGameMode().getActiveFruits().size; i++) {
-                    Fruit fruit = getGameScreen().gameMode.getActiveFruits().get(i);
+                    Fruit fruit = getGameScreen().currentGameMode.getActiveFruits().get(i);
                     fruit.draw(screen.runTime, this);
                 }
 
@@ -73,26 +75,23 @@ public class GameRenderer extends _Renderer {
                 // [TEXT] DEV STUFF
                 draw__DEVMODE__TEXT();
 
-                // Draw menus
-                drawMenus(delta);
+                // Draw the Top Menu
+                drawButtons(delta);
 
                 break;
         }
     }
 
     /***/
-    @Override
-    protected void drawMenus(float delta) {
-        getGameScreen().bnPause.draw(delta, getSpriteBatch());
-
-        super.drawMenus(delta);
+    private void drawButtons(float delta) {
+        List<_Button> buttons = getGameScreen().buttons;
+        for (int i = 0; i < buttons.size(); i++){
+            buttons.get(i).draw(delta, getSpriteBatch());
+            if (getGameScreen().getGameState() == GameScreen.GameState.MENU && i == 2){
+                int f = 3;
+            }
+        }
     }
-
-/*    *//***//*
-    private void drawTopMenu(float delta) {
-        GameInput gi = (GameInput)getGameScreen().input;
-        .draw(delta, getSpriteBatch());
-    }*/
 
     /***/
     public void drawText_Wag(float xLoc, float yLoc, String text) {
@@ -105,13 +104,11 @@ public class GameRenderer extends _Renderer {
                 0, GameValues.ARENA_HEIGHT);
     }
 
-
     /***/
     private void drawLives() {
         AssetLoader.ftWag.draw(getSpriteBatch(), "" + getGameMode().getDisplayedLivesText(),
                 300, GameValues.ARENA_HEIGHT);
     }
-
 
     /***/
     private void drawStreak() {
@@ -119,7 +116,6 @@ public class GameRenderer extends _Renderer {
         AssetLoader.ftWag.draw(getSpriteBatch(), "" + getGameMode().getDisplayedStreakText(),
                 150, GameValues.ARENA_HEIGHT);
     }
-
 
     /***/
     private void draw__DEVMODE__TEXT() {

@@ -7,11 +7,17 @@ import com.isaac.gamemodes.StageMode;
 import com.isaac.gamemodes._GameMode;
 import com.isaac.helpers.AssetLoader;
 import com.isaac.input.GameInput;
+import com.isaac.interfaces._ButtonListener;
 import com.isaac.renderers.GameRenderer;
 import com.isaac.ui._Button;
-import com.isaac.ui._ButtonListener;
 import com.isaac.ui._Menu;
+import com.isaac.ui.gamemenus.AllLevelCompleteMenu;
+import com.isaac.ui.gamemenus.LevelCompleteMenu;
+import com.isaac.ui.gamemenus.LevelFailedMenu;
 import com.isaac.ui.gamemenus.PauseMenu;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Isaac Holloway on 11/12/2014.
@@ -21,99 +27,149 @@ public class GameScreen extends _Screen {
      * ~~~ *
      */
     public enum GameState {
-        RUNNING, PAUSE_MENU, LEVEL_COMPLETE, LEVEL_FAIL,
+        RUNNING, MENU,
     }
+    private GameState currentState;
 
+    public GameInput gameInput;
+
+    public _GameMode currentGameMode;
     public _GameMode stageMode;
     public _GameMode endlessMode;
     public _GameMode endlessBasketsMode;
 
-    private GameState currentState;
-    public _GameMode gameMode;
-    private _Menu pauseMenu;
-    public _Button bnPause;
+    public _Menu pauseMenu;
+    public _Menu levelCompleteMenu;
+    public _Menu levelFailedMenu;
+    public _Menu allLevelCompleteMenu;
+
+    public List<_Button> buttons;
 
     /**
      * [CONSTRUCTOR]
      */
     public GameScreen(AngryFVGame game) {
         super(game);
-
         this.renderer = new GameRenderer(this);
-        this.input = new GameInput(this);
+        this.gameInput = new GameInput(this);
 
         createMenus();
         createGameModes();
+        createButtons();
+    }
+
+    /***/
+    @Override
+    public void init() {
+        resumeGame();
     }
 
     /***/
     private void createGameModes() {
-        stageMode = new StageMode();
-        endlessMode = new EndlessMode();
-        endlessBasketsMode = new EndlessBasketsMode();
+        stageMode = new StageMode(this);
+        endlessMode = new EndlessMode(this);
+        endlessBasketsMode = new EndlessBasketsMode(this);
     }
 
     /***/
-    public void setGameMode(_GameMode gameMode){
+    public void setGameMode(_GameMode currentGameMode) {
         currentState = GameState.RUNNING;
 
-        this.gameMode = gameMode;
-        gameMode.init();
+        this.currentGameMode = currentGameMode;
+        currentGameMode.init();
+    }
+
+    /***/
+    public void setStageMode(_GameMode gameMode, int startingLevel) {
+        currentState = GameState.RUNNING;
+        this.currentGameMode = gameMode;
+
+        StageMode sm = (StageMode) this.currentGameMode;
+        sm.init(startingLevel);
     }
 
     /***/
     @Override
     protected void createMenus() {
         pauseMenu = new PauseMenu(this);
-
-        bnPause = new _Button(this, 25, 25, 120, 40, AssetLoader.tCancel_Up, AssetLoader.tCancel_Down, new _ButtonListener() {
-            @Override
-            public void onClick() {
-                setGameState(GameState.PAUSE_MENU);
-            }
-        });
+        levelCompleteMenu = new LevelCompleteMenu(this);
+        levelFailedMenu = new LevelFailedMenu(this);
+        allLevelCompleteMenu = new AllLevelCompleteMenu(this);
 
         // TODO: Draw the AdMob stuff here...
         //
     }
 
     /***/
-    @Override
-    public _Menu getCurrentMenu() {
-        switch (currentState) {
-            case PAUSE_MENU:
-                return pauseMenu;
-            default:
-                return null;
-        }
+    protected void createButtons() {
+        this.buttons = new ArrayList<_Button>();
+
+        // Pause
+        _Button bnPause = new _Button(this, 25, 300, 100, 40, AssetLoader.tCancel_Up, AssetLoader.tCancel_Down, new _ButtonListener() {
+            @Override
+            public void onClick() {
+                pauseGame();
+            }
+        });
+        buttons.add(bnPause);
+
+        // Trampoline LEFT
+        _Button bnMoveTrampolineLeft = new _Button(this, 100, 100, 75, 75, AssetLoader.tArrowLeftUp, AssetLoader.tArrowRightUp, new _ButtonListener() {
+            @Override
+            public void onClick() {
+                currentGameMode.getTrampoline().onInput_Left();
+            }
+        });
+        buttons.add(bnMoveTrampolineLeft);
+
+        // Trampoline RIGHT
+        _Button bnMoveTrampolineRight = new _Button(this, 350, 100, 75, 75, AssetLoader.tArrowRightUp, AssetLoader.tArrowLeftUp, new _ButtonListener() {
+            @Override
+            public void onClick() {
+                currentGameMode.getTrampoline().onInput_Right();
+            }
+        });
+        buttons.add(bnMoveTrampolineRight);
     }
 
     /***/
     @Override
     public void render(float delta) {
+        // Update
         switch (currentState) {
             case RUNNING:
-                gameMode.update(delta);
+                currentGameMode.update(delta);
                 break;
-            case PAUSE_MENU:
+            case MENU:
                 break;
         }
+
+        // Draw
         super.render(delta);
     }
 
     /***/
+    public void closeMenu(){
+        resumeGame();
+    }
+
+    /***/
     public void pauseGame() {
-        currentState = GameState.PAUSE_MENU;
+        currentState = GameState.MENU;
+        setCurrentMenu(pauseMenu);
     }
 
     /***/
     public void resumeGame() {
-        currentState = GameState.RUNNING;
+        this.setGameState(GameState.RUNNING);
+        setCurrentMenu(null);
+        this.gameInput.init();
     }
 
     /***/
-    public void returnToMainMenu() {
-        game.setScreen(game.mainMenuScreen);
+    public void setGameScreenMenu(_Menu menu){
+        setGameState(GameScreen.GameState.MENU);
+        setCurrentMenu(menu);
     }
 
     /***/
@@ -147,5 +203,4 @@ public class GameScreen extends _Screen {
     public GameScreen.GameState getGameState() {
         return currentState;
     }
-
 }

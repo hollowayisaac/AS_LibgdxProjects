@@ -3,6 +3,7 @@ package com.isaac.gamemodes;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isaac.gamemodes.levels.Endless_Level;
 import com.isaac.gamemodes.levels._Level;
+import com.isaac.screens.GameScreen;
 
 import java.util.List;
 
@@ -13,6 +14,15 @@ public class EndlessMode extends _GameMode {
 
     protected int currentLevelIndex;
     protected List<_Level> levels;
+
+    /**
+     * [CONSTRUCTOR]
+     *
+     * @param gameScreen
+     */
+    public EndlessMode(GameScreen gameScreen) {
+        super(gameScreen);
+    }
 
     /***/
     @Override

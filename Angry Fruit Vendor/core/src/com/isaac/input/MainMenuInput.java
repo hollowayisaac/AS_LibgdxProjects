@@ -1,11 +1,7 @@
 package com.isaac.input;
 
-import com.badlogic.gdx.Input;
 import com.isaac.screens.MainMenuScreen;
 import com.isaac.screens._Screen;
-import com.isaac.ui._Button;
-
-import java.util.List;
 
 /**
  * Created by Isaac Holloway on 6/16/2015.
@@ -20,7 +16,7 @@ public class MainMenuInput extends _Input {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         unprojectTouchPoint();
-
+/*
         if(button == Input.Buttons.LEFT) {
             if (getMainMenuScreen().getCurrentMenu() != null) {
                 List<_Button> buttons = getMainMenuScreen().getCurrentMenu().buttons;
@@ -28,7 +24,7 @@ public class MainMenuInput extends _Input {
                     buttons.get(i).isTouchDown(touchPoint.x, touchPoint.y);
                 }
             }
-        }
+        }*/
         return false;
     }
 
@@ -37,14 +33,14 @@ public class MainMenuInput extends _Input {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         unprojectTouchPoint();
 
-        if (getMainMenuScreen().getCurrentMenu() != null) {
+/*        if (getMainMenuScreen().getCurrentMenu() != null) {
             List<_Button> buttons = getMainMenuScreen().getCurrentMenu().buttons;
             for (int i = 0; i < buttons.size(); i++){
                 if(buttons.get(i).isTouchUp(touchPoint.x, touchPoint.y)){
                     //
                 }
             }
-        }
+        }*/
 
         return false;
     }

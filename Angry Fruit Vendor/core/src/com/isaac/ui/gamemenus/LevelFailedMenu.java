@@ -1,6 +1,7 @@
 package com.isaac.ui.gamemenus;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -13,11 +14,19 @@ import com.isaac.ui._Menu;
 /**
  * Created by Isaac Holloway on 6/11/2015.
  */
-public class PauseMenu extends _Menu implements com.isaac.interfaces.GameScreenable {
+public class LevelFailedMenu extends _Menu implements com.isaac.interfaces.GameScreenable {
+    protected Label labScore;
 
     /***/
-    public PauseMenu(_Screen screen) {
+    public LevelFailedMenu(_Screen screen) {
         super(screen);
+    }
+
+    /***/
+    @Override
+    public void init() {
+        super.init();
+        labScore.setText(Integer.toString(getGameScreen().currentGameMode.getScore()));
     }
 
     /***/
@@ -37,24 +46,30 @@ public class PauseMenu extends _Menu implements com.isaac.interfaces.GameScreena
         TextureRegionDrawable trd = new TextureRegionDrawable(AssetLoader.trTrampoline);
         table.setBackground(trd);
 
-        // Resume
-        final TextButton bResume = new TextButton("Resume", AssetLoader.defaultSkin);
-        bResume.addListener(new ChangeListener() {
+        // Display your Score
+        labScore = new Label("", AssetLoader.defaultSkin);
+        table.add(labScore);
+        table.row();
+
+        // Retry
+        final TextButton bRetry = new TextButton("Retry", AssetLoader.defaultSkin);
+        bRetry.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
-                getGameScreen().resumeGame();
+                getGameScreen().closeMenu();
+                getGameScreen().currentGameMode.restartLevel();
             }
         });
-        table.add(bResume);
+        table.add(bRetry);
         table.row();
 
         // Exit to Menu
-        final TextButton bSettings = new TextButton("Exit to Menu", AssetLoader.defaultSkin);
-        bSettings.addListener(new ChangeListener() {
+        final TextButton bExitToMenu = new TextButton("Exit to Menu", AssetLoader.defaultSkin);
+        bExitToMenu.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
                 screen.game.setScreenWithMenu(screen.game.mainMenuScreen, screen.game.mainMenuScreen.gameModeMenu);
             }
         });
-        table.add(bSettings);
+        table.add(bExitToMenu);
     }
 
     /***/

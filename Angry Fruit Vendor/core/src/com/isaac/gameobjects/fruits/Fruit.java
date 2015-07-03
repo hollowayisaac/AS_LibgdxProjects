@@ -274,7 +274,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
             alive = false;
 
             clearStreak();
-            gameMode.subractLivesLeft(1);
+            gameMode.subtractLivesLeft(1);
         }
     }
 

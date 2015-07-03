@@ -1,9 +1,10 @@
 package com.isaac.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.isaac.helpers.GameValues;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector3;
 import com.isaac.screens.GameScreen;
-import com.isaac.screens._Screen;
 import com.isaac.ui._Button;
 
 import java.util.List;
@@ -11,33 +12,42 @@ import java.util.List;
 /**
  * Created by Isaac Holloway on 6/7/2015.
  */
-public class GameInput extends _Input{
+public class GameInput implements InputProcessor {
+
+    protected GameScreen gameScreen;
+    protected Vector3 touchPoint;
 
     /** [CONSTRUCTOR] **/
-    public GameInput(_Screen screen){
-        super(screen);
+    public GameInput(GameScreen gameScreen){
+        this.gameScreen = gameScreen;
+        touchPoint = new Vector3();
+    }
+
+    /***/
+    public void init(){
+        Gdx.input.setInputProcessor(this);
     }
 
     /***/
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        unprojectTouchPoint();
+        unProjectTouchPoint();
 
         if(button == Input.Buttons.LEFT) {
-            if (getGameScreen().getCurrentMenu() != null) {
-                List<_Button> buttons = getGameScreen().getCurrentMenu().buttons;
+            if (gameScreen.getCurrentMenu() == null) {
+                List<_Button> buttons = gameScreen.buttons;
                 for (int i = 0; i < buttons.size(); i++){
                     buttons.get(i).isTouchDown(touchPoint.x, touchPoint.y);
                 }
-            }  else if(getGameScreen().bnPause.isTouchDown(touchPoint.x, touchPoint.y)) {
             }
-            else if (touchPoint.x < GameValues.GAMEUNIT_WIDTH / 2) {
+
+            /*else if (touchPoint.x < GameValues.GAMEUNIT_WIDTH / 2) {
                 // Trampoline Left
-                getGameScreen().gameMode.getTrampoline().onInput_Left();
+                gameScreen.gameMode.getTrampoline().onInput_Left();
             } else {
                 // Trampoline Right
-                getGameScreen().gameMode.getTrampoline().onInput_Right();
-            }
+                gameScreen.gameMode.getTrampoline().onInput_Right();
+            }*/
         }
         return false;
     }
@@ -45,30 +55,31 @@ public class GameInput extends _Input{
     /***/
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        unprojectTouchPoint();
+        unProjectTouchPoint();
 
-        if (getGameScreen().getCurrentMenu() != null) {
-            List<_Button> buttons = getGameScreen().getCurrentMenu().buttons;
+        if (gameScreen.getCurrentMenu() == null) {
+            List<_Button> buttons = gameScreen.buttons;
             for (int i = 0; i < buttons.size(); i++){
-                if(buttons.get(i).isTouchUp(touchPoint.x, touchPoint.y)){
-                    // TODO: Create button actions (aka button event handlers)
-                    //
-
-                }
+                buttons.get(i).isTouchUp(touchPoint.x, touchPoint.y);
             }
-        }else if(getGameScreen().bnPause.isTouchUp(touchPoint.x, touchPoint.y)){
         }
 
         return false;
     }
 
     /***/
-    public GameScreen getGameScreen(){
-        return (GameScreen)screen;
+    protected void unProjectTouchPoint(){
+        gameScreen.game.camera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
     }
 
+    /***/
     @Override
     public boolean keyDown(int keycode) {
+        if (Input.Keys.LEFT == keycode){
+            gameScreen.currentGameMode.getTrampoline().onInput_Left();
+        }else if(Input.Keys.RIGHT == keycode){
+            gameScreen.currentGameMode.getTrampoline().onInput_Right();
+        }
         return false;
     }
 

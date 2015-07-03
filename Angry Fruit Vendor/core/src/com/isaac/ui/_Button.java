@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.isaac.screens._Screen;
 
 public class _Button extends _DisplayObject{
-    private _ButtonListener buttonListener;
+    private com.isaac.interfaces._ButtonListener buttonListener;
     private TextureRegion trUp, trDown;
     public boolean isDown;
     public boolean isEnabled;
@@ -19,7 +19,7 @@ public class _Button extends _DisplayObject{
      * [CONSTRUCTOR] #1
      */
     public _Button(_Screen screen, float x, float y, float width, float height,
-                   TextureRegion trUp, TextureRegion trDown, _ButtonListener buttonListener) {
+                   TextureRegion trUp, TextureRegion trDown, com.isaac.interfaces._ButtonListener buttonListener) {
         super(screen, x, y, width, height);
         this.trUp = trUp;
         this.trDown = trDown;
@@ -32,7 +32,7 @@ public class _Button extends _DisplayObject{
      * [CONSTRUCTOR] #2
      */
     public _Button(_Screen screen, float x, float y, float width, float height,
-                   Texture tUp, Texture tDown, _ButtonListener buttonListener) {
+                   Texture tUp, Texture tDown, com.isaac.interfaces._ButtonListener buttonListener) {
         super(screen, x, y, width, height);
 
         // Make the Textures into TextureRegions

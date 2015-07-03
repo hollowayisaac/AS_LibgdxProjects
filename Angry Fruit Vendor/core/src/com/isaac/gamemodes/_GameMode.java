@@ -14,6 +14,7 @@ import com.isaac.gameobjects.fruits.Orange;
 import com.isaac.gameobjects.fruits.RottenFruit;
 import com.isaac.gameobjects.fruits.Watermelon;
 import com.isaac.helpers.GameValues;
+import com.isaac.screens.GameScreen;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +25,11 @@ import java.util.Map;
  * Created by Isaac Holloway on 12/9/2014.
  */
 public abstract class _GameMode {
+    /**
+     * Here is all of the logic related to the actual gameplay
+     * (The GameScreen will handle any user input)
+     */
+
     protected abstract void createLevelPool();
     private int currentStreak;
     public float totalGameTime;
@@ -46,8 +52,11 @@ public abstract class _GameMode {
     protected List<_Level> levels;
     protected int currentLevelIndex;
 
+    protected GameScreen gameScreen;
+
     /** [CONSTRUCTOR] */
-    public _GameMode(){
+    public _GameMode(GameScreen gameScreen){
+        this.gameScreen = gameScreen;
         activeFruits = new Array<Fruit>();
         trampoline = new Trampoline();
         setLevels(new ArrayList<_Level>());
@@ -93,6 +102,7 @@ public abstract class _GameMode {
         activeFruits.clear();
         this.totalGameTime = 0;
         this.score = 0;
+        this.currentStreak = 0;
         createNewFruitTossInterval();
         trampoline.init();
     }
@@ -191,6 +201,23 @@ public abstract class _GameMode {
     }
 
     /***/
+    public void levelComplete() {
+        if (getCurrentLevelIndex() == getLevels().size() - 1) {
+            // All Levels completed
+            gameScreen.setGameScreenMenu(gameScreen.allLevelCompleteMenu);
+        } else {
+            // Show the LevelCompleteMenu
+            gameScreen.setGameScreenMenu(gameScreen.levelCompleteMenu);
+        }
+    }
+
+    /***/
+    public void levelFail() {
+        // Show the LevelCompleteMenu
+        gameScreen.setGameScreenMenu(gameScreen.levelFailedMenu);
+    }
+
+    /***/
     public void advanceCurrentLevel() {
         if(getCurrentLevelIndex() >= levels.size()-1 ){
             setCurrentLevel(0);
@@ -200,20 +227,8 @@ public abstract class _GameMode {
     }
 
     /***/
-    public void levelComplete() {
-        if (getCurrentLevelIndex() == getLevels().size() - 1) {
-            allStagesCompleted();
-        } else {
-            advanceCurrentLevel();
-        }
-    }
-
-    /***/
     public void restartLevel() {
-        initLevel();
-        clearStreak();
-        // TODO: Display a message that indicates the I Lost and the level is restarting.
-
+        //initLevel();
         setCurrentLevel(this.getCurrentLevelIndex());
     }
 
@@ -249,15 +264,6 @@ public abstract class _GameMode {
                 break;
         }
         return fruit;
-    }
-
-    /** **/
-    public void allStagesCompleted() {
-        // TODO: Stages complete! animation
-        // TODO: Go to menu screen (GameMode selection OR stage selection)
-
-
-        setCurrentLevel(0);
     }
 
     /***/
@@ -310,14 +316,11 @@ public abstract class _GameMode {
     }
 
     /***/
-    public void subractLivesLeft(int subAmount){
+    public void subtractLivesLeft(int subAmount){
         this.livesLeft -= subAmount;
     }
 
-    /**
-     * setLivesLeft
-     * @param newLivesLeft
-     */
+    /***/
     public void setLivesLeft(int newLivesLeft){
         this.livesLeft = newLivesLeft;
     }

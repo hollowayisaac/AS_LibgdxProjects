@@ -39,8 +39,9 @@ public abstract class _Renderer {
         screen.game.batch.enableBlending();
         screen.game.batch.begin();
         drawEverythingElse(delta);           // Draw everything else
-        drawMenus(delta);                    // Draw menu's on top of "EverythingElse"
         screen.game.batch.end();
+
+        drawMenus(delta);
     }
 
     /***/
@@ -52,6 +53,6 @@ public abstract class _Renderer {
 
     /***/
     public SpriteBatch getSpriteBatch(){
-        return screen.getBatch();
+        return screen.game.batch;
     }
 }

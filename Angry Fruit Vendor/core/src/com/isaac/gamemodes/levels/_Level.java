@@ -40,7 +40,8 @@ public abstract class _Level {
             gameMode.levelComplete();
         }
         if(isLevelFail()){
-            gameMode.restartLevel();
+            gameMode.levelFail();
+            //gameMode.restartLevel();
         }
     }
 

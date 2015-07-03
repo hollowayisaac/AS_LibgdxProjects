@@ -33,7 +33,7 @@ public class StageMode_Level_5 extends _Level {
         allowedFruits.put(Fruit.FruitType.Orange, 20);
         allowedFruits.put(Fruit.FruitType.Watermelon, 15);
         allowedFruits.put(Fruit.FruitType.RottenFruit, 10);
-        allowedFruits.put(Fruit.FruitType.Banana, 10);
+        allowedFruits.put(Fruit.FruitType.Banana, 20);
         allowedFruits.put(Fruit.FruitType.Basket, 20);
     }
 

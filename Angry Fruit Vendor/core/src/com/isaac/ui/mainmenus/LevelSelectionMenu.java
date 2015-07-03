@@ -1,0 +1,115 @@
+package com.isaac.ui.mainmenus;
+
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.isaac.helpers.AssetLoader;
+import com.isaac.screens.MainMenuScreen;
+import com.isaac.screens._Screen;
+import com.isaac.ui._Menu;
+
+/**
+ * Created by Isaac Holloway on 6/20/2015.
+ */
+public class LevelSelectionMenu extends _Menu implements com.isaac.interfaces.MainScreenable {
+
+    /***/
+    public LevelSelectionMenu(_Screen screen){
+        super(screen);
+    }
+
+    /***/
+    @Override
+    protected void createStage(){
+        Drawable d = new TextureRegionDrawable(AssetLoader.trApple);
+        Drawable d2 = new TextureRegionDrawable(AssetLoader.trBanana);
+        final Button bLeftArrow = new Button(d, d2);
+        bLeftArrow.setPosition(20, 20);
+        bLeftArrow.setSize(40, 40);
+        stage.addActor(bLeftArrow);
+
+        // Table
+        Table table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        // Stage 1
+        final TextButton bStage1 = new TextButton("Stage 1", AssetLoader.defaultSkin);
+        bStage1.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                screen.game.setStageMode(screen.game.gameScreen, screen.game.gameScreen.stageMode, 0);
+            }
+        });
+        table.add(bStage1);
+        table.row();
+
+        // Stage 2
+        final TextButton bStage2 = new TextButton("Stage 2", AssetLoader.defaultSkin);
+        bStage2.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                screen.game.setStageMode(screen.game.gameScreen, screen.game.gameScreen.stageMode, 1);
+            }
+        });
+        table.add(bStage2);
+        table.row();
+
+        // Stage 3
+        final TextButton bStage3 = new TextButton("Stage 3", AssetLoader.defaultSkin);
+        bStage3.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                screen.game.setStageMode(screen.game.gameScreen, screen.game.gameScreen.stageMode, 2);
+            }
+        });
+        table.add(bStage3);
+        table.row();
+
+        // Stage 4
+        final TextButton bStage4 = new TextButton("Stage 4", AssetLoader.defaultSkin);
+        bStage4.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                screen.game.setStageMode(screen.game.gameScreen, screen.game.gameScreen.stageMode, 3);
+            }
+        });
+        table.add(bStage4);
+        table.row();
+
+        // Stage 5
+        final TextButton bStage5 = new TextButton("Stage 5", AssetLoader.defaultSkin);
+        bStage5.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                screen.game.setStageMode(screen.game.gameScreen, screen.game.gameScreen.stageMode, 4);
+            }
+        });
+        table.add(bStage5);
+        table.row();
+
+        // Stage 6
+        final TextButton bStage6 = new TextButton("Stage 6", AssetLoader.defaultSkin);
+        bStage6.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                screen.game.setStageMode(screen.game.gameScreen, screen.game.gameScreen.stageMode, 5);
+            }
+        });
+        table.add(bStage6);
+
+        // Back
+        final TextButton bBack = new TextButton("Back", AssetLoader.defaultSkin);
+        bBack.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                screen.setCurrentMenu(getMainMenuScreen().gameModeMenu);
+            }
+        });
+        stage.addActor(bBack);
+    }
+
+    /***/
+    @Override
+    public MainMenuScreen getMainMenuScreen(){
+        return (MainMenuScreen)screen;
+    }
+
+}

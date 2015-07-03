@@ -13,11 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.isaac.angryfruitvendor.AngryFVGame;
-import com.isaac.renderers.Scene2dRenderer;
 import com.isaac.ui._Menu;
 import com.isaac.ui.mainmenus.GameModeMenu;
 import com.isaac.ui.mainmenus.HomeMenu;
-import com.isaac.ui.mainmenus.StageSelectionMenu;
 
 
 /**
@@ -87,7 +85,7 @@ public class Scene2dScreen extends _Screen {
         // Add an image actor. Have to set the size, else it would be the size of the drawable (which is the 1x1 texture).
         table.add(new Image(skin.newDrawable("white", Color.RED))).size(64);
 
-        this.renderer = new Scene2dRenderer(this, stage);
+        //this.renderer = new Scene2dRenderer(this, stage);
 
 /*        this.renderer = new MainMenuRenderer(this);
         this.input = new MainMenuInput(this);*/
@@ -98,22 +96,27 @@ public class Scene2dScreen extends _Screen {
         stage.getViewport().update(width, height, true);
     }
 
-    /***/
+/*    *//***//*
     @Override
     public void init(){
-    }
+    }*/
 
-    /***/
+/*    *//***//*
     @Override
     public void update(float delta){
         stage.act(delta);
+    }*/
+
+    @Override
+    public void init() {
+
     }
 
     /***/
     protected void createMenus() {
         this.homeMenu = new HomeMenu(this);
         this.gameModeMenu = new GameModeMenu(this);
-        this.stageSelectionMenu = new StageSelectionMenu(this);
+        //this.stageSelectionMenu = new StageSelectionMenu(this);
 /*        this.optionsMenu = new OptionsMenu(this);
         */
 

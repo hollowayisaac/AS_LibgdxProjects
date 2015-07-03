@@ -3,10 +3,15 @@ package com.isaac.helpers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 /**
  * Created by Isaac Holloway on 11/12/2014.
@@ -43,6 +48,9 @@ public class AssetLoader {
 
     public static TextureRegion trQuitGame;
     public static Texture trBGField;
+
+    // Skin
+    public static Skin defaultSkin;
 
     // Textures
     public static Texture texture, logoTexture;
@@ -85,12 +93,39 @@ public class AssetLoader {
         ftWag.setScale(.5f, .5f);
     }
 
-
     /***/
     private static void load_Skins() {
 
-    }
+        // A skin can be loaded via JSON or defined programmatically, either is fine. Using a skin is optional but strongly
+        // recommended solely for the convenience of getting a texture, region, etc as a drawable, tinted drawable, etc.
+        defaultSkin = new Skin();
 
+        // Generate a 1x1 white texture and store it in the skin named "white".
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fill();
+        defaultSkin .add("white", new Texture(pixmap));
+        pixmap.dispose();
+
+        // Store the default libgdx font under the name "default".
+        defaultSkin .add("default", new BitmapFont());
+
+        // Label Style
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = defaultSkin .getFont("default");
+        labelStyle.fontColor = Color.WHITE;
+        defaultSkin.add("default", labelStyle);
+
+        // Configure a TextButtonStyle and name it "default". Skin resources are stored by type, so this doesn't overwrite the font.
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = defaultSkin .newDrawable("white", Color.DARK_GRAY);
+        textButtonStyle.down = defaultSkin .newDrawable("white", Color.DARK_GRAY);
+        textButtonStyle.checked = defaultSkin .newDrawable("white", Color.BLUE);
+        textButtonStyle.over = defaultSkin .newDrawable("white", Color.LIGHT_GRAY);
+        textButtonStyle.font = defaultSkin .getFont("default");
+        defaultSkin.add("default", textButtonStyle);
+
+    }
 
     /***/
     private static void load_Sound() {
@@ -98,7 +133,6 @@ public class AssetLoader {
         flap = Gdx.audio.newSound(Gdx.files.internal("sound/flap.wav"));
         coin = Gdx.audio.newSound(Gdx.files.internal("sound/coin.wav"));
     }
-
 
     /***/
     private static void load_Images() {
@@ -233,22 +267,20 @@ public class AssetLoader {
 
         bar = new TextureRegion(texture, 136, 16, 22, 3);
         bar.flip(false, true);
-
-
     }
 
-
+    /***/
     public static void setHighScore(int val) {
         prefs.putInteger("highScore", val);
         prefs.flush();
     }
 
-
+    /***/
     public static int getHighScore() {
         return prefs.getInteger("highScore");
     }
 
-
+    /***/
     public static void dispose() {
         // We must dispose of the texture when we are finished.
         texture.dispose();

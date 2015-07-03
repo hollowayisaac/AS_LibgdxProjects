@@ -12,6 +12,7 @@ import com.isaac.screens.MainMenuScreen;
 import com.isaac.screens.Scene2dScreen;
 import com.isaac.screens.SplashScreen;
 import com.isaac.screens._Screen;
+import com.isaac.ui._Menu;
 
 public class AngryFVGame extends Game {
 
@@ -24,7 +25,6 @@ public class AngryFVGame extends Game {
     public MainMenuScreen mainMenuScreen;
     public GameScreen gameScreen;
     public Scene2dScreen scene2dScreen;
-
 
     /**
      * [CONSTRUCTOR]
@@ -39,7 +39,7 @@ public class AngryFVGame extends Game {
         loadScreens();
 
         if (DEV_MODE) {
-            setScreen(scene2dScreen);
+            setScreen(mainMenuScreen);
             //setScreen(mainMenuScreen);
         } else {
             setScreen(splashScreen);
@@ -64,15 +64,30 @@ public class AngryFVGame extends Game {
     }
 
     /***/
+    public void setScreenWithMenu(Screen screen, _Menu menu) {
+        super.setScreen(screen);
+        _Screen _screen = (_Screen) screen;
+        _screen.init();
+        _screen.setCurrentMenu(menu);
+    }
+
+    /***/
     public void setGameScreen(Screen screen, _GameMode gameMode) {
         setScreen(screen);
         gameScreen.setGameMode(gameMode);
     }
 
     /***/
+    public void setStageMode(Screen screen, _GameMode gameMode, int startingLevel) {
+        setScreen(screen);
+        gameScreen.setStageMode(gameMode, startingLevel);
+    }
+
+    /***/
     @Override
     public void dispose() {
         super.dispose();
+        batch.dispose();
         AssetLoader.dispose();
     }
 }
