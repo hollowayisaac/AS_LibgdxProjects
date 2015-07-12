@@ -14,6 +14,7 @@ import com.isaac.gameobjects.fruits.Orange;
 import com.isaac.gameobjects.fruits.RottenFruit;
 import com.isaac.gameobjects.fruits.Watermelon;
 import com.isaac.helpers.GameValues;
+import com.isaac.helpers.UserData;
 import com.isaac.screens.GameScreen;
 
 import java.util.ArrayList;
@@ -206,6 +207,9 @@ public abstract class _GameMode {
             // All Levels completed
             gameScreen.setGameScreenMenu(gameScreen.allLevelCompleteMenu);
         } else {
+            // Update the user data to set the new highest level completed.
+            UserData.setHighestLevelCompleted(getCurrentLevelIndex() + 1);
+
             // Show the LevelCompleteMenu
             gameScreen.setGameScreenMenu(gameScreen.levelCompleteMenu);
         }

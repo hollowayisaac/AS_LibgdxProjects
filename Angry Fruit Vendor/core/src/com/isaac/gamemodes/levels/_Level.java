@@ -37,12 +37,17 @@ public abstract class _Level {
     /***/
     public void update(float delta){
         if(isGoalMet()){
-            gameMode.levelComplete();
+            levelComplete();
         }
         if(isLevelFail()){
             gameMode.levelFail();
             //gameMode.restartLevel();
         }
+    }
+
+    /***/
+    public void levelComplete(){
+        gameMode.levelComplete();
     }
 
     /***/

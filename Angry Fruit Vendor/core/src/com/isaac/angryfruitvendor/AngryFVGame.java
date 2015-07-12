@@ -7,10 +7,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isaac.gamemodes._GameMode;
 import com.isaac.helpers.AssetLoader;
 import com.isaac.helpers.GameValues;
+import com.isaac.helpers.UserData;
 import com.isaac.screens.GameScreen;
 import com.isaac.screens.MainMenuScreen;
-import com.isaac.screens.Scene2dScreen;
-import com.isaac.screens.SplashScreen;
 import com.isaac.screens._Screen;
 import com.isaac.ui._Menu;
 
@@ -21,10 +20,8 @@ public class AngryFVGame extends Game {
     public OrthographicCamera camera;
 
     // Screens
-    public SplashScreen splashScreen;
     public MainMenuScreen mainMenuScreen;
     public GameScreen gameScreen;
-    public Scene2dScreen scene2dScreen;
 
     /**
      * [CONSTRUCTOR]
@@ -34,25 +31,30 @@ public class AngryFVGame extends Game {
         this.batch = new SpriteBatch();
         camera = new OrthographicCamera(GameValues.GAMEUNIT_WIDTH, GameValues.GAMEUNIT_HEIGHT);
         camera.position.set(GameValues.GAMEUNIT_WIDTH / 2, GameValues.GAMEUNIT_HEIGHT / 2, 0);
+
+        ////  LOADING  ////
+        // [User Data]
+        UserData.loadPreferences();
+
+        // [Assets]
         AssetLoader.load();
 
+        // [Screens]
         loadScreens();
 
+        // Set the initial Screen
         if (DEV_MODE) {
             setScreen(mainMenuScreen);
             //setScreen(mainMenuScreen);
         } else {
-            setScreen(splashScreen);
+            setScreen(mainMenuScreen);
         }
     }
 
     /***/
     private void loadScreens() {
-        this.splashScreen = new SplashScreen(this);
         this.mainMenuScreen = new MainMenuScreen(this);
         this.gameScreen = new GameScreen(this);
-
-        this.scene2dScreen = new Scene2dScreen(this);
     }
 
     /***/
