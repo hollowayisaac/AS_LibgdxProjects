@@ -21,12 +21,12 @@ public class Basket extends Fruit {
     }
 
     @Override
-    protected void collisionBounce(boolean didFruitBounce) {
+    protected void collisionHitTrampoline(boolean didFruitBounce) {
         if (didFruitBounce) {
             gameMode.createFruitsFromBasket(getX(), getY());
 
             // TODO: Here is where we should not only remove the rotten fruit, but SPLAT it on the trampoline.
-            alive = false;
+            isAlive = false;
         }
     }
 }

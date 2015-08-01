@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.isaac.gamemodes._GameMode;
-import com.isaac.gameobjects.GameObject;
+import com.isaac.gameobjects.FallingObject;
 import com.isaac.gameobjects.Trampoline;
 import com.isaac.helpers.GameValues;
 import com.isaac.helpers.Util;
@@ -13,7 +13,7 @@ import com.isaac.renderers.GameRenderer;
 /**
  * Created by Isaac Holloway on 11/13/2014.
  */
-public class Fruit extends GameObject implements Pool.Poolable {
+public class Fruit extends FallingObject implements Pool.Poolable {
 
     /*
      * What type of fruit is this?
@@ -49,11 +49,9 @@ public class Fruit extends GameObject implements Pool.Poolable {
     private final static float LAUNCH_OFFSET = 1.15f;
 
     protected float fruitWeight;
-
     protected float peakHeight;
 
-    protected Vector2 velocity;
-    protected Vector2 acceleration;
+        protected Vector2 acceleration;
 
     protected float rotation;
     //protected float rotationSpeed;
@@ -66,9 +64,6 @@ public class Fruit extends GameObject implements Pool.Poolable {
 
     // TextureRegion
     protected TextureRegion fruitImage;
-    public boolean alive;
-
-    protected _GameMode gameMode;
 
     /**
      * [CONSTRUCTOR]
@@ -90,10 +85,11 @@ public class Fruit extends GameObject implements Pool.Poolable {
         this.scoreValue = scoreValue;
     }
 
+    /***/
     @Override
     public void init() {
         this.fruitTrampolinePosition = Trampoline.TrampolinePosition.Position1;
-        alive = true;
+        isAlive = true;
     }
 
     /**
@@ -126,7 +122,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
         position.x = x;
         position.y = y;
 
-        collisionBounce(true);
+        collisionHitTrampoline(true);
     }
 
     /**
@@ -152,7 +148,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
      */
     @Override
     public void reset() {
-        alive = false;
+        isAlive = false;
     }
 
     /**
@@ -196,16 +192,15 @@ public class Fruit extends GameObject implements Pool.Poolable {
      * collision
      */
     protected void collision() {
-        collisionBounce(didFruitBounce());
+        collisionHitTrampoline(didObjectCollideWithTrampoline());
         collisionMissedTrampoline();
         collisionHitGround();
         collisionSaved();
     }
 
-    /**
-     * collisionBounce
-     */
-    protected void collisionBounce(boolean didFruitBounce) {
+    /***/
+    @Override
+    protected void collisionHitTrampoline(boolean didFruitBounce) {
         //      *** BOUNCE ***      //
         if (didFruitBounce) {
 
@@ -233,12 +228,9 @@ public class Fruit extends GameObject implements Pool.Poolable {
         }
     }
 
-    /**
-     * didFruitBounce
-     *
-     * @return
-     */
-    protected boolean didFruitBounce() {
+    /***/
+    @Override
+    protected boolean didObjectCollideWithTrampoline() {
         // Did the fruit BOUNCE on the trampoline?
         if (getY() <= GameValues.TRAMPOLINE_TOP_COLLISION_Y &&
                 getY() >= GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y &&
@@ -249,9 +241,8 @@ public class Fruit extends GameObject implements Pool.Poolable {
         return false;
     }
 
-    /**
-     * collisionMissedTrampoline
-     */
+    /***/
+    @Override
     protected void collisionMissedTrampoline() {
         //      *** MISSED TRAMPOLINE ***      //
         if (getY() <= GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y &&
@@ -271,7 +262,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
                 fruitState == FruitState.Dropped) {
 
             // Destroy/Remove Fruit, by setting the alive = false.
-            alive = false;
+            isAlive = false;
 
             clearStreak();
             gameMode.subtractLivesLeft(1);
@@ -296,7 +287,7 @@ public class Fruit extends GameObject implements Pool.Poolable {
 
             // Add the score
             gameMode.addFruitScore(scoreValue);
-            alive = false;
+            isAlive = false;
         }
     }
 
@@ -397,41 +388,6 @@ public class Fruit extends GameObject implements Pool.Poolable {
         /*position.y = 2 * (float) Math.sin(7 * runTime) + originalY;*/
     }
 
-/*    public boolean isFalling() {
-        return velocity.y > 110;
-    }
-
-    public boolean shouldntFlap() {
-        return velocity.y > 70 || !isAlive;
-    }
-
-    public void onClick() {
-        if (isAlive) {
-            AssetLoader.flap.play();
-            velocity.y = -140;
-        }
-    }
-
-    public void die() {
-        isAlive = false;
-        velocity.y = 0;
-    }
-
-    public void decelerate() {
-        acceleration.y = 0;
-    }
-
-    public void onRestart(int y) {
-        rotation = 0;
-        position.y = y;
-        velocity.x = 0;
-        velocity.y = 0;
-        acceleration.x = 0;
-        acceleration.y = 460;
-        isAlive = true;
-    }*/
-
-
     protected float getGravityWithWeight() {
 /*        float calculatedGravity = GRAVITY + fruitWeight;
         return calculatedGravity;*/
@@ -441,10 +397,6 @@ public class Fruit extends GameObject implements Pool.Poolable {
     public float getRotation() {
         return rotation;
     }
-
-/*    public Circle getBoundingCircle() {
-        return boundingCircle;
-   }*/
 
 
 }

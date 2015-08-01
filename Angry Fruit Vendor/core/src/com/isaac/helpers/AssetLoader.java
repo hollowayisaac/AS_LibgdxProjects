@@ -42,6 +42,8 @@ public class AssetLoader {
     public static Texture tSoundON_Up, tSoundON_Down;
     public static Texture tSoundOFF_Up, tSoundOFF_Down;
 
+    public static TextureRegion trPlusOne;
+
     public static Texture tArrowLeftUp;
     public static Texture tArrowRightUp;
 
@@ -250,9 +252,12 @@ public class AssetLoader {
 
         bar = new TextureRegion(texture, 136, 16, 22, 3);
         bar.flip(false, true);
+
+        // Plus One Power up
+        Texture tPlusOne = new Texture(Gdx.files.internal("images/plus-one.png"));
+        tPlusOne.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        trPlusOne = new TextureRegion(tPlusOne, 0, 0, tPlusOne.getWidth(), tPlusOne.getHeight());
     }
-
-
 
     /***/
     public static void dispose() {

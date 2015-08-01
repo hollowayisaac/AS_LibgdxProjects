@@ -21,12 +21,12 @@ public class RottenFruit extends Fruit {
     }
 
     @Override
-    protected void collisionBounce(boolean didFruitBounce) {
+    protected void collisionHitTrampoline(boolean didFruitBounce) {
         if (didFruitBounce) {
             gameMode.getTrampoline().stun();
 
             // TODO: Here is where we should not only remove the rotten fruit, but SPLAT it on the trampoline.
-            alive = false;
+            isAlive = false;
         }
     }
 
@@ -40,7 +40,7 @@ public class RottenFruit extends Fruit {
                 fruitState == FruitState.Dropped) {
 
             // Destroy/Remove Fruit, by setting the alive = false.
-            alive = false;
+            isAlive = false;
         }
     }
 

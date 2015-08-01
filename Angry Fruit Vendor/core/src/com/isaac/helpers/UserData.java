@@ -83,4 +83,9 @@ public class UserData {
     public static boolean getSound() {
         return prefs.getBoolean("sound");
     }
+
+    /***/
+    public static void clearPrefs(){
+        prefs.clear();
+    }
 }

@@ -14,6 +14,7 @@ import com.isaac.ui._Menu;
 import com.isaac.ui.gamemenus.AllLevelCompleteMenu;
 import com.isaac.ui.gamemenus.LevelCompleteMenu;
 import com.isaac.ui.gamemenus.LevelFailedMenu;
+import com.isaac.ui.gamemenus.NewHighScoreMenu;
 import com.isaac.ui.gamemenus.PauseMenu;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class GameScreen extends _Screen {
     public _Menu levelCompleteMenu;
     public _Menu levelFailedMenu;
     public _Menu allLevelCompleteMenu;
+    public _Menu newHighScoreMenu;
 
     public List<_Button> buttons;
 
@@ -95,6 +97,7 @@ public class GameScreen extends _Screen {
         levelCompleteMenu = new LevelCompleteMenu(this);
         levelFailedMenu = new LevelFailedMenu(this);
         allLevelCompleteMenu = new AllLevelCompleteMenu(this);
+        newHighScoreMenu = new NewHighScoreMenu(this);
 
         // TODO: Draw the AdMob stuff here...
         //
@@ -105,7 +108,7 @@ public class GameScreen extends _Screen {
         this.buttons = new ArrayList<_Button>();
 
         // Pause
-        _Button bnPause = new _Button(this, 25, 300, 100, 40, AssetLoader.tCancel_Up, AssetLoader.tCancel_Down, new _ButtonListener() {
+        _Button bnPause = new _Button(this, 25, 350, 100, 40, AssetLoader.tCancel_Up, AssetLoader.tCancel_Down, new _ButtonListener() {
             @Override
             public void onClick() {
                 pauseGame();

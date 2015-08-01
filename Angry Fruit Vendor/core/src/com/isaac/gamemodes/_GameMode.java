@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.isaac.angryfruitvendor.AngryFVGame;
 import com.isaac.gamemodes.levels._Level;
+import com.isaac.gameobjects.AddALife;
+import com.isaac.gameobjects.FallingObject;
 import com.isaac.gameobjects.Trampoline;
 import com.isaac.gameobjects.fruits.Apple;
 import com.isaac.gameobjects.fruits.Banana;
@@ -38,6 +40,9 @@ public abstract class _GameMode {
     public float currentFruitTossInterval;
     public float timeUntilNextFruitToss;
 
+    public float currentObjFallInterval;
+    public float timeUntilNextObjFall;
+
     protected final String SCORE_PREFIX = "Score:  ";
     protected final String LIVES_PREFIX = "Lives:  ";
     protected final String STREAK_PREFIX = "Streak:  ";
@@ -45,10 +50,14 @@ public abstract class _GameMode {
     private int livesLeft;
 
     private Array<Fruit> activeFruits;
+    private Array<FallingObject> fallingObjects;
     private Trampoline trampoline;
 
     protected float startFruitTossInterval_Low = 1000;
     protected float startFruitTossInterval_High = 2000;
+
+    protected float startObjFallInterval_Low = 20000;
+    protected float startObjFallInterval_High = 50000;
 
     protected List<_Level> levels;
     protected int currentLevelIndex;
@@ -59,6 +68,7 @@ public abstract class _GameMode {
     public _GameMode(GameScreen gameScreen){
         this.gameScreen = gameScreen;
         activeFruits = new Array<Fruit>();
+        fallingObjects = new Array<FallingObject>();
         trampoline = new Trampoline();
         setLevels(new ArrayList<_Level>());
         createLevelPool();
@@ -78,7 +88,12 @@ public abstract class _GameMode {
 
         totalGameTime += delta;
 
+        // Checks to see if our Angry Fruit Vendor tosses the fruit!
         tossFruit(delta);
+
+        // Checks to see if a power up can fall from the sky
+        fallFromTheSky(delta);
+
         getTrampoline().update(delta);
 
         // If you want to free dead fruits, returning them to the pool:
@@ -90,8 +105,22 @@ public abstract class _GameMode {
             // Update the fruits
             fruit.update(delta);
 
-            if (fruit.alive == false) {
+            if (fruit.isAlive == false) {
                 activeFruits.removeIndex(i);
+            }
+        }
+
+        // Falling Objects
+        FallingObject fallingObject;
+        int faLen = fallingObjects.size;
+        for (int i = faLen ; --i >= 0; ) {
+            fallingObject = fallingObjects.get(i);
+
+            // Update the fallingObject
+            fallingObject.update(delta);
+
+            if (fallingObject.isAlive == false) {
+                fallingObjects.removeIndex(i);
             }
         }
 
@@ -105,6 +134,7 @@ public abstract class _GameMode {
         this.score = 0;
         this.currentStreak = 0;
         createNewFruitTossInterval();
+        createNewObjFallInterval();
         trampoline.init();
     }
 
@@ -128,6 +158,12 @@ public abstract class _GameMode {
     protected void createNewFruitTossInterval() {
         currentFruitTossInterval = 0;
         timeUntilNextFruitToss = MathUtils.random(getCurrentFruitTossInterval_Low(), getCurrentFruitTossInterval_High());
+    }
+
+    /***/
+    protected void createNewObjFallInterval(){
+        currentObjFallInterval = 0;
+        timeUntilNextObjFall = MathUtils.random(getCurrentObjFallInterval_Low(),getCurrentObjFallInterval_High());
     }
 
     /**
@@ -181,6 +217,32 @@ public abstract class _GameMode {
             newFruit.spawn(GameValues.FRUIT_STARTING_X, GameValues.FRUIT_STARTING_Y);
             activeFruits.add(newFruit);
             createNewFruitTossInterval();
+        }
+    }
+
+    /***/
+    protected void fallFromTheSky(float delta){
+        currentObjFallInterval += delta * 1000;
+        if (currentObjFallInterval > timeUntilNextObjFall) {
+
+            // Spawn a power up!
+            AddALife aal = new AddALife(this);
+            aal.spawn(getRandomTrampolinePosition());
+            fallingObjects.add(aal);
+            createNewObjFallInterval();
+        }
+    }
+
+    /***/
+    protected Trampoline.TrampolinePosition getRandomTrampolinePosition(){
+        int randPosIndex = MathUtils.random(1,3);
+        switch (randPosIndex){
+            case 1:
+                return Trampoline.TrampolinePosition.Position1;
+            case 2:
+                return Trampoline.TrampolinePosition.Position2;
+            default:
+                return Trampoline.TrampolinePosition.Position3;
         }
     }
 
@@ -304,6 +366,20 @@ public abstract class _GameMode {
         return startFruitTossInterval_High;
     }
 
+    public float getCurrentObjFallInterval_Low() {
+        if(AngryFVGame.DEV_MODE){
+            //return 10000;
+        }
+        return startObjFallInterval_Low;
+    }
+
+    public float getCurrentObjFallInterval_High() {
+        if(AngryFVGame.DEV_MODE){
+            //return 10000;
+        }
+        return startObjFallInterval_High;
+    }
+
     /***/
     public int getLivesLeft(){
         return this.livesLeft;
@@ -364,6 +440,9 @@ public abstract class _GameMode {
 
     public Array<Fruit> getActiveFruits() {
         return activeFruits;
+    }
+    public Array<FallingObject> getFallingObjects() {
+        return fallingObjects;
     }
 
     public Trampoline getTrampoline() {

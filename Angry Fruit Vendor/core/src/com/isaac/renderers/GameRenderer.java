@@ -6,6 +6,7 @@ package com.isaac.renderers;
 
 import com.isaac.angryfruitvendor.AngryFVGame;
 import com.isaac.gamemodes._GameMode;
+import com.isaac.gameobjects.FallingObject;
 import com.isaac.gameobjects.fruits.Fruit;
 import com.isaac.helpers.AssetLoader;
 import com.isaac.helpers.GameValues;
@@ -58,6 +59,12 @@ public class GameRenderer extends _Renderer {
                 for (int i = 0; i < getGameMode().getActiveFruits().size; i++) {
                     Fruit fruit = getGameScreen().currentGameMode.getActiveFruits().get(i);
                     fruit.draw(screen.runTime, this);
+                }
+
+                // Falling Objects
+                for (int i = 0; i < getGameMode().getFallingObjects().size; i++) {
+                    FallingObject fallingObject = getGameScreen().currentGameMode.getFallingObjects().get(i);
+                    fallingObject.draw(screen.runTime, this);
                 }
 
                 // GameMode/Level

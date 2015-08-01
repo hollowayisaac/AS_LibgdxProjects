@@ -70,6 +70,7 @@ public class Endless_Level extends _Level {
     @Override
     protected boolean isLevelFail() {
         if (gameMode.getLivesLeft() <= 0) {
+            // TODO: Here we check for a highscore
             return true;
         }
         return false;

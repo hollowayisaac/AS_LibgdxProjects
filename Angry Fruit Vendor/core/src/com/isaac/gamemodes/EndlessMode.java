@@ -3,6 +3,7 @@ package com.isaac.gamemodes;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isaac.gamemodes.levels.Endless_Level;
 import com.isaac.gamemodes.levels._Level;
+import com.isaac.helpers.UserData;
 import com.isaac.screens.GameScreen;
 
 import java.util.List;
@@ -35,6 +36,17 @@ public class EndlessMode extends _GameMode {
     public void init() {
         super.init();
         setCurrentLevel(0);
+    }
+
+    /***/
+    @Override
+    public void levelFail() {
+        if(getScore() > UserData.getEndlessScore()) {
+            UserData.setEndlessScore(getScore());
+            gameScreen.setGameScreenMenu(gameScreen.newHighScoreMenu);
+        }else{
+            super.levelFail();
+        }
     }
 
     /***/
