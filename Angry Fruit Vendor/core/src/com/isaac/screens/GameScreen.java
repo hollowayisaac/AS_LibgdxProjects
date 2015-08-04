@@ -108,7 +108,7 @@ public class GameScreen extends _Screen {
         this.buttons = new ArrayList<_Button>();
 
         // Pause
-        _Button bnPause = new _Button(this, 25, 350, 100, 40, AssetLoader.tCancel_Up, AssetLoader.tCancel_Down, new _ButtonListener() {
+        _Button bnPause = new _Button(this, 25, 320, 100, 40, AssetLoader.tCancel_Up, AssetLoader.tCancel_Down, new _ButtonListener() {
             @Override
             public void onClick() {
                 pauseGame();

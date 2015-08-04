@@ -7,6 +7,7 @@ import com.isaac.angryfruitvendor.AngryFVGame;
 import com.isaac.gamemodes.levels._Level;
 import com.isaac.gameobjects.AddALife;
 import com.isaac.gameobjects.FallingObject;
+import com.isaac.gameobjects.FruitVendor;
 import com.isaac.gameobjects.Trampoline;
 import com.isaac.gameobjects.fruits.Apple;
 import com.isaac.gameobjects.fruits.Banana;
@@ -52,6 +53,7 @@ public abstract class _GameMode {
     private Array<Fruit> activeFruits;
     private Array<FallingObject> fallingObjects;
     private Trampoline trampoline;
+    private FruitVendor fruitVendor;
 
     protected float startFruitTossInterval_Low = 1000;
     protected float startFruitTossInterval_High = 2000;
@@ -70,6 +72,7 @@ public abstract class _GameMode {
         activeFruits = new Array<Fruit>();
         fallingObjects = new Array<FallingObject>();
         trampoline = new Trampoline();
+        fruitVendor = new FruitVendor();
         setLevels(new ArrayList<_Level>());
         createLevelPool();
     }
@@ -410,7 +413,6 @@ public abstract class _GameMode {
         currentStreak += 1;
     }
 
-
     /***/
     public void clearStreak(){
         currentStreak = 0;
@@ -453,4 +455,7 @@ public abstract class _GameMode {
         this.trampoline = trampoline;
     }
 
+    public FruitVendor getFruitVendor() {
+        return fruitVendor;
+    }
 }

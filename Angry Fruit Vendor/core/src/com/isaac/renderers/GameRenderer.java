@@ -55,6 +55,9 @@ public class GameRenderer extends _Renderer {
                 // Trampoline
                 getGameMode().getTrampoline().draw(screen.runTime, this);
 
+                // Fruit vendor
+                getGameMode().getFruitVendor().draw(screen.runTime, this);
+
                 // Fruits
                 for (int i = 0; i < getGameMode().getActiveFruits().size; i++) {
                     Fruit fruit = getGameScreen().currentGameMode.getActiveFruits().get(i);

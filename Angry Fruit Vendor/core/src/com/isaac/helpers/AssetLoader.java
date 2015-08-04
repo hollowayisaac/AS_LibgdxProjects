@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -57,7 +58,8 @@ public class AssetLoader {
     public static Texture texture, logoTexture;
 
     // Animations
-    public static Animation birdAnimation;
+    public static Animation blueJayAnimation;
+    public static TextureAtlas blueJayAtlas;
 
     // Sound
     public static Sound dead, flap, coin;
@@ -241,9 +243,10 @@ public class AssetLoader {
         birdUp = new TextureRegion(texture, 170, 0, 17, 12);
         birdUp.flip(false, true);
 
-        TextureRegion[] birds = {birdDown, bird, birdUp};
-        birdAnimation = new Animation(0.06f, birds);
-        birdAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+
+        TextureAtlas blueJayAtlas = new TextureAtlas(Gdx.files.internal("animation/jaypacked.atlas"));
+        blueJayAnimation = new Animation(0.06f, blueJayAtlas.getRegions());
+        //blueJayAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
         skullUp = new TextureRegion(texture, 192, 0, 24, 14);
         // Create by flipping existing skullUp
@@ -263,6 +266,9 @@ public class AssetLoader {
     public static void dispose() {
         // We must dispose of the texture when we are finished.
         texture.dispose();
+
+        // Dispose animations
+        blueJayAtlas.dispose();
 
         // Dispose sounds
         dead.dispose();

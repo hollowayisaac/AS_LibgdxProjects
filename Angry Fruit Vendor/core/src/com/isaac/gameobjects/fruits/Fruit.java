@@ -36,9 +36,16 @@ public class Fruit extends FallingObject implements Pool.Poolable {
     // The position the fruit is in (1, 2, 3, or saved)
     protected Trampoline.TrampolinePosition fruitTrampolinePosition;
 
+    // ***NOTE***
+    // Increasing the Gravity (As in changing the gravity from -150 to -100) will make
+    // it so the fruits will go too high!
     protected final static int GRAVITY = -150;
+
+    // Each time the fruit bounces, the gravity_decay determines how much much lower the next bounc will be
     protected final float GRAVITY_DECAY = .90f;
-    protected final static int TERMINAL_VELOCITY = -120;
+
+    // This is the only value that can be changed without really breaking anything (nothing will go off the screen).
+    protected final static int TERMINAL_VELOCITY = -70;
     protected final float INITIAL_GRAVITY = 100f;
 
     /*
