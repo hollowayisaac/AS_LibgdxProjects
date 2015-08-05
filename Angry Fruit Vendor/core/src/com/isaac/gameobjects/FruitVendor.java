@@ -9,10 +9,14 @@ import com.isaac.renderers.GameRenderer;
  */
 public class FruitVendor extends GameObject {
 
+    protected float runTime;
+    protected boolean isAnimationRunning;
 
     /** [CONSTRUCTOR] */
     public FruitVendor(){
         this.position = new Vector2(20, 200);
+        isAnimationRunning = false;
+        runTime = 0;
     }
 
     /***
@@ -35,12 +39,23 @@ public class FruitVendor extends GameObject {
 
     /***
      * draw
-     *
-     * @param runTime
-     * @param renderer
-     */
+     **/
     @Override
-    public void draw(float runTime, GameRenderer renderer) {
-        renderer.getSpriteBatch().draw(AssetLoader.blueJayAnimation.getKeyFrame(runTime,true),getX(),getY());
+    public void draw(float delta, GameRenderer renderer) {
+
+        if (isAnimationRunning){
+            runTime+=delta;
+        }
+        if(AssetLoader.blueJayAnimation.isAnimationFinished(runTime)){
+            runTime = 0;
+            isAnimationRunning = false;
+    }
+
+        renderer.getSpriteBatch().draw(AssetLoader.blueJayAnimation.getKeyFrame(runTime),getX(),getY());
+    }
+
+    /***/
+    public void turnAnimationOn(){
+        this.isAnimationRunning = true;
     }
 }

@@ -220,6 +220,9 @@ public abstract class _GameMode {
             newFruit.spawn(GameValues.FRUIT_STARTING_X, GameValues.FRUIT_STARTING_Y);
             activeFruits.add(newFruit);
             createNewFruitTossInterval();
+
+            // Start the Fruit Vendor toss animation
+            fruitVendor.turnAnimationOn();
         }
     }
 

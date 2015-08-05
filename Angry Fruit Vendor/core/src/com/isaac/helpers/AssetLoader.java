@@ -2,6 +2,7 @@ package com.isaac.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -66,6 +67,7 @@ public class AssetLoader {
 
     // Font
     public static BitmapFont ftWag; //(Wag) White and Gray
+    public static BitmapFont ftWag2;
 
     /***/
     public static void load() {
@@ -79,6 +81,9 @@ public class AssetLoader {
     private static void load_Fonts() {
         ftWag = new BitmapFont(Gdx.files.internal("fonts/simple1.fnt"));
         ftWag.setScale(.5f, .5f);
+
+        ftWag2 = new BitmapFont(Gdx.files.internal("fonts/simple1.fnt"));
+        ftWag2.setScale(1, 1);
     }
 
     /***/
@@ -247,6 +252,7 @@ public class AssetLoader {
         TextureAtlas blueJayAtlas = new TextureAtlas(Gdx.files.internal("animation/jaypacked.atlas"));
         blueJayAnimation = new Animation(0.06f, blueJayAtlas.getRegions());
         //blueJayAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
+        blueJayAnimation.setPlayMode(Animation.PlayMode.NORMAL);
 
         skullUp = new TextureRegion(texture, 192, 0, 24, 14);
         // Create by flipping existing skullUp

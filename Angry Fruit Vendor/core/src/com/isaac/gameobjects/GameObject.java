@@ -19,7 +19,7 @@ public abstract class GameObject {
     abstract public void update(float delta);
 
     /*** draw */
-    abstract public void draw(float runTime, GameRenderer renderer) ;
+    abstract public void draw(float delta, GameRenderer renderer) ;
 
     public float getX() {
         return position.x;

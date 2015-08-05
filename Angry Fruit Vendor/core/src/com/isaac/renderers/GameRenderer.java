@@ -53,10 +53,10 @@ public class GameRenderer extends _Renderer {
                 getGameMode().renderGameMode(delta, getSpriteBatch());
 
                 // Trampoline
-                getGameMode().getTrampoline().draw(screen.runTime, this);
+                getGameMode().getTrampoline().draw(delta, this);
 
                 // Fruit vendor
-                getGameMode().getFruitVendor().draw(screen.runTime, this);
+                getGameMode().getFruitVendor().draw(delta, this);
 
                 // Fruits
                 for (int i = 0; i < getGameMode().getActiveFruits().size; i++) {
