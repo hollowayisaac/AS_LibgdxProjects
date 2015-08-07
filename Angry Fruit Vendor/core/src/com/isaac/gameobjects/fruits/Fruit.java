@@ -295,6 +295,9 @@ public class Fruit extends FallingObject implements Pool.Poolable {
             // Add the score
             gameMode.addFruitScore(scoreValue);
             isAlive = false;
+
+            // Start the floating text animation
+            gameMode.addFloatingText();
         }
     }
 

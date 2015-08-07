@@ -24,10 +24,12 @@ public abstract class GameObject {
     public float getX() {
         return position.x;
     }
+    public void setX(float x){this.position.x = x;}
 
     public float getY() {
         return position.y;
     }
+    public void setY(float y){this.position.y = y;}
 
     public float getCenterX() {
         return position.x + (width / 2);

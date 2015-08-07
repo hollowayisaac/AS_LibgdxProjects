@@ -2,11 +2,14 @@ package com.isaac.gamemodes;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.isaac.angryfruitvendor.AngryFVGame;
 import com.isaac.gamemodes.levels._Level;
 import com.isaac.gameobjects.AddALife;
+import com.isaac.gameobjects.AnimEffect;
 import com.isaac.gameobjects.FallingObject;
+import com.isaac.gameobjects.FloatingText;
 import com.isaac.gameobjects.FruitVendor;
 import com.isaac.gameobjects.Trampoline;
 import com.isaac.gameobjects.fruits.Apple;
@@ -16,6 +19,7 @@ import com.isaac.gameobjects.fruits.Fruit;
 import com.isaac.gameobjects.fruits.Orange;
 import com.isaac.gameobjects.fruits.RottenFruit;
 import com.isaac.gameobjects.fruits.Watermelon;
+import com.isaac.helpers.AssetLoader;
 import com.isaac.helpers.GameValues;
 import com.isaac.helpers.UserData;
 import com.isaac.screens.GameScreen;
@@ -52,6 +56,7 @@ public abstract class _GameMode {
 
     private Array<Fruit> activeFruits;
     private Array<FallingObject> fallingObjects;
+    private Array<FloatingText> floatingTexts;
     private Trampoline trampoline;
     private FruitVendor fruitVendor;
 
@@ -71,6 +76,7 @@ public abstract class _GameMode {
         this.gameScreen = gameScreen;
         activeFruits = new Array<Fruit>();
         fallingObjects = new Array<FallingObject>();
+        floatingTexts = new Array<FloatingText>();
         trampoline = new Trampoline();
         fruitVendor = new FruitVendor();
         setLevels(new ArrayList<_Level>());
@@ -124,6 +130,20 @@ public abstract class _GameMode {
 
             if (fallingObject.isAlive == false) {
                 fallingObjects.removeIndex(i);
+            }
+        }
+
+        // Floating Texts
+        FloatingText floatingText;
+        int ftLen = floatingTexts.size;
+        for (int i = ftLen ; --i >= 0; ) {
+            floatingText = floatingTexts.get(i);
+
+            // Update the fallingObject
+            floatingText.update(delta);
+
+            if (!floatingText.isAlive()) {
+                floatingTexts.removeIndex(i);
             }
         }
 
@@ -339,6 +359,22 @@ public abstract class _GameMode {
     }
 
     /***/
+    public void addFloatingText(){
+        FloatingText floatingText = new FloatingText(AssetLoader.ftPlainBlack, "+1", new Vector2(450, 100));
+
+        ArrayList<AnimEffect> animEffects = new ArrayList<AnimEffect>();
+        animEffects.add(FloatingText.addMoveAnimation(1.5,450,200));
+        floatingText.addAnimEffectListToChain(animEffects);
+
+        animEffects = new ArrayList<AnimEffect>();
+        animEffects.add(FloatingText.addMoveAnimation(3, 350, 100));
+        floatingText.addAnimEffectListToChain(animEffects);
+
+        floatingText.init();
+        floatingTexts.add(floatingText);
+    }
+
+    /***/
     protected _Level getCurrentLevel() {
         return getLevels().get(getCurrentLevelIndex());
     }
@@ -448,6 +484,9 @@ public abstract class _GameMode {
     }
     public Array<FallingObject> getFallingObjects() {
         return fallingObjects;
+    }
+    public Array<FloatingText> getFloatingTexts() {
+        return floatingTexts;
     }
 
     public Trampoline getTrampoline() {

@@ -67,7 +67,7 @@ public class AssetLoader {
 
     // Font
     public static BitmapFont ftWag; //(Wag) White and Gray
-    public static BitmapFont ftWag2;
+    public static BitmapFont ftPlainBlack;
 
     /***/
     public static void load() {
@@ -82,8 +82,8 @@ public class AssetLoader {
         ftWag = new BitmapFont(Gdx.files.internal("fonts/simple1.fnt"));
         ftWag.setScale(.5f, .5f);
 
-        ftWag2 = new BitmapFont(Gdx.files.internal("fonts/simple1.fnt"));
-        ftWag2.setScale(1, 1);
+        ftPlainBlack = new BitmapFont(Gdx.files.internal("fonts/plain-black.fnt"));
+        ftPlainBlack.setScale(1, 1);
     }
 
     /***/
@@ -248,8 +248,7 @@ public class AssetLoader {
         birdUp = new TextureRegion(texture, 170, 0, 17, 12);
         birdUp.flip(false, true);
 
-
-        TextureAtlas blueJayAtlas = new TextureAtlas(Gdx.files.internal("animation/jaypacked.atlas"));
+        blueJayAtlas = new TextureAtlas(Gdx.files.internal("animation/jaypacked.atlas"));
         blueJayAnimation = new Animation(0.06f, blueJayAtlas.getRegions());
         //blueJayAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
         blueJayAnimation.setPlayMode(Animation.PlayMode.NORMAL);
