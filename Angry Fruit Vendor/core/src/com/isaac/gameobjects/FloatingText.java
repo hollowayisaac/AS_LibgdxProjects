@@ -87,4 +87,10 @@ public class FloatingText extends GameObject {
         MoveAnimEffect moveEffect = new MoveAnimEffect(animationDurationSeconds, destX, destY);
         return moveEffect;
     }
+
+    /***/
+    public static FadeAnimEffect addFadeAnimation(double animationDurationSeconds, float startingOpacity, float endingOpacity){
+        FadeAnimEffect fadeEffect = new FadeAnimEffect(animationDurationSeconds, startingOpacity, endingOpacity);
+        return fadeEffect;
+    }
 }

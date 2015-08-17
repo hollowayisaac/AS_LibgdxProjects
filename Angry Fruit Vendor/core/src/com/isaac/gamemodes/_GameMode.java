@@ -366,8 +366,7 @@ public abstract class _GameMode {
         animEffects.add(FloatingText.addMoveAnimation(1.5,450,200));
         floatingText.addAnimEffectListToChain(animEffects);
 
-        animEffects = new ArrayList<AnimEffect>();
-        animEffects.add(FloatingText.addMoveAnimation(3, 350, 100));
+        animEffects.add(FloatingText.addFadeAnimation(1.5, 0, 1));
         floatingText.addAnimEffectListToChain(animEffects);
 
         floatingText.init();
