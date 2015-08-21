@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.isaac.gamemodes.levels.Endless_Level;
 import com.isaac.gamemodes.levels._Level;
 import com.isaac.helpers.UserData;
+import com.isaac.renderers.GameRenderer;
 import com.isaac.screens.GameScreen;
 
 import java.util.List;
@@ -50,14 +51,14 @@ public class EndlessMode extends _GameMode {
     }
 
     /***/
-    public void renderGameMode(float delta, SpriteBatch batch) {
-        getCurrentLevel().drawLevel(delta, batch);
+    public void renderGameMode(float delta, GameRenderer renderer) {
+        getCurrentLevel().drawLevel(delta, renderer);
     }
 
     /***/
     @Override
-    public void renderGameModeBG(float delta, SpriteBatch batch) {
-        getCurrentLevel().drawLevelBG(delta, batch);
+    public void renderGameModeBG(float delta, GameRenderer renderer) {
+        getCurrentLevel().drawLevelBG(delta, renderer);
     }
 
     /***/

@@ -6,6 +6,7 @@ import com.isaac.gamemodes._GameMode;
 import com.isaac.gameobjects.fruits.Fruit;
 import com.isaac.helpers.AssetLoader;
 import com.isaac.helpers.GameValues;
+import com.isaac.renderers.GameRenderer;
 
 /**
  * Created by Isaac Holloway on 1/1/2015.
@@ -40,6 +41,7 @@ public class EndlessBaskets_Level extends _Level {
      */
     @Override
     public void init() {
+        super.init();
         gameMode.setLivesLeft(STARTING_LIVES);
         if (AngryFVGame.DEV_MODE) {
 
@@ -76,14 +78,15 @@ public class EndlessBaskets_Level extends _Level {
 
     /***/
     @Override
-    public void drawLevel(float delta, SpriteBatch batch) {
-        drawGoal(delta, batch);
+    public void drawLevel(float delta,  GameRenderer renderer) {
+        super.drawLevel(delta, renderer);
+        drawGoal(delta, renderer);
     }
 
     /***/
-    public void drawGoal(float delta, SpriteBatch batch) {
+    public void drawGoal(float delta, GameRenderer renderer) {
         // Draw the Goal Text
-        AssetLoader.ftWag.draw(batch, "" + getGoalText(),
+        AssetLoader.ftWag.draw(renderer.getSpriteBatch(), "" + getGoalText(),
                 450, GameValues.ARENA_HEIGHT);
     }
 

@@ -22,6 +22,7 @@ import com.isaac.gameobjects.fruits.Watermelon;
 import com.isaac.helpers.AssetLoader;
 import com.isaac.helpers.GameValues;
 import com.isaac.helpers.UserData;
+import com.isaac.renderers.GameRenderer;
 import com.isaac.screens.GameScreen;
 
 import java.util.ArrayList;
@@ -95,59 +96,62 @@ public abstract class _GameMode {
             delta = .15f;
         }
 
-        totalGameTime += delta;
+        if(!getCurrentLevel().animate(delta)) {
 
-        // Checks to see if our Angry Fruit Vendor tosses the fruit!
-        tossFruit(delta);
+            totalGameTime += delta;
 
-        // Checks to see if a power up can fall from the sky
-        fallFromTheSky(delta);
+            // Checks to see if our Angry Fruit Vendor tosses the fruit!
+            tossFruit(delta);
 
-        getTrampoline().update(delta);
+            // Checks to see if a power up can fall from the sky
+            fallFromTheSky(delta);
 
-        // If you want to free dead fruits, returning them to the pool:
-        Fruit fruit;
-        int len = activeFruits.size;
-        for (int i = len; --i >= 0; ) {
-            fruit = activeFruits.get(i);
+            getTrampoline().update(delta);
 
-            // Update the fruits
-            fruit.update(delta);
+            // If you want to free dead fruits, returning them to the pool:
+            Fruit fruit;
+            int len = activeFruits.size;
+            for (int i = len; --i >= 0; ) {
+                fruit = activeFruits.get(i);
 
-            if (fruit.isAlive == false) {
-                activeFruits.removeIndex(i);
+                // Update the fruits
+                fruit.update(delta);
+
+                if (fruit.isAlive == false) {
+                    activeFruits.removeIndex(i);
+                }
             }
-        }
 
-        // Falling Objects
-        FallingObject fallingObject;
-        int faLen = fallingObjects.size;
-        for (int i = faLen ; --i >= 0; ) {
-            fallingObject = fallingObjects.get(i);
+            // Falling Objects
+            FallingObject fallingObject;
+            int faLen = fallingObjects.size;
+            for (int i = faLen; --i >= 0; ) {
+                fallingObject = fallingObjects.get(i);
 
-            // Update the fallingObject
-            fallingObject.update(delta);
+                // Update the fallingObject
+                fallingObject.update(delta);
 
-            if (fallingObject.isAlive == false) {
-                fallingObjects.removeIndex(i);
+                if (fallingObject.isAlive == false) {
+                    fallingObjects.removeIndex(i);
+                }
             }
-        }
 
-        // Floating Texts
-        FloatingText floatingText;
-        int ftLen = floatingTexts.size;
-        for (int i = ftLen ; --i >= 0; ) {
-            floatingText = floatingTexts.get(i);
+            // Floating Texts
+            FloatingText floatingText;
+            int ftLen = floatingTexts.size;
+            for (int i = ftLen; --i >= 0; ) {
+                floatingText = floatingTexts.get(i);
 
-            // Update the fallingObject
-            floatingText.update(delta);
+                // Update the fallingObject
+                floatingText.update(delta);
 
-            if (!floatingText.isAlive()) {
-                floatingTexts.removeIndex(i);
+                if (!floatingText.isAlive()) {
+                    floatingTexts.removeIndex(i);
+                }
             }
-        }
 
-        getCurrentLevel().update(delta);
+            getCurrentLevel().update(delta);
+        }
     }
 
     /***/
@@ -162,13 +166,13 @@ public abstract class _GameMode {
     }
 
     /***/
-    public void renderGameMode(float delta, SpriteBatch batch) {
-        getCurrentLevel().drawLevel(delta, batch);
+    public void renderGameMode(float delta, GameRenderer renderer) {
+        getCurrentLevel().drawLevel(delta, renderer);
     }
 
     /***/
-    public void renderGameModeBG(float delta, SpriteBatch batch) {
-        getCurrentLevel().drawLevelBG(delta, batch);
+    public void renderGameModeBG(float delta, GameRenderer renderer) {
+        getCurrentLevel().drawLevelBG(delta, renderer);
     }
     /***/
     public void setCurrentLevel(int index) {
@@ -361,6 +365,7 @@ public abstract class _GameMode {
     /***/
     public void addFloatingText(){
         FloatingText floatingText = new FloatingText(AssetLoader.ftPlainBlack, "+1", new Vector2(450, 100));
+        floatingText.animate();
 
         ArrayList<AnimEffect> animEffects = new ArrayList<AnimEffect>();
         animEffects.add(FloatingText.addMoveAnimation(1.5,450,200));

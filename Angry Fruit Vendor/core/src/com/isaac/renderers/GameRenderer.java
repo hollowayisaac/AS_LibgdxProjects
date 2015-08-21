@@ -38,7 +38,7 @@ public class GameRenderer extends _Renderer {
     /***/
     @Override
     protected void drawBackground(float delta) {
-        getGameScreen().currentGameMode.renderGameModeBG(delta, getSpriteBatch());
+        getGameScreen().currentGameMode.renderGameModeBG(delta, this);
     }
 
     /***/
@@ -51,7 +51,7 @@ public class GameRenderer extends _Renderer {
             case RUNNING:
 
                 // Level
-                getGameMode().renderGameMode(delta, getSpriteBatch());
+                getGameMode().renderGameMode(delta, this);
 
                 // Trampoline
                 getGameMode().getTrampoline().draw(delta, this);
@@ -78,7 +78,7 @@ public class GameRenderer extends _Renderer {
                 }
 
                 // GameMode/Level
-                getGameMode().renderGameMode(delta, getSpriteBatch());
+                getGameMode().renderGameMode(delta, this);
 
                 // [TEXT] Score
                 drawScore();
