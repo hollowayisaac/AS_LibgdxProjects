@@ -56,6 +56,7 @@ public class FloatingText extends GameObject {
                     nextChain = false;
                 }
             }
+
             if (nextChain){
                 // When we remove an animEffect list from the chain we need to set our StartingX & Y to the current location
                 this.startingX = getX();
@@ -64,6 +65,7 @@ public class FloatingText extends GameObject {
                 if(i == chainedAnimEffects.size()-1){
                     animationCompleted = true;
                 }
+
                 break;
             }
         }

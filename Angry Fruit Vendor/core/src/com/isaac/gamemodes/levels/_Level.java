@@ -60,7 +60,6 @@ public abstract class _Level {
 
         ArrayList<AnimEffect> animEffects = new ArrayList<AnimEffect>();
         animEffects.add(FloatingText.addMoveAnimation(2,450,100));
-        floatingText.addAnimEffectListToChain(animEffects);
 
         animEffects.add(FloatingText.addFadeAnimation(2, 0, 1));
         floatingText.addAnimEffectListToChain(animEffects);
