@@ -27,7 +27,7 @@ public class FloatingText extends GameObject {
         this.font = font;
         this.message = message;
         this.animEffects = new ArrayList<AnimEffect>();
-        chainedAnimEffects = new ArrayList<ArrayList<AnimEffect>>();
+        this.chainedAnimEffects = new ArrayList<ArrayList<AnimEffect>>();
         this.position = position;
         this.animationCompleted = true;
     }
@@ -36,7 +36,7 @@ public class FloatingText extends GameObject {
     public void animate(){
         this.startingX = position.x;
         this.startingY = position.y;
-        animationCompleted = false;
+        this.animationCompleted = false;
     }
 
     /***/

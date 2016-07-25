@@ -31,9 +31,7 @@ public class GameScreen extends _Screen {
         RUNNING, MENU,
     }
     private GameState currentState;
-
     public GameInput gameInput;
-
     public _GameMode currentGameMode;
     public _GameMode stageMode;
     public _GameMode endlessMode;
@@ -108,7 +106,7 @@ public class GameScreen extends _Screen {
         this.buttons = new ArrayList<_Button>();
 
         // Pause
-        _Button bnPause = new _Button(this, 25, 320, 100, 40, AssetLoader.tCancel_Up, AssetLoader.tCancel_Down, new _ButtonListener() {
+        _Button bnPause = new _Button(this, 275, 320, 100, 40, AssetLoader.tCancel_Up, AssetLoader.tCancel_Down, new _ButtonListener() {
             @Override
             public void onClick() {
                 pauseGame();
@@ -116,7 +114,7 @@ public class GameScreen extends _Screen {
         });
         buttons.add(bnPause);
 
-        // Trampoline LEFT
+/*        // Trampoline LEFT
         _Button bnMoveTrampolineLeft = new _Button(this, 100, 100, 75, 75, AssetLoader.tArrowLeftUp, AssetLoader.tArrowRightUp, new _ButtonListener() {
             @Override
             public void onClick() {
@@ -132,7 +130,7 @@ public class GameScreen extends _Screen {
                 currentGameMode.getTrampoline().onInput_Right();
             }
         });
-        buttons.add(bnMoveTrampolineRight);
+        buttons.add(bnMoveTrampolineRight);*/
     }
 
     /***/

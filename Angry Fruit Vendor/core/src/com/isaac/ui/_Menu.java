@@ -3,6 +3,10 @@ package com.isaac.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.isaac.helpers.GameValues;
 import com.isaac.screens._Screen;
 
 /**
@@ -20,7 +24,6 @@ public abstract class _Menu {
     public _Menu(_Screen screen){
         this.screen = screen;
         this.stage = new Stage();
-
         createStage();
     }
 
@@ -38,12 +41,4 @@ public abstract class _Menu {
     public void draw(float delta, SpriteBatch batch){
         stage.draw();
     }
-
-    /*
-    public void drawButtons(float delta, SpriteBatch batch){
-        // Draw Buttons
-        for (int i = 0; i < this.buttons.size(); i++) {
-            buttons.get(i).draw(delta, batch);
-        }
-    }*/
 }

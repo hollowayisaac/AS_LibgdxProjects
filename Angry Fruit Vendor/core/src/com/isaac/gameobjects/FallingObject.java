@@ -36,7 +36,7 @@ public class FallingObject extends GameObject {
     public void spawn(Trampoline.TrampolinePosition fruitTrampolinePosition) {
         this.fruitTrampolinePosition = fruitTrampolinePosition;
         init();
-        this.position.set(Trampoline.getTrampolineXLocGivenPosition(fruitTrampolinePosition), GameValues.ARENA_HEIGHT);
+        this.position.set(Trampoline.getTrampolineXLocGivenPosition(fruitTrampolinePosition), GameValues.GAME_HEIGHT);
     }
 
     /***/
@@ -84,6 +84,7 @@ public class FallingObject extends GameObject {
         if (getY() <= GameValues.TRAMPOLINE_TOP_COLLISION_Y &&
                 getY() >= GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y &&
                 fruitTrampolinePosition == gameMode.getTrampoline().getTrampolinePosition()) {
+
             return true;
         }
         return false;

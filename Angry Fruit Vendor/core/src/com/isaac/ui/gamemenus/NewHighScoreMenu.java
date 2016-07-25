@@ -43,7 +43,7 @@ public class NewHighScoreMenu extends _Menu implements com.isaac.interfaces.Game
 
         // Set table background
         table.setSize(250, 250);
-        TextureRegionDrawable trd = new TextureRegionDrawable(AssetLoader.trTrampoline);
+        TextureRegionDrawable trd = new TextureRegionDrawable(AssetLoader.trApple);
         table.setBackground(trd);
 
         // Display your Score

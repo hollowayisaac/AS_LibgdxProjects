@@ -243,6 +243,7 @@ public class Fruit extends FallingObject implements Pool.Poolable {
                 getY() >= GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y &&
                 fruitState != FruitState.Rising &&
                 fruitTrampolinePosition == gameMode.getTrampoline().getTrampolinePosition()) {
+            gameMode.getTrampoline().turnAnimationOn();
             return true;
         }
         return false;
@@ -253,7 +254,8 @@ public class Fruit extends FallingObject implements Pool.Poolable {
     protected void collisionMissedTrampoline() {
         //      *** MISSED TRAMPOLINE ***      //
         if (getY() <= GameValues.TRAMPOLINE_BOTTOM_COLLISION_Y &&
-                fruitState == FruitState.Falling) {
+                fruitState == FruitState.Falling &&
+                fruitTrampolinePosition != Trampoline.TrampolinePosition.Saved) {
 
             // Set state to Dropped
             fruitState = FruitState.Dropped;
@@ -266,7 +268,8 @@ public class Fruit extends FallingObject implements Pool.Poolable {
     protected void collisionHitGround() {
         //      *** HIT GROUND ***      //
         if (getY() <= GameValues.DROPPED_Y_LOC &&
-                fruitState == FruitState.Dropped) {
+                fruitState == FruitState.Dropped &&
+                fruitTrampolinePosition != Trampoline.TrampolinePosition.Saved) {
 
             // Destroy/Remove Fruit, by setting the alive = false.
             isAlive = false;

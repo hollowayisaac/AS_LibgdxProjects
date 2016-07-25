@@ -1,0 +1,38 @@
+
+cannon.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+cannon001
+  rotate: false
+  xy: 1, 509
+  size: 782, 506
+  orig: 782, 506
+  offset: 0, 0
+  index: -1
+cannon002
+  rotate: false
+  xy: 1, 1
+  size: 782, 506
+  orig: 782, 506
+  offset: 0, 0
+  index: -1
+cannon004
+  rotate: false
+  xy: 1, 1
+  size: 782, 506
+  orig: 782, 506
+  offset: 0, 0
+  index: -1
+
+cannon2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+cannon003
+  rotate: false
+  xy: 1, 1
+  size: 782, 506
+  orig: 782, 506
+  offset: 0, 0
+  index: -1

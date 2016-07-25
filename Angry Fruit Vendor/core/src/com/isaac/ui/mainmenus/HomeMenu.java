@@ -84,9 +84,9 @@ public class HomeMenu extends _Menu implements com.isaac.interfaces.MainScreenab
         return (MainMenuScreen)screen;
     }
 
-    /***/
+/*    *//***//*
     private void drawGameTitle(float delta) {
-        AssetLoader.ftWag.draw(screen.getBatch(), "" + "ANGRY FRUIT VENDOR",
-                0, GameValues.GAMEUNIT_HEIGHT);
-    }
+        AssetLoader.ftWag.draw(screen.getBatch(), "Don't know what this text is" + "Save The Fruit",
+                0, 0);
+    }*/
 }

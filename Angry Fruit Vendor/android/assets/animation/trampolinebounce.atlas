@@ -1,0 +1,40 @@
+
+trampolinebounce.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+trampoline001
+  rotate: false
+  xy: 1, 553
+  size: 958, 136
+  orig: 958, 136
+  offset: 0, 0
+  index: -1
+trampoline002
+  rotate: false
+  xy: 1, 415
+  size: 958, 136
+  orig: 958, 136
+  offset: 0, 0
+  index: -1
+trampoline003
+  rotate: false
+  xy: 1, 277
+  size: 958, 136
+  orig: 958, 136
+  offset: 0, 0
+  index: -1
+trampoline004
+  rotate: false
+  xy: 1, 139
+  size: 958, 136
+  orig: 958, 136
+  offset: 0, 0
+  index: -1
+trampoline005
+  rotate: false
+  xy: 1, 1
+  size: 958, 136
+  orig: 958, 136
+  offset: 0, 0
+  index: -1

@@ -2,6 +2,7 @@ package com.isaac.gameobjects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.isaac.helpers.AssetLoader;
+import com.isaac.helpers.GameValues;
 import com.isaac.renderers.GameRenderer;
 
 /**
@@ -43,15 +44,15 @@ public class FruitVendor extends GameObject {
     @Override
     public void draw(float delta, GameRenderer renderer) {
 
-        if (isAnimationRunning){
+        /*if (isAnimationRunning){
             runTime+=delta;
         }
-        if(AssetLoader.blueJayAnimation.isAnimationFinished(runTime)){
+        if(AssetLoader.cannonAnimation.isAnimationFinished(runTime)){
             runTime = 0;
             isAnimationRunning = false;
-    }
+        }
 
-        renderer.getSpriteBatch().draw(AssetLoader.blueJayAnimation.getKeyFrame(runTime),getX(),getY());
+        renderer.getSpriteBatch().draw(AssetLoader.cannonAnimation.getKeyFrame(runTime),getX(),getY(), GameValues.CANNON_WIDTH, GameValues.CANNON_HEIGHT);*/
     }
 
     /***/

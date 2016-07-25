@@ -23,14 +23,11 @@ public class Trampoline extends GameObject {
     protected boolean stunned;
 
     private TrampolinePosition trampolinePosition;
-
-    // TextureRegion
     protected TextureRegion trampolineImage;
+    protected float runTime;
+    protected boolean isAnimationRunning;
 
-    /**
-     * [CONSTRUCTOR]
-     * The 'Constructor' will initialize anything that will stay constant throughout the classes life.
-     */
+    /* **/
     public Trampoline() {
         this.width = GameValues.TRAMPOLINE_WIDTH;
         this.height = GameValues.TRAMPOLINE_HEIGHT;
@@ -38,37 +35,31 @@ public class Trampoline extends GameObject {
         // Set the y position (this shouldn't change)
         position = new Vector2(0f, GameValues.TRAMPOLINE_Y);
 
-        // Set image
-        this.trampolineImage = AssetLoader.trTrampoline;
+        isAnimationRunning = false;
+        runTime = 0;
+
+/*        // Set image
+        this.trampolineImage = AssetLoader.trTrampoline;*/
     }
 
-    /**
-     * init
-     * 'init' will initialize anything that might have changed since the creation of the class.  Think of this as a 'Reset'
-     */
+    /* **/
     public void init() {
         this.currentTimeInStun = 0;
         this.stunned = false;
+
+
 
         // Set initial position
         setTrampolinePosition(TrampolinePosition.Position1);
     }
 
-    /**
-     * update
-     *
-     * @param delta
-     */
+    /* **/
     @Override
     public void update(float delta) {
         handleStunned(delta);
     }
 
-    /**
-     * checkStunned
-     *
-     * @param delta
-     */
+    /* **/
     private void handleStunned(float delta) {
         if (stunned) {
             if (currentTimeInStun < STUN_DURATION) {
@@ -80,33 +71,31 @@ public class Trampoline extends GameObject {
         }
     }
 
-    /**
-     * stun
-     */
+    /* **/
     public void stun() {
         this.currentTimeInStun = 0;
         this.stunned = true;
     }
 
-    /**
-     * isStunned
-     *
-     * @return
-     */
+    /* **/
     public boolean isStunned() {
         return stunned;
     }
 
-    /**
-     * draw
-     *
-     * @param runTime
-     * @param renderer
-     */
+    /* **/
     @Override
-    public void draw(float runTime, GameRenderer renderer) {
-        renderer.getSpriteBatch().draw(trampolineImage, getX(), getY(),
-                getWidth(), getHeight());
+    public void draw(float delta, GameRenderer renderer) {
+/*        renderer.getSpriteBatch().draw(trampolineImage, getX(), getY(),
+                getWidth(), getHeight());*/
+        if (isAnimationRunning){
+            runTime+=delta;
+        }
+        if(AssetLoader.trampolineBounceAnimation.isAnimationFinished(runTime)){
+            runTime = 0;
+            isAnimationRunning = false;
+        }
+
+        renderer.getSpriteBatch().draw(AssetLoader.trampolineBounceAnimation.getKeyFrame(runTime),getX(),getY(),getWidth(),getHeight());
     }
 
     /**
@@ -183,5 +172,11 @@ public class Trampoline extends GameObject {
      */
     public TrampolinePosition getTrampolinePosition() {
         return trampolinePosition;
+    }
+
+    /***/
+    public void turnAnimationOn(){
+        this.isAnimationRunning = true;
+        this.runTime = 0;
     }
 }

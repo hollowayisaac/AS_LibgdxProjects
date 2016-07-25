@@ -111,9 +111,8 @@ public abstract class _Level {
 
     /***/
     public void drawLevelBG(float delta, GameRenderer renderer) {
-        /*renderer.getSpriteBatch().draw(levelBackground, GameValues.ARENA_X, GameValues.ARENA_Y, GameValues.ARENA_WIDTH/2, GameValues.ARENA_HEIGHT/2,
-                GameValues.ARENA_WIDTH, GameValues.ARENA_HEIGHT,1, 1, 0, true);*/
-        renderer.getSpriteBatch().draw(AssetLoader.trBGField, GameValues.ARENA_X, GameValues.ARENA_Y, GameValues.ARENA_WIDTH, GameValues.ARENA_HEIGHT);
+
+
     }
 
     /***/

@@ -72,12 +72,12 @@ public class Util {
     }
 
     public static float unScaleX(float x){
-        float scaleX = (float)Gdx.graphics.getWidth() / (float) GameValues.GAMEUNIT_WIDTH;
+        float scaleX = (float)Gdx.graphics.getWidth() / (float) GameValues.GAME_WIDTH;
         x *= scaleX;
         return x;
     }
     public static float unScaleY(float y){
-        float scaleY = (float)Gdx.graphics.getHeight() / (float) GameValues.GAMEUNIT_HEIGHT;
+        float scaleY = (float)Gdx.graphics.getHeight() / (float) GameValues.GAME_HEIGHT;
         y *= scaleY;
         return y;
     }

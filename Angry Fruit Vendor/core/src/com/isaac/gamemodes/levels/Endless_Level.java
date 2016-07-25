@@ -38,7 +38,7 @@ public class Endless_Level extends _Level {
      */
     @Override
     protected void setLevelBackground() {
-        this.levelBackground = AssetLoader.trTrampoline;
+        this.levelBackground = AssetLoader.trApple;
     }
 
     /**
@@ -90,7 +90,7 @@ public class Endless_Level extends _Level {
     public void drawGoal(float delta, GameRenderer renderer) {
         // Draw the Goal Text
 
-        drawText_Wag(450, GameValues.ARENA_HEIGHT, "Goal: " + getGoalText(), renderer);
+        //drawText_Wag(450, GameValues.GAME_HEIGHT, "Goal: " + getGoalText(), renderer);
     }
 
     /**

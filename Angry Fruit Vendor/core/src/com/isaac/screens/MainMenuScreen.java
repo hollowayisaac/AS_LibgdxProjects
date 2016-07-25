@@ -29,7 +29,7 @@ public class MainMenuScreen extends _Screen {
     @Override
     public void init(){
         // Set initial menu
-        setCurrentMenu(homeMenu);
+        setCurrentMenu(gameModeMenu);
     }
 
     /***/

@@ -364,14 +364,16 @@ public abstract class _GameMode {
 
     /***/
     public void addFloatingText(){
-        FloatingText floatingText = new FloatingText(AssetLoader.ftPlainBlack, "+1", new Vector2(450, 100));
+        FloatingText floatingText = new FloatingText(AssetLoader.ftWagPlusOne, "+1", new Vector2(450, 100));
         floatingText.animate();
 
         ArrayList<AnimEffect> animEffects = new ArrayList<AnimEffect>();
-        animEffects.add(FloatingText.addMoveAnimation(1.5,450,200));
+        animEffects.add(FloatingText.addMoveAnimation(3,450,200));
+        //animEffects.add(FloatingText.addMoveAnimation(1.5,450,200));
         floatingText.addAnimEffectListToChain(animEffects);
 
-        animEffects.add(FloatingText.addFadeAnimation(1.5, 0, 1));
+        animEffects.add(FloatingText.addFadeAnimation(3, 0, 1));
+        //animEffects.add(FloatingText.addFadeAnimation(1.5, 0, 1));
         floatingText.addAnimEffectListToChain(animEffects);
 
         floatingText.init();
@@ -478,6 +480,10 @@ public abstract class _GameMode {
     public String getDisplayedScoreText() {
         return SCORE_PREFIX + getScore();
     }
+    public String getScoreText() {
+        return Integer.toString(getScore());
+    }
+
 
     public void addScore(int increment) {
         score += increment;

@@ -54,12 +54,12 @@ public class LevelSelectionMenu extends _Menu implements com.isaac.interfaces.Ma
     @Override
     protected void createStage(){
         // *** Testing *** Drawables
-        Drawable d = new TextureRegionDrawable(AssetLoader.trApple);
+        /*Drawable d = new TextureRegionDrawable(AssetLoader.trApple);
         Drawable d2 = new TextureRegionDrawable(AssetLoader.trBanana);
         final Button bLeftArrow = new Button(d, d2);
         bLeftArrow.setPosition(35, 35);
         bLeftArrow.setSize(40, 40);
-        stage.addActor(bLeftArrow);
+        stage.addActor(bLeftArrow);*/
 
         // Table
         Table table = new Table();

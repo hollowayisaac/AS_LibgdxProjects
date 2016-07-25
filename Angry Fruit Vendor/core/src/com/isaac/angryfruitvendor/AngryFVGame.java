@@ -29,8 +29,8 @@ public class AngryFVGame extends Game {
     @Override
     public void create() {
         this.batch = new SpriteBatch();
-        camera = new OrthographicCamera(GameValues.GAMEUNIT_WIDTH, GameValues.GAMEUNIT_HEIGHT);
-        camera.position.set(GameValues.GAMEUNIT_WIDTH / 2, GameValues.GAMEUNIT_HEIGHT / 2, 0);
+        camera = new OrthographicCamera(GameValues.GAME_WIDTH, GameValues.GAME_HEIGHT);
+        camera.position.set(GameValues.GAME_WIDTH / 2, GameValues.GAME_HEIGHT / 2, 0);
 
         ////  LOADING  ////
         // [User Data]

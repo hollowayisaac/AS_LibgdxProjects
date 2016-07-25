@@ -63,6 +63,17 @@ public class UserData {
         prefs.flush();
     }
 
+    //// HELPERS ////
+    /* **/
+    public static String getEndlessScoreString() {
+        return Integer.toString(getEndlessScore());
+    }
+
+    /* **/
+    public static String getEndlessBasketsScoreString() {
+        return Integer.toString(getEndlessBasketsScore());
+    }
+
     //// GET ////
     /***/
     public static int getHighestLevelCompleted() {

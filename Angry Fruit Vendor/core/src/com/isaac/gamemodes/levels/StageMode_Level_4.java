@@ -93,7 +93,7 @@ public class StageMode_Level_4 extends _Level {
     /***/
     public void drawGoal(float delta,GameRenderer renderer){
         // Draw the Goal Text
-        drawText_Wag(450, GameValues.ARENA_HEIGHT, "" + getGoalText(), renderer);
+        drawText_Wag(450, GameValues.GAME_HEIGHT, "" + getGoalText(), renderer);
     }
 
     /**

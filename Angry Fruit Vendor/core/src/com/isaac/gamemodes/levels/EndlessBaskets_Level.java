@@ -86,8 +86,8 @@ public class EndlessBaskets_Level extends _Level {
     /***/
     public void drawGoal(float delta, GameRenderer renderer) {
         // Draw the Goal Text
-        AssetLoader.ftWag.draw(renderer.getSpriteBatch(), "" + getGoalText(),
-                450, GameValues.ARENA_HEIGHT);
+/*        AssetLoader.ftWag.draw(renderer.getSpriteBatch(), "" + getGoalText(),
+                450, GameValues.GAME_HEIGHT);*/
     }
 
     /**
